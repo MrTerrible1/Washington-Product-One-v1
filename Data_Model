@@ -1,0 +1,294 @@
+Washington Product One — Data Model
+This document defines the **content and insight data models** used in Washington Product One v0.1.  
+It also establishes the forward-compatible schema that future versions of Washington (v0.2–v1.0) will expand into.
+
+The data model is foundational.  
+It drives:
+- Rails
+- Content discovery
+- Viewer page
+- VIA insights
+- Event payloads
+- Future prediction systems
+- Metadata extraction and ingestion
+
+---
+
+# 1. High-Level Philosophy
+
+Washington is not just a streaming platform — it is a **multi-vertical consumption OS**.
+
+Therefore, the data model must:
+
+### ✓ Support multiple media types  
+(video, audio, books, courses, games, products)
+
+### ✓ Support predictive features  
+View duration, affinities, categories, formats, verticals.
+
+### ✓ Support episodic content  
+Shows, seasons, episodes.
+
+### ✓ Support VIA insights  
+Per-content recommendation hooks.
+
+### ✓ Support continuous expansion  
+Future verticals (music, docs, live streams, etc.).
+
+**Product One only uses a *slice* of this system**, but the structure is designed to scale.
+
+---
+
+# 2. Core Files
+
+Washington Product One uses two primary static data files:
+
+/src/data/videoContent.json
+/src/data/viaInsights.json
+
+yaml
+Copy code
+
+These will evolve into backend API responses in v0.3+.
+
+---
+
+# 3. Content File: videoContent.json
+
+### Top-Level Structure (Rails)
+
+The landing page uses a **rails** system:
+
+```json
+{
+  "rails": [
+    {
+      "id": "featured",
+      "title": "Featured",
+      "items": [ ... ]
+    },
+    {
+      "id": "tours",
+      "title": "Tours",
+      "items": [ ... ]
+    }
+  ]
+}
+Each rail contains:
+
+id → unique identifier
+
+title → display name
+
+items[] → array of content objects
+
+This structure supports:
+
+Query-based rails
+
+Personalized rails
+
+Multi-vertical rails
+
+VIA-generated rails (future)
+
+4. Content Item Schema
+Each item inside rails[].items[] must follow this pattern:
+
+json
+Copy code
+{
+  "id": "wash-101",
+  "title": "Welcome to Washington",
+  "meta": "Product tour • 3 min vertical session",
+  "duration": "3:02",
+  "genre": "product",
+  "format": "vertical",
+  "isSeries": false,
+  "season": null,
+  "episodeNumber": null
+}
+Field Definitions
+Field	Type	Purpose
+id	string	Unique content identifier used across all systems
+title	string	User-visible title
+meta	string	Short summary that appears on cards
+duration	string	Human-readable duration (mm:ss)
+genre	string	Category (product, tutorial, concept, etc.)
+format	string	vertical, horizontal, audio, etc.
+isSeries	boolean	Whether the content has episodic structure
+season	number/null	Optional season #
+episodeNumber	number/null	Optional episode #
+
+These fields allow Washington to:
+
+Render cards
+
+Route to viewer pages
+
+Generate VIA insights
+
+Infer future personalization
+
+Connect multi-vertical content types
+
+5. Future-Ready Metadata (Not Used in v0.1)
+Washington’s schema is versioned to grow into:
+
+Field	Purpose
+vertical	Media vertical (video, audio, book, product, etc.)
+language	Internationalization support
+creators[]	Multi-creator metadata
+tags[]	Prediction keywords
+contentRating	MPAA / ESRB-like
+releaseDate	Time-based sorting
+thumbnailUrl	Dynamic asset ingestion
+posterUrl	High-res art
+audioTrack	For accessibility
+captions[]	Subtitles
+
+These are intentionally not included in Product One to keep the MVP simple.
+
+6. Insight File: viaInsights.json
+This file powers VIA’s mocked “brain.”
+
+It contains two sections:
+
+json
+Copy code
+{
+  "ribbonMessages": [ ... ],
+  "contentInsights": {
+    "wash-101": { ... },
+    "wash-102": { ... },
+    "default": { ... }
+  }
+}
+6.1 Ribbon Messages
+Displayed inside the VIA ribbon:
+
+json
+Copy code
+"ribbonMessages": [
+  "Exploring Washington? VIA is here to help.",
+  "Tap ‘Open Insights’ to see more.",
+  "These insights are simulated for preview."
+]
+6.2 Insight Schema
+Each insight object:
+
+json
+Copy code
+{
+  "title": "Example Insight",
+  "summary": "A brief explanation of this insight.",
+  "tags": ["engagement", "tutorial"]
+}
+Fields:
+
+title → displayed in panel
+
+summary → explanation
+
+tags[] → future vectorization for recommendations
+
+6.3 Default Insight
+Used when:
+
+No contentId set
+
+Unknown id
+
+Landing page
+
+7. Insight Lookup Rules
+Defined in:
+
+scss
+Copy code
+viaClient.js → investigateContent()
+Rules:
+
+If contentId exists in contentInsights → return it
+
+Else → return "default"
+
+Never return null
+
+Must be pure and synchronous
+
+This behavior gives VIA predictable, testable output.
+
+8. Cross-System Integration
+Washington’s data model powers:
+
+1. UI
+Cards
+
+Viewer
+
+Metadata displays
+
+Rails
+
+2. Event system
+Payloads include:
+
+railId
+
+videoId
+
+title
+
+contentId
+
+3. VIA
+Lookup for insights
+
+Ribbon messages
+
+Per-content panels
+
+VIA personality tuning later
+
+4. Routing
+Viewer routes use:
+
+/watch/:id
+
+Flattened rails for global lookup
+
+9. How the Data Model Scales
+This schema is intentionally crafted to expand into:
+
+v0.2
+Real ingestion
+
+More metadata fields
+
+Early personalization
+
+v0.3
+Multimodal content
+
+Cross-vertical rails
+
+VIA-generated rails
+
+v0.4
+Viewer identity graph
+
+Content scoring
+
+Multi-device continuity
+
+v1.0
+Creator/Brand metadata
+
+Negotiation graph (Mentor)
+
+AI-powered content taxonomies
+
+Graph-based recommendations
+
+Product One provides the lowest complexity slice necessary to bootstrap VIA.
