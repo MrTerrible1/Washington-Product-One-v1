@@ -1,0 +1,337 @@
+Developer Onboarding — Washington Product One v0.1
+
+Welcome to **Washington**, the multi-vertical consumption OS and intelligence layer built around VIA.  
+This onboarding guide will bring any engineer up to speed on how to run, understand, and contribute to **Washington Product One v0.1**.
+
+This document covers:
+
+- Project purpose
+- Tech stack
+- How to run the app locally
+- Repo structure
+- How to contribute safely
+- Core patterns and expectations
+- Where *not* to touch
+- What’s coming next
+
+---
+
+# 1. What You Are Working On
+
+You are NOT building the full Washington platform yet.
+
+You are building:
+
+> **A guest-mode UX shell whose only job is to render content, collect events, and train VIA’s future brain.**
+
+Product One v0.1 includes:
+- OnDemand landing page  
+- Viewer page  
+- Onboarding modal (3-step)  
+- VIA ribbon + investigate panel  
+- Static JSON content  
+- Event logging (WashingtonEvent schema)  
+- N-BUS stub for future transport
+
+There is **no login**, **no backend**, **no AI**, and **no creator tools**.
+
+---
+
+# 2. Tech Stack
+
+**Client:**  
+- React 18  
+- Vite  
+- React Router  
+- Vanilla CSS (scoped modules)
+
+**Data:**  
+- Static JSON (videoContent.json, viaInsights.json)
+
+**Events:**  
+- WashingtonEvent schema  
+- `useWashingtonEvents()` hook  
+- `publishEvent()` N-BUS stub
+
+**State:**  
+- React state  
+- React context (Session + VIA Content)
+
+No backend. No API calls. No DB.
+
+---
+
+# 3. How to Run the Project
+
+### 1. Install dependencies
+yarn
+
+shell
+Copy code
+
+### 2. Start Vite dev server
+yarn dev
+
+shell
+Copy code
+
+### 3. Open the live preview  
+Vite will show a URL like:
+
+http://127.0.0.1:5173/
+
+yaml
+Copy code
+
+If using a hosted IDE (Emergent, Replit, Codespaces), the preview will appear in its UI.
+
+### 4. View console logs
+Open the browser console to see real-time:
+
+- SESSION_START
+- PAGE_VIEW
+- CTA_CLICK
+- PLAYER_EVENT
+- ONBOARDING_EVENT
+
+All follow the canonical WashingtonEvent schema.
+
+---
+
+# 4. Repository Structure (High-Level)
+
+src/
+App.jsx
+main.jsx
+
+routes/
+Router.jsx
+
+context/
+SessionContext.jsx
+ViaContentContext.jsx
+
+hooks/
+useWashingtonEvents.js
+
+via/
+viaClient.js
+
+components/
+LayoutShell.jsx
+OnboardingModal.jsx
+via/
+ViaRibbon.jsx
+ViaInvestigatePanel.jsx
+
+pages/
+VideoLandingPage.jsx
+ViewerPage.jsx
+
+data/
+videoContent.json
+viaInsights.json
+
+styles/
+globals.css
+*.css
+
+markdown
+Copy code
+
+This layout is *intentionally minimal and non-fragmented* to keep Product One simple.
+
+---
+
+# 5. What You *Can* Touch
+
+### ✔️ Safe to modify:
+- Any component in `/src/components/*`
+- Page layout files (`VideoLandingPage.jsx`, `ViewerPage.jsx`)
+- VIA face components (`ViaRibbon`, `ViaInvestigatePanel`)
+- Styles in `/src/styles`
+- Data files in `/src/data`
+- Event emission logic inside pages/components
+
+### ✔️ Safe to add:
+- New rails  
+- New content metadata  
+- New CTA buttons  
+- Additional event payload fields  
+- Additional styles  
+- Non-breaking utility helpers  
+
+---
+
+# 6. What You *Should NOT* Touch
+
+These are guarded design areas for a reason:
+
+### ❌ Do NOT modify:
+- WashingtonEvent schema  
+- Session generation logic  
+- Routing shape (`/` and `/watch/:id` only)  
+- VIA stub API types (`initVia`, `logEvent`, `getRibbonMessages`, `investigateContent`)  
+- N-BUS fallback behavior  
+- Context providers’ public interfaces  
+- v0.1-only mocked behavior
+
+Changing these will break the MVP or future upgrade paths.
+
+---
+
+# 7. Event Logging Rules
+
+All events must follow:
+
+```ts
+type WashingtonEvent = {
+  type: string;
+  sessionId: string;
+  timestamp: string;
+  payload: object;
+};
+Use the hook:
+
+js
+Copy code
+const { logEvent, EVENT_TYPES } = useWashingtonEvents(source)
+Typical usage:
+
+js
+Copy code
+logEvent(EVENT_TYPES.CTA_CLICK, {
+  ctaName: "landing_video_click",
+  railId: rail.id,
+  videoId: item.id
+})
+Required types for v0.1:
+SESSION_START
+
+PAGE_VIEW
+
+CTA_CLICK
+
+PLAYER_EVENT
+
+ONBOARDING_EVENT
+
+If you don’t emit these correctly, VIA v0.2 cannot be trained.
+
+8. VIA v0.1 Behavior (Important)
+VIA is NOT intelligent yet.
+It is a placeholder with:
+
+Static ribbon messages
+
+Static content insights
+
+A slide-out panel
+
+A toggle button
+
+Everything VIA does is deterministic.
+
+In v0.1:
+
+VIA the Face is real (UI)
+
+VIA the Spine is stubbed (event passthrough)
+
+VIA the Brain is mocked (hardcoded JSON)
+
+Do NOT add reasoning, LLM calls, embeddings, or vector search.
+
+9. Development Workflow
+Create a branch:
+
+css
+Copy code
+git checkout -b feature/<name>
+Make changes inside src/
+
+Run the dev server:
+
+nginx
+Copy code
+yarn dev
+Test VIA ribbon, VIA panel, rails, viewer, onboarding.
+
+Commit using conventional commits:
+
+vbnet
+Copy code
+feat: add new rail to landing page
+fix: correct CTA_CLICK payload shape
+chore: improve ViewerPage styling
+Open a pull request into main.
+
+Request review.
+
+10. Common Pitfalls & How to Avoid Them
+⚠️ “VIA panel is empty”
+You likely:
+
+Didn’t set currentContentId
+
+Mismatched content ID in JSON
+
+Opened VIA before selecting content
+
+⚠️ Events not appearing
+Check:
+
+You passed source to useWashingtonEvents()
+
+Browser console is open
+
+Modal is not intercepting clicks
+
+⚠️ Viewer page blank
+You probably:
+
+Used wrong id types (123 vs "123")
+
+Didn’t flatten rails correctly
+
+11. Getting Help
+Before asking:
+
+Check ARCHITECTURE.md
+
+Check code in /src/hooks/useWashingtonEvents.js
+
+Check VIA stub in /src/via/viaClient.js
+
+Validate JSON structure in /src/data/videoContent.json
+
+If you still need support, ask:
+
+What you attempted
+
+The exact file(s) modified
+
+What broke
+
+The event logs shown
+
+12. Future Responsibilities
+As Washington evolves, developers will eventually work on:
+
+VIA’s real prediction engine
+
+Creator workspace
+
+Social graph
+
+Brand negotiation via Mentor
+
+Multi-device session continuity
+
+Washington identity graph (viewer model)
+
+N-BUS real event transport pipeline
+
+Real player integration
+
+But not in Product One.
