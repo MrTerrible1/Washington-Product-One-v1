@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useSession } from '../context/SessionContext.jsx'
+import { EVENT_TYPES } from '../events/eventTypes.js'
+import { publishEvent } from '../events/publishEvent.js'
 
-// Minimal event logging hook that just writes structured events to console.
-// No network calls – purely client-side.
 export function useWashingtonEvents(source) {
   const { sessionId } = useSession()
   const sourceRef = useRef(source)
@@ -13,16 +13,18 @@ export function useWashingtonEvents(source) {
 
   const logEvent = (type, payload = {}) => {
     const event = {
-      ts: new Date().toISOString(),
-      sessionId,
-      source: sourceRef.current,
       type,
-      payload,
+      sessionId,
+      timestamp: new Date().toISOString(),
+      payload: { source: sourceRef.current, ...payload }
     }
-    // In a real app this would POST to a backend. Here we only log.
-    // eslint-disable-next-line no-console
+
+    // console log always
     console.log('WashingtonEvent', event)
+
+    // forward to N-BUS or fallback
+    publishEvent(event)
   }
 
-  return { logEvent }
+  return { logEvent, EVENT_TYPES }
 }

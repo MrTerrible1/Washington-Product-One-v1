@@ -1,16 +1,12 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useMemo } from 'react'
 
-const SessionContext = createContext(null)
+export const SessionContext = createContext(null)
 
 export function SessionProvider({ sessionId, children }) {
-  const value = { sessionId }
+  const value = useMemo(() => ({ sessionId }), [sessionId])
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
 }
 
 export function useSession() {
-  const ctx = useContext(SessionContext)
-  if (!ctx) {
-    throw new Error('useSession must be used within a SessionProvider')
-  }
-  return ctx
+  return useContext(SessionContext)
 }
