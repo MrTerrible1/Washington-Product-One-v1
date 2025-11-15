@@ -1,0 +1,255 @@
+ Washington Product One — System Overview
+This document explains, at a high level, **what Washington is**, **what Product One does**, and **how the major subsystems fit together**.  
+It is designed for executives, new engineers, AI specialists, and anyone onboarding into the Washington ecosystem.
+
+It focuses on clarity and conceptual alignment rather than deep technical detail.
+
+---
+
+# 1. What is Washington?
+
+Washington is a **multi-vertical consumption OS** — not a streaming service, not a social feed, and not a siloed content platform.
+
+Its purpose is:
+
+### ➜ To unify all forms of content  
+(video, audio, books, games, products)
+
+### ➜ To understand the viewer  
+via VIA’s evolving predictive engine
+
+### ➜ To guide the viewer  
+through personalized journeys across all media
+
+### ➜ To connect creators, brands, and audiences  
+through metadata, prediction, and negotiation (Mentor)
+
+---
+
+# 2. What is Product One?
+
+Product One v0.1 is the **first live preview** of Washington.
+
+It is deliberately small:
+
+### ✓ Guest-only experience  
+### ✓ OnDemand landing page  
+### ✓ Viewer page  
+### ✓ Rails-based content browsing  
+### ✓ VIA ribbon + investigate panel  
+### ✓ Onboarding modal  
+### ✓ Static JSON content  
+### ✓ Structured event logging  
+### ✓ N-BUS stub for future transport
+
+There is **no login, no backend, no analytics layer, no creator workflow, and no AI reasoning** in this version.
+
+Product One is the *presentation shell* used to build and test VIA’s real intelligence later.
+
+---
+
+# 3. High-Level Architecture
+
+Washington Product One has four major layers:
+
+User Interface (React + Vite)
+↓
+WashingtonEvent Spine (event logging)
+↓
+VIA Subsystem (mocked)
+↓
+Static Data (local JSON)
+
+markdown
+Copy code
+
+### UI Layer
+Responsible for:
+- Layout shell
+- Navigation
+- Rails
+- Viewer
+- VIA ribbon & panel
+- Modal interactions
+
+### Event Spine
+Provides:
+- Unified event schema
+- Logging for every user action
+- Device/session tracking
+- Future transport via N-BUS
+
+### VIA Subsystem
+Three parts:
+- Face (visible UI)
+- Spine (receives events)
+- Brain (static insights only in v0.1)
+
+### Static Data Layer
+Includes:
+- videoContent.json (rails + metadata)
+- viaInsights.json (static insights)
+
+There is **no server**, **no database**, and **no AI model** in v0.1.
+
+---
+
+# 4. Routing Overview
+
+Washington uses a **two-route system**:
+
+/ → landing rails
+/watch/:id → vertical viewer page
+
+yaml
+Copy code
+
+Routing automatically triggers PAGE_VIEW events.
+
+---
+
+# 5. Event Spine Overview
+
+Product One uses a standard event type system:
+
+| Type              | Meaning |
+|-------------------|---------|
+| SESSION_START     | User session begins |
+| PAGE_VIEW         | Route viewed |
+| CTA_CLICK         | Any clickable UI action |
+| PLAYER_EVENT      | Play/pause interactions |
+| ONBOARDING_EVENT  | Modal interactions |
+
+The event spine is used to:
+
+1. Drive VIA’s future learning  
+2. Validate UX journey flow  
+3. Provide analytics for product decisions  
+4. Power recommendation models in v0.2–v0.5  
+
+Events are currently logged only to console and forwarded to N-BUS if it exists.
+
+---
+
+# 6. VIA Subsystem Overview
+
+VIA is built to become the intelligence engine of Washington.
+
+But in Product One v0.1:
+
+### VIA “Face” (active)
+- Ribbon  
+- Message cycling  
+- Investigate panel  
+- Mic button (UI only)
+
+### VIA “Spine” (passive)
+- Accepts all WashingtonEvents  
+- Pipes to N-BUS if available  
+- No actual reasoning
+
+### VIA “Brain” (mocked)
+- Static insights  
+- Static message sets  
+- Hardcoded JSON rules  
+
+VIA never predicts anything in v0.1.  
+The illusion of intelligence is purely UI-driven.
+
+---
+
+# 7. Content Model Overview
+
+Washington uses **rails** instead of feeds.
+
+Each rail contains:
+- `id`
+- `title`
+- `items[]`
+- Full-support metadata for:
+  - genre
+  - format
+  - episodic
+  - vertical/horizontal
+  - etc.
+
+Rails are future-friendly for VIA:
+- VIA can re-order rails
+- VIA can surface recommended rails
+- VIA can generate custom rails per session
+- VIA can merge content across verticals
+
+Rails are the backbone of Washington’s multi-vertical future.
+
+---
+
+# 8. Viewer Page Overview
+
+The viewer is intentionally simple:
+- Vertical video placeholder
+- Metadata panel
+- Play/pause (stub)
+- Back to landing
+- VIA accessible
+
+Minimalism is intentional:
+- Easy to understand  
+- Easy to test  
+- Easy to connect to predictive models  
+- Easy to replace with a real player later  
+
+---
+
+# 9. Onboarding Modal Overview
+
+The modal exists to:
+
+1. Establish guest-only nature  
+2. Clarify VIA is mocked  
+3. Empower the viewer with “you’re in control” messaging  
+
+It consists of exactly 3 steps and fires ONBOARDING_EVENT.
+
+This is foundational for all future experiences.
+
+---
+
+# 10. N-BUS Overview
+
+N-BUS is a **future distributed event transport pipeline**.
+
+In Product One:
+- If N-BUS exists → publish events
+- If not → console log fallback
+
+This future-proofs the architecture without adding backend complexity.
+
+---
+
+# 11. Future Direction
+
+Product One is foundational.  
+Everything after it builds on the shell and behavior defined here.
+
+### Coming in future versions:
+
+- VIA real prediction engine  
+- Multi-device continuity  
+- Creator workspace  
+- Brand marketplace & negotiation (Mentor)  
+- Viewer identity graph  
+- Collaborative consumption journeys  
+- Real media ingestion  
+- Cross-vertical content browsing  
+- Social layer  
+- Customizable rails  
+- Personalized content routing  
+- Full transport via N-BUS  
+- AI-driven user modeling  
+
+Product One is the seed —  
+VIA and Washington bloom in versions v0.2–v1.0.
+
+---
+
+# End of System Overview Document
