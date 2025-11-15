@@ -1,0 +1,259 @@
+Washington Product One — Design Notes
+This document explains the design philosophy, UI/UX structure, and layout decisions behind **Washington Product One v0.1**.  
+It acts as the single source of truth for all designers, front-end engineers, and future UX contributors.
+
+Product One is not a full product.  
+It is a **UX training ground** and **predictive sandbox** for VIA.
+
+These design notes must remain stable until Product Two.
+
+---
+
+# 1. Design Philosophy
+
+Washington is not a streaming site, not a short-form video app, and not a content feed.
+
+It is a **multi-vertical consumption OS** with:
+
+- predictive intelligence (VIA)  
+- multi-device continuity  
+- vertical metadata rails  
+- unified content ontology  
+- passive/active discovery modes  
+
+Product One extracts the *core experience* of Washington into a minimal demo:
+
+> **A frictionless viewer journey in a predictive shell.**
+
+Everything about the UI serves that idea.
+
+---
+
+# 2. Visual Hierarchy
+
+The entire system is designed around three layers of visual attention:
+
+### Layer 1 — **The Content (Primary)**
+Content must always dominate:
+- Rails
+- Cards
+- Vertical players
+- Thumbnails
+- Summaries
+
+Washington is a consumption OS — the media is the center of gravity.
+
+### Layer 2 — **The Shell (Secondary)**
+Navigation and containers:
+- LayoutShell
+- Section headers
+- Rails
+- Back button
+- Player metadata
+
+Always present but visually neutral.
+
+### Layer 3 — **VIA, the Presence (Tertiary)**
+VIA is always visible but never overwhelming:
+- Ribbon at bottom  
+- Investigate panel  
+- Mic button  
+
+The design goal is to communicate:
+
+> “VIA is here, not in the way.”
+
+---
+
+# 3. Layout Shell
+
+The **LayoutShell** is Washington’s global frame.
+
+It provides:
+
+- Logo area  
+- OnDemand tab  
+- Guest badge  
+- Main content container  
+- Persistent VIA ribbon  
+- Mount point for Investigate panel  
+
+Design constraints:
+
+1. **It must never shift** vertically or horizontally.  
+2. **It must keep enough bottom space** for VIA ribbon.  
+3. **It must not contain business logic.**  
+4. **It must feel like a true OS shell, not a webpage.**
+
+---
+
+# 4. Rails System (OnDemand Landing)
+
+Washington uses horizontal rails instead of feeds or grids because:
+
+- Rails are predictable  
+- Rails support multi-vertical expansion  
+- Rails can be reordered by prediction  
+- Rails scale across devices  
+- Rails are easy to learn  
+
+Each rail contains:
+- Title (“Featured”, “Concepts”, etc.)  
+- Horizontal scrollable area  
+- Content cards  
+
+This structure represents Washington’s future knowledge graph.
+
+---
+
+# 5. Content Cards
+
+Cards are designed for clarity, not flavor.
+
+They include:
+
+- Thumbnail placeholder  
+- Duration tag  
+- Format tag (“Vertical”)  
+- Title  
+- Meta summary  
+- Clear click area  
+
+Cards must always:
+
+- Fire clean `CTA_CLICK` events  
+- Navigate immediately  
+- Set `currentContentId`  
+- Feel predictable  
+
+No card has hover states that reveal hidden behavior — this is deliberate for consistency across devices.
+
+---
+
+# 6. Viewer Page (Vertical Experience)
+
+The Viewer is intentionally simple in v0.1:
+
+- Vertical video placeholder  
+- Metadata panel  
+- Back link  
+- Play/Pause buttons (stub)  
+
+Design priorities:
+
+1. Direct  
+2. Clean  
+3. Zero distraction  
+4. VIA accessible but optional  
+
+The real vertical player will replace the placeholder in v0.2 or v0.3 when the media pipeline comes online.
+
+---
+
+# 7. Onboarding Modal
+
+The modal is meant to:
+- communicate that this is a **guest preview**
+- introduce VIA’s limitations honestly
+- reassure users they control the experience
+
+Design rules:
+
+- 3 steps only  
+- Centered  
+- Dim background  
+- Big, readable text  
+- Minimal buttons  
+
+The modal must not:
+- feel like a signup
+- feel like friction
+- overwhelm the user
+
+It is a gentle primer, not a barrier.
+
+---
+
+# 8. VIA Ribbon & Panel
+
+### Ribbon:
+- Always visible  
+- Expands/collapses  
+- Shows canned messages  
+- Offers “Open Insights” CTA  
+- Never covers important UI  
+
+### Investigate Panel:
+- Slides in from the right  
+- Shows insight card list  
+- Uses content-specific insights when available  
+- Closes on CTA  
+
+These elements give VIA a sense of presence and personality without any intelligence.
+
+---
+
+# 9. Mobile-First Theory
+
+Washington is built for **vertical, mobile-native content**.
+
+Design rules:
+
+1. Vertical player is always 9:16  
+2. Controls must be reachable by thumb  
+3. Scrollable rails must be touch-friendly  
+4. VIA ribbon must never block content  
+5. No hidden gestures in v0.1  
+
+Even on desktop, UI should feel like a mobile OS projected onto a larger surface.
+
+---
+
+# 10. Accessibility Notes
+
+- All interactive elements must have ARIA labels.  
+- All buttons must have clear focus states.  
+- All modals must trap focus.  
+- Ribbon toggle needs descriptive text.  
+- Panel must be announced to screen readers.  
+
+These rules are foundational.  
+Future versions will expand into WCAG compliance.
+
+---
+
+# 11. Branding Notes
+
+Washington does not use heavy branding in v0.1:
+
+- No strong colors  
+- No gradients  
+- No mascot  
+- No deep brand language yet  
+
+The purpose is to maintain clarity until:
+- Creator modes exist  
+- Brand marketplace exists  
+- VIA personalization exists  
+- Multi-vertical themes develop  
+
+Brand identity will emerge in v0.2–v0.5.
+
+---
+
+# 12. What Must Not Change in v0.1
+
+- Overall layout shell structure  
+- Ribbon placement  
+- Panel placement  
+- Rail structure  
+- Onboarding steps  
+- Viewer layout  
+- Investigate triggers  
+- Static JSON → UI mapping  
+
+These are locked for compatibility with the predictive engine coming later.
+
+---
+
+# End of Design Notes
