@@ -1,0 +1,57 @@
+# Washington Product One — Architecture Overview
+
+This document describes the full technical architecture for **Washington Product One v0.1**, including:
+- Application structure
+- VIA v0.1 subsystem
+- WashingtonEvent event spine
+- Routing model
+- Data model
+- File hierarchy
+- Component architecture
+- Future expansion
+
+This document is canonical for all engineers working on Project Washington.
+
+---
+
+# 1. Core Principles
+
+Washington Product One implements the **guest-only UX** for the Washington consumption OS.
+
+Guiding constraints for v0.1:
+
+1. **No login**
+2. **No social graph**
+3. **No creator tools**
+4. **Static JSON only**
+5. **Client-side UI only**
+6. **VIA v0.1 is mocked** (face = real, spine = stub, brain = static)
+7. **All events follow the WashingtonEvent schema**
+8. **Predictive systems are simulated, not real**
+9. **Mobile-first thinking even on desktop preview**
+
+V0.1 is not the product — it is the **training ground** for VIA and the **UX shell** for the actual OS.
+
+---
+
+# 2. App Overview
+
+Washington Product One contains:
+
+- **Onboarding Modal** (3-step guest flow)
+- **OnDemand Landing Page**
+- **Viewer Page**
+- **VIA Ribbon** (face)
+- **VIA Investigate Panel**
+- **Rails-based content model**
+- **WashingtonEvent event spine**
+- **N-BUS stub**
+
+Everything else is out of scope.
+
+---
+
+# 3. File System
+
+Current root structure:
+
