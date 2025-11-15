@@ -4,13 +4,17 @@ import '../styles/ViewerPage.css'
 
 export function ViewerPage() {
   const { id } = useParams()
-  const videos = videoData.videos || []
-  const video = videos.find((v) => String(v.id) === String(id))
+
+  const rails = videoData.rails || []
+  const allItems = rails.flatMap((rail) => rail.items || [])
+  const video = allItems.find((v) => String(v.id) === String(id))
 
   if (!video) {
     return (
       <div className="vp-container">
-        <p className="vp-empty">Video not found. Go back to the <Link to="/">OnDemand list</Link>.</p>
+        <p className="vp-empty">
+          Video not found. Go back to the <Link to="/">OnDemand list</Link>.
+        </p>
       </div>
     )
   }

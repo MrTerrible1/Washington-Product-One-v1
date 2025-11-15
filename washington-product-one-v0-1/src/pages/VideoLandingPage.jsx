@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom'
 import videoData from '../data/videoContent.json'
+import { useWashingtonEvents } from '../hooks/useWashingtonEvents.js'
 import '../styles/VideoLandingPage.css'
 
 export function VideoLandingPage() {
-  const videos = videoData.videos || []
+  const rails = videoData.rails || []
+  const { logEvent, EVENT_TYPES } = useWashingtonEvents('video-landing')
+
+  const handleCardClick = (railId, video) => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: 'landing_video_click',
+      railId,
+      videoId: video.id,
+      title: video.title
+    })
+  }
 
   return (
     <div className="vl-container">
@@ -16,20 +27,32 @@ export function VideoLandingPage() {
           </p>
         </div>
       </section>
-      <section className="vl-grid" aria-label="OnDemand videos">
-        {videos.map((video) => (
-          <article key={video.id} className="vl-card">
-            <Link to={`/watch/${video.id}`} className="vl-card-link">
-              <div className="vl-card-thumb">
-                <div className="vl-thumb-tag">Vertical</div>
-                <div className="vl-thumb-duration">{video.duration}</div>
-              </div>
-              <div className="vl-card-body">
-                <h2 className="vl-card-title">{video.title}</h2>
-                <p className="vl-card-meta">{video.meta}</p>
-              </div>
-            </Link>
-          </article>
+
+      <section className="vl-rails" aria-label="OnDemand video rails">
+        {rails.map((rail) => (
+          <div key={rail.id} className="vl-rail">
+            <h2 className="vl-rail-title">{rail.title}</h2>
+            <div className="vl-grid">
+              {rail.items?.map((video) => (
+                <article key={video.id} className="vl-card">
+                  <Link
+                    to={`/watch/${video.id}`}
+                    className="vl-card-link"
+                    onClick={() => handleCardClick(rail.id, video)}
+                  >
+                    <div className="vl-card-thumb">
+                      <div className="vl-thumb-tag">Vertical</div>
+                      <div className="vl-thumb-duration">{video.duration}</div>
+                    </div>
+                    <div className="vl-card-body">
+                      <h3 className="vl-card-title">{video.title}</h3>
+                      <p className="vl-card-meta">{video.meta}</p>
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
         ))}
       </section>
     </div>
