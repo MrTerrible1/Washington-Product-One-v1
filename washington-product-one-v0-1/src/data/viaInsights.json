@@ -1,0 +1,19 @@
+{
+  "insights": [
+    {
+      "id": "insight-1",
+      "label": "Engagement hotspots",
+      "summary": "Viewers lean in around minute 2 when the VIA ribbon is introduced."
+    },
+    {
+      "id": "insight-2",
+      "label": "Skim vs. deep watch",
+      "summary": "Most guest sessions are under 4 minutes, but a smaller cohort completes full runs."
+    },
+    {
+      "id": "insight-3",
+      "label": "Experiment area",
+      "summary": "VIA v0.1 here is fully mocked. Use it to explore how insights could feel in a real product."
+    }
+  ]
+}

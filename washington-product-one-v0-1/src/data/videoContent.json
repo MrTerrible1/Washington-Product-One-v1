@@ -1,0 +1,22 @@
+{
+  "videos": [
+    {
+      "id": "wash-101",
+      "title": "Welcome to Washington OnDemand",
+      "meta": "Product tour • 3 min vertical session",
+      "duration": "3:02"
+    },
+    {
+      "id": "wash-102",
+      "title": "VIA v0.1: Simulated Insights",
+      "meta": "Deep dive • 5 min vertical session",
+      "duration": "5:18"
+    },
+    {
+      "id": "wash-103",
+      "title": "Guest Preview Controls",
+      "meta": "Walkthrough • 4 min vertical session",
+      "duration": "4:05"
+    }
+  ]
+}
