@@ -1,0 +1,236 @@
+Washington Product One • v0.1 Guest Preview
+Forward Roadmap (Controlled Development Track)
+
+This roadmap outlines the approved development direction for Washington Product One, the guest-only, no-login demo that introduces the Washington platform, VIA v0.1 simulated intelligence, the N-BUS stub, and the early UX spine.
+
+All phases below represent approved, controlled expansions of the current v0.1 codebase.
+
+🚀 Phase 0 — v0.1 (COMPLETE)
+
+Status: Delivered
+Goal: A stable, no-login guest experience demonstrating Washington’s core UX and VIA ribbon.
+
+Delivered:
+
+Vite + React scaffold
+
+App shell + layout
+
+Onboarding 3-step modal
+
+OnDemand page with rails
+
+Viewer page with vertical player shell
+
+VIA ribbon + investigate panel
+
+VIA v0.1 mocked intelligence (JSON-driven)
+
+Event spine:
+
+SESSION_START
+
+PAGE_VIEW
+
+CTA_CLICK
+
+VIA open/close
+
+N-BUS stub with fallback logging
+
+Developer-ready repo structure
+
+🔥 Phase 1 — v0.2 (IN PROGRESS)
+
+Goal: Deepen realism while staying fully client-side, stable, and mock-only.
+
+1. UX Enhancements
+
+Polished button states
+
+Hover/focus states
+
+Micro-interactions (fade/slide transitions)
+
+Smooth rail scroll
+
+2. VIA Ribbon & Insights
+
+Cycling insights messages
+
+Time-based ribbon rotation
+
+Improved insight cards
+
+3. Viewer Page
+
+Better vertical video placeholder
+
+Mock player controls (play/pause UI only)
+
+Simple “related content” block on the right
+
+4. Event Spine Expansion
+
+Add:
+
+PLAYER_EVENT (play/pause)
+
+SCROLL_EVENT (rail scroll position)
+
+ONBOARDING_EVENT (step interactions)
+
+5. Developer Tooling
+
+Prettier config
+
+ESLint expanded rules
+
+Add .editorconfig
+
+🚧 Phase 2 — v0.3
+
+Goal: Introduce richer IA + early personalization simulation.
+
+Washington Information Architecture
+
+Add Product 2: Social/Discovery Shell (static, mock-only)
+
+Begin wiring “tabs” in the header
+
+Prep layout for future Workspaces
+
+VIA v0.3 (still mocked)
+
+Ribbon responds to simple on-page events
+
+Investigate panel pulls rail-aware suggestions
+
+Add early “persona switching” simulated stub
+
+Content Experience
+
+Add episodic grouping for series
+
+Add filters: “All”, “Shorts”, “Trending”, “Recommended”
+
+Event System
+
+Add:
+
+FILTER_EVENT
+
+TAB_NAV_EVENT
+
+RECOMMENDATION_EVENT
+
+🧩 Phase 3 — v0.5
+
+Goal: Move toward full-platform UX simulation.
+
+Multi-Product Shell (no auth)
+
+Product 1: OnDemand
+
+Product 2: Social/Discovery (mocked)
+
+Product 3: Workspace entry (mocked)
+
+VIA v0.5
+
+Simulated “insight history”
+
+Multi-step investigate flows
+
+Ribbon becomes fully dynamic
+
+N-BUS Simulation
+
+Local state machine to mimic event routing
+
+Debug panel showing event flow
+
+Onboarding v2
+
+Pathing based on user click behavior
+
+Branching onboarding narrative
+
+⚡ Phase 4 — v0.9
+
+Goal: Pre-production prototype quality.
+
+Fully Integrated UX Flow (still no backend)
+
+Product switching
+
+Seamless state transitions
+
+Complete dummy content libraries
+
+Workspace → Editor → Back transitions
+
+VIA v0.9
+
+Multi-panel insights
+
+“Why am I seeing this?” mock panel
+
+Early predicted actions simulation
+
+Developer Tools
+
+Add Cypress or Playwright tests
+
+Automated screen diff checks
+
+Lint + test + typecheck GitHub Actions
+
+🏁 Phase 5 — v1.0 (Prototype Candidate)
+
+Goal: The first true Washington UX prototype.
+
+What v1.0 Represents
+
+Stable
+
+Cohesive
+
+Fully navigable
+
+Predictive-feeling VIA
+
+Complete IA skeleton
+
+Multi-product shell
+
+High polish
+
+Demo-ready for investors, execs, and partners
+
+Still Mock Only
+
+No backend
+
+No real VIA
+
+No account system
+
+No persistence
+
+This is intentional: v1.0 is a pure UX prototype, not a production system.
+
+🧭 Governance & Approvals
+
+Only the following can approve roadmap movement:
+
+Ivan Hayden (product + creative authority)
+
+Lead Engineer (TBD) (technical feasibility + architecture)
+
+Roadmap changes must be submitted as PRs to /docs/ROADMAP.md with justification.
+
+📌 Last Updated
+
+2025-11-15
+Roadmap maintained by Product Authority.
