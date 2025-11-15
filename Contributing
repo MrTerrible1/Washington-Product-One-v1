@@ -1,0 +1,184 @@
+Contributing to Washington Product One (v0.1 — Guest Preview)
+
+Thank you for your interest in contributing to the Washington ecosystem.
+This repository represents Product One v0.1 — Guest-Only Preview, which serves as the public-facing demonstration of the Washington UX, VIA v0.1 mocked intelligence layer, and the early event spine.
+
+This document explains how to contribute safely, consistently, and in alignment with the project vision.
+
+🔥 Core Principles
+
+Stability first — Product One is a live demo for pitch, testing, and early UX validation.
+All contributions should preserve stability and avoid introducing regressions.
+
+Washington Event Spine is sacred —
+Event shapes, naming conventions, and IDs must match /src/events/* and cannot be altered without explicit approval.
+
+Mock-only environment —
+No backend calls, no persistence, no FastAPI.
+VIA is a mocked simulation only.
+
+Pixel-perfect UX consistency —
+UI changes must align with the Washington design direction and existing components.
+
+Small PR philosophy —
+Every change should be scoped, reviewed, tested, and isolated.
+
+📁 Repository Structure (Simplified)
+/src
+  /components
+  /context
+  /data
+  /events
+  /hooks
+  /pages
+  /routes
+  /styles
+  /via
+
+🛠 Development Workflow
+1. Fork → Branch → PR model
+
+Developers should:
+
+git checkout -b feature/my-feature-name
+
+
+Branch naming:
+
+feature/* — new features
+
+fix/* — bug fixes
+
+ui/* — design/UI changes
+
+docs/* — documentation-only changes
+
+▶ Local Development (Vite)
+yarn
+yarn dev
+
+
+Preview appears automatically in the IDE environment (e.g., Emergent, Codespaces, etc).
+
+🔎 Testing Your Changes
+
+Before submitting a PR:
+
+Load /
+
+Complete onboarding once
+
+Click into a video tile
+
+Open VIA Ribbon
+
+Toggle Investigate Panel
+
+Check browser console for:
+
+SESSION_START
+
+PAGE_VIEW
+
+CTA_CLICK
+
+Investigate events
+
+Ensure no unexpected console errors
+
+🎯 Pull Request Requirements
+
+Every PR must:
+
+Include a clear title and summary
+
+Describe why the change is needed
+
+Confirm that the preview loads and runs end-to-end
+
+Include screenshots for UI updates
+
+Tag any files altered in /events or the event spine
+
+PRs changing the event system must include:
+
+Before/After event examples
+
+Updated event documentation
+
+Confirmation that event shape remains canonical
+
+❌ What Not to Do
+
+Do not add any backend code
+
+Do not introduce database calls
+
+Do not modify VIA behavior beyond the mocked scope
+
+Do not rename directories without approval
+
+Do not merge without review
+
+🧩 Design Consistency Rules
+
+Always use existing button and layout classes
+
+Maintain spacing/padding patterns already in styles/
+
+Do not introduce new color tokens unless approved
+
+Follow responsive behaviors defined in existing components
+
+🗳 Decision-Making Authority
+
+Product authority:
+
+Ivan Hayden — Vision, UX, event spine, product direction
+
+Technical authority:
+
+Tech Lead role (TBD) — Code architecture, gatekeeping, review workflow
+(Until assigned, follow the repository owner).
+
+📝 Code Standards
+JavaScript / React
+
+Use functional components
+
+Use hooks (no class components)
+
+Avoid large components — split into smaller parts
+
+Keep imports clean and sorted
+
+Keep business logic out of UI components
+
+Events
+
+Always use EVENT_TYPES.
+
+Always use logEvent().
+
+Never hardcode event type strings inline.
+
+📚 Documentation Updates
+
+If your change impacts:
+
+UI behavior
+
+Events
+
+VIA behavior
+
+Routing
+
+Data structure
+
+You must update the corresponding .md files under /docs.
+
+❤️ Thank You
+
+Your contributions help shape the Washington ecosystem.
+This project is early, fast-evolving, and foundational — your diligence ensures stability and clarity as the platform grows.
