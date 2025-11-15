@@ -5,6 +5,7 @@ import { Router } from './routes/Router.jsx'
 import { ViaRibbon } from './components/via/ViaRibbon.jsx'
 import { ViaInvestigatePanel } from './components/via/ViaInvestigatePanel.jsx'
 import { useWashingtonEvents } from './hooks/useWashingtonEvents.js'
+import { EVENT_TYPES } from './events/eventTypes.js'
 
 function App() {
   const [investigateOpen, setInvestigateOpen] = useState(false)
