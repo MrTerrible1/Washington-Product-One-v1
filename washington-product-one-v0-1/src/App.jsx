@@ -12,8 +12,9 @@ function App() {
   const { logEvent } = useWashingtonEvents('app-shell')
 
   useEffect(() => {
-    logEvent('app_mount')
-  }, [logEvent])
+    logEvent(EVENT_TYPES.SESSION_START)
+    logEvent(EVENT_TYPES.PAGE_VIEW, { route: 'landing' })
+  }, [])
 
   const handleToggleInvestigate = () => {
     setInvestigateOpen((prev) => {
