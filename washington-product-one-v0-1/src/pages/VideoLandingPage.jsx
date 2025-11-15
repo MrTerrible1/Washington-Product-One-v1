@@ -1,11 +1,20 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import videoData from '../data/videoContent.json'
 import { useWashingtonEvents } from '../hooks/useWashingtonEvents.js'
+import { EVENT_TYPES } from '../events/eventTypes.js'
+import { useViaContent } from '../context/ViaContentContext.jsx'
 import '../styles/VideoLandingPage.css'
 
 export function VideoLandingPage() {
   const rails = videoData.rails || []
-  const { logEvent, EVENT_TYPES } = useWashingtonEvents('video-landing')
+  const { logEvent } = useWashingtonEvents('video-landing')
+  const { setCurrentContentId } = useViaContent()
+
+  useEffect(() => {
+    logEvent(EVENT_TYPES.PAGE_VIEW, { route: '/' })
+    setCurrentContentId(null)
+  }, [logEvent, setCurrentContentId])
 
   const handleCardClick = (railId, video) => {
     logEvent(EVENT_TYPES.CTA_CLICK, {

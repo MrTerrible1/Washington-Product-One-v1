@@ -1,13 +1,32 @@
+import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import videoData from '../data/videoContent.json'
 import '../styles/ViewerPage.css'
+import { useViaContent } from '../context/ViaContentContext.jsx'
+import { useWashingtonEvents } from '../hooks/useWashingtonEvents.js'
+import { EVENT_TYPES } from '../events/eventTypes.js'
 
 export function ViewerPage() {
   const { id } = useParams()
-
   const rails = videoData.rails || []
   const allItems = rails.flatMap((rail) => rail.items || [])
   const video = allItems.find((v) => String(v.id) === String(id))
+
+  const { setCurrentContentId } = useViaContent()
+  const { logEvent } = useWashingtonEvents('viewer')
+
+  useEffect(() => {
+    if (video) {
+      setCurrentContentId(video.id)
+      logEvent(EVENT_TYPES.PAGE_VIEW, {
+        route: `/watch/${id}`,
+        videoId: video.id,
+        title: video.title
+      })
+    } else {
+      setCurrentContentId(null)
+    }
+  }, [video, id, setCurrentContentId, logEvent])
 
   if (!video) {
     return (
