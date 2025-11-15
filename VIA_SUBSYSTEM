@@ -1,0 +1,249 @@
+VIA Subsystem — Washington Product One v0.1
+VIA is the intelligence layer of Washington — but in Product One v0.1 it operates in **strictly limited, intentionally mocked mode**. This document defines the architecture, behavior, and constraints of VIA in this version.
+
+This file is a required reference for:
+- Front-end engineers wiring VIA UI behavior
+- Future AI/ML engineers implementing VIA v1+
+- Anyone working on event collection or viewer modeling
+
+Nothing in this document should be violated until VIA v0.2 or later is approved.
+
+---
+
+# 1. Overview
+
+VIA in Product One is composed of **three subsystems**:
+
+1. **VIA the Face**  
+   The visible UI: ribbon, mic button, investigate panel.
+
+2. **VIA the Spine**  
+   The event receiver: logs WashingtonEvents, forwards to N-BUS.
+
+3. **VIA the Brain**  
+   The intelligence engine: fully mocked in v0.1 using static JSON.
+
+Each subsystem has clear boundaries.  
+Each subsystem is intentionally minimal.
+
+---
+
+# 2. VIA the Face (Real)
+
+The only part of VIA that is “functional” in v0.1 is the **Face**, which includes:
+
+### ✓ VIA Ribbon  
+Persistent UI element containing:
+- “VIA v0.1 (mocked)” label  
+- Cycling ribbon messages (static)  
+- Expand/collapse toggle  
+- Investigate button  
+- Mic button (UI only — no functionality)
+
+### ✓ VIA Investigate Panel  
+Slide-out panel that:
+- Opens from the right  
+- Shows a static insight tied to the current contentId  
+- Falls back to a default insight if contentId is null  
+- Closes via CTA  
+- Emits events when opened/closed  
+
+### ✓ VIA Mic Button  
+Present only on:
+- Landing Page  
+- Viewer Page  
+
+This button emits **CTA_CLICK** but does not start any real voice functionality in v0.1.
+
+---
+
+# 3. VIA the Spine (Stub)
+
+The Spine is the “transport layer” for VIA — responsible for receiving events and optionally forwarding them to N-BUS.
+
+### In v0.1 it includes:
+- `initVia(sessionId)`
+- `logEvent(event)` (console only)
+- `publishEvent(event)` (N-BUS fallback)
+
+### What the Spine does *not* do in v0.1:
+- No inference  
+- No prediction  
+- No embeddings  
+- No model scoring  
+- No session linking  
+- No server call  
+- No caching  
+- No ranking  
+
+It is a straight pass-through pipeline.
+
+---
+
+# 4. VIA the Brain (Mocked)
+
+VIA’s brain is **not operational yet** in Product One.
+
+Instead, VIA’s “intelligence” is simulated with:
+
+### `viaInsights.json`  
+Contains:
+- `ribbonMessages: string[]`
+- `contentInsights: { [contentId]: { title, summary, tags } }`
+- `default: {...}`  
+Used when no content-specific insight is available.
+
+### investigateContent({ sessionId, contentId })  
+Maps:
+- `contentId → insight`
+- Falls back to default insight  
+- Never returns null  
+
+This gives the impression of VIA “thinking” without any computation.
+
+---
+
+# 5. VIA API Surface (Strict v0.1)
+
+Located in:
+
+src/via/viaClient.js
+
+yaml
+Copy code
+
+This file is intentionally small.
+
+### `initVia(sessionId)`
+Sets local sessionState only.  
+Does **not** contact a backend.
+
+### `logEvent(event)`
+Stubbed — only prints to console.
+
+### `getRibbonMessages()`
+Returns an array from `viaInsights.json`.
+
+### `investigateContent({ sessionId, contentId })`
+Returns a static insight object.
+
+This API **must not expand** until VIA v0.2.
+
+---
+
+# 6. VIA Lifecycle in v0.1
+
+### 1. App loads  
+`initVia(sessionId)` fires.
+
+### 2. User sees landing  
+Ribbon is visible.  
+Investigate panel closed.
+
+### 3. User clicks “Open insights”  
+Panel opens → fires CTA_CLICK.
+
+### 4. If on viewer page  
+`currentContentId` is set.  
+Investigate panel shows content-specific insights.
+
+### 5. User closes panel  
+Panel closes → fires CTA_CLICK.
+
+Everything VIA does is **deterministic** and JSON-driven.
+
+---
+
+# 7. VIA Event Interactions
+
+VIA interacts with the Washington Event Spine through:
+
+### Emitted by VIA:
+- `CTA_CLICK` (open/close panel)
+- `CTA_CLICK` (expand/collapse ribbon)
+- `CTA_CLICK` (mic button)
+
+### Consumed by VIA:
+- `PAGE_VIEW` (viewer contentId changes)
+- `CTA_CLICK` (video selection changes contextId)
+
+### Stored by VIA:
+Nothing.
+
+### Persisted:
+Nothing.
+
+### Sent to backend:
+Nothing.
+
+VIA only reacts visually.  
+No intelligence pipeline is executed.
+
+---
+
+# 8. Why VIA is Mocked in v0.1
+
+VIA is the most expensive and complex component in all of Washington.  
+Trying to build real AI behavior prematurely would break:
+
+- Architecture  
+- UX  
+- Engineering velocity  
+- Predictive consistency  
+- Multi-vertical design  
+- Event schema suitability  
+
+So Product One keeps VIA intentionally primitive.
+
+The UI is real.  
+The intelligence is fake.
+
+This gives us:
+
+### ✓ Training ground  
+### ✓ Predictable UI  
+### ✓ Stable event collection  
+### ✓ A place to plug the real model later  
+### ✓ A consistent demo  
+
+---
+
+# 9. How VIA Evolves in Future Versions
+
+### v0.2
+- Real event ingestion
+- Basic viewer-model scoring
+- Basic session clustering
+- Real ribbon message selection
+
+### v0.3
+- Add adaptive ribbon content
+- Add insight ranking
+- Add interaction memory
+- Real N-BUS transport
+
+### v1.0
+- Fully operational VIA:
+  - predictive models  
+  - cross-vertical graph  
+  - viewer identity graph  
+  - multi-device continuity  
+  - voice reasoning  
+  - adaptive content routing  
+
+Product One’s VIA is the embryo of that system.
+
+---
+
+# 10. Design Rules (Must Follow)
+
+1. VIA must **never block UI**.
+2. VIA cannot fail loudly.
+3. VIA cannot require the backend in v0.1.
+4. VIA must always produce *some* insight (default).
+5. VIA must feel present but not intrusive.
+6. VIA must not act like real AI yet.
+
+---
+
+# End of VIA Subsystem Document
