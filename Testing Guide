@@ -1,0 +1,320 @@
+Washington Product One — Testing Guide
+This document defines the **testing philosophy, testing surface, and manual QA flows** for Washington Product One (v0.1).  
+Product One is not yet wired to a backend, so all testing is **client-side**, **UI-driven**, and focused on verifying:
+
+1. Rails + content rendering  
+2. Navigation  
+3. VIA ribbon  
+4. VIA Investigate panel  
+5. Event logging  
+6. Build integrity (Vite + React)  
+
+Automated tests will be added in v0.2.  
+This document is the **official QA reference** for v0.1.
+
+---
+
+# 1. Test Philosophy
+
+Washington’s testing strategy follows three rules:
+
+### **1. Everything must be observable**  
+Events, state changes, and routing should always be visible—either on screen or in the browser console.
+
+### **2. No mocks that hide broken logic**  
+VIA is mocked, but the *mock must behave like a real client*:
+- deterministic output  
+- environment isolation  
+- intentional fallbacks  
+
+### **3. Predictability over completeness in v0.1**  
+We test for:
+- correctness  
+- consistency  
+- regressions  
+
+Not for:
+- performance  
+- load  
+- cross-browser edge cases  
+
+---
+
+# 2. What This Guide Covers
+
+This doc explains how to manually test:
+
+| Area | File / Feature |
+|------|----------------|
+| Landing rails | `VideoLandingPage.jsx` |
+| Viewer | `ViewerPage.jsx` |
+| Navigation | React Router |
+| VIA ribbon | `ViaRibbon.jsx` |
+| Investigate panel | `ViaInvestigatePanel.jsx` |
+| Content context | `ViaContentContext.jsx` |
+| VIA client | `viaClient.js` |
+| Event system | `useWashingtonEvents.js` + `EVENT_TYPES` |
+| Build | Vite + asset imports |
+
+---
+
+# 3. Manual Test Matrix
+
+## 3.1 Landing Page
+
+**Steps**
+1. Open `/`
+2. Verify at least 3 rails load (Featured, Tours, Concepts)
+3. Verify each rail has cards
+4. Verify titles + meta text appear
+
+**Expected**
+- Rails load in order
+- No errors in console
+- At least 1 card per rail
+
+---
+
+## 3.2 Rail Card Click → Navigation
+
+**Steps**
+1. Click any card
+2. Observe navigation to `/watch/<id>`
+3. Verify content metadata matches clicked item
+
+**Expected**
+- URL updates correctly  
+- Viewer page renders  
+- Back link works
+
+---
+
+## 3.3 Viewer Page Rendering
+
+**Steps**
+1. Confirm:
+   - Title
+   - Meta line
+   - Duration
+   - Vertical-frame placeholder
+2. Click **Back to OnDemand**
+
+**Expected**
+- Correct metadata for selected video  
+- Back returns to correct scroll position (browser-managed)  
+
+---
+
+## 3.4 VIA Ribbon Behavior
+
+**Steps**
+1. Look for VIA ribbon on the right
+2. Toggle Expand/Collapse
+3. Toggle Open/Close insights
+
+**Expected**
+- Ribbon expands/collapses smoothly  
+- CTA button changes between “Open insights” and “Hide insights”  
+
+---
+
+## 3.5 Investigate Panel Rendering
+
+**Steps**
+1. Navigate to any video
+2. Open the VIA panel
+3. Verify the insight corresponds to the video ID:
+   - `wash-101` → `contentInsights["wash-101"]`
+   - `wash-102` → `contentInsights["wash-102"]`
+   - Unknown ID → `contentInsights["default"]`
+
+**Expected**
+- Insight title and summary match VIA JSON  
+- Panel animates in from the right  
+- No console errors  
+
+---
+
+## 3.6 Landing Page VIA Defaults
+
+**Steps**
+1. Go to `/`
+2. Open VIA panel
+
+**Expected**
+- Shows the default insight  
+- No contentId assigned  
+
+---
+
+# 4. Event Logging Tests
+
+All events log to the **browser console** under the shape:
+
+```json
+WashingtonEvent {
+  type: "PAGE_VIEW",
+  sessionId: "sess-xxxx",
+  timestamp: "...ISO...",
+  payload: {
+    source: "app-shell",
+    route: "landing"
+  }
+}
+4.1 Test: Landing Page Events
+Steps
+
+Load /
+
+Check console
+
+Expected
+
+SESSION_START
+
+PAGE_VIEW (route: "landing")
+
+4.2 Test: Viewer Page Events
+Steps
+
+Click card
+
+View console
+
+Expected
+
+PAGE_VIEW (route: watch)
+
+Proper video ID in payload
+
+4.3 Test: CTA Click Events
+Triggered by:
+
+Ribbon toggle
+
+Investigate open
+
+Card click
+
+Back to OnDemand
+
+Expected
+
+type: CTA_CLICK
+
+payload includes correct ctaName
+
+payload includes videoId when relevant
+
+5. VIA Client Tests (Mocked)
+5.1 Test: Ribbon Messages
+Steps
+
+Expand VIA ribbon
+
+Verify the 1st ribbon message appears
+
+Expected
+Message matches viaInsights.json → ribbonMessages[0].
+
+5.2 Test: Insight Lookup
+Steps
+
+Open /watch/wash-101
+
+Open VIA panel
+
+Expected
+Insight should match:
+
+json
+Copy code
+contentInsights["wash-101"]
+6. Build Tests
+6.1 Vite Dev Server
+Run
+
+bash
+Copy code
+yarn dev
+Expected
+
+Loads at http://localhost:5173
+
+No missing asset errors
+
+6.2 Production Build
+Run
+
+bash
+Copy code
+yarn build
+yarn preview
+Expected
+
+Landing loads with rails
+
+Viewer loads
+
+VIA ribbon toggle still works
+
+All events appear in console
+
+7. Regression Checklist (Run Before Every Commit)
+UI
+Rails render
+
+Cards clickable
+
+Viewer metadata correct
+
+Ribbon toggle works
+
+Panel opens
+
+Events
+SESSION_START logs
+
+PAGE_VIEW logs
+
+CTA_CLICK logs
+
+Data
+JSON files validate
+
+Insight lookup correct
+
+Build
+yarn dev runs
+
+yarn build runs
+
+preview loads
+
+8. Known Limitations (v0.1)
+VIA is mocked
+
+No API calls
+
+No autoplay video
+
+No N-BUS bridge
+
+Session does not persist
+
+Insights do not update dynamically
+
+These will be addressed incrementally in:
+
+v0.2 (N-BUS bridge, improved VIA)
+
+v0.3 (real insights + ingestion)
+
+v1.0 (full predictive personalization)
+
+9. Future Test Expansions
+Version	Additions
+v0.2	VIA service calls, ingestion tests
+v0.3	N-BUS publish/subscribe tests
+v0.4	User profiles, identity graph
+v1.0	End-to-end integration + load QA
