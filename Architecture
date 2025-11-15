@@ -55,3 +55,278 @@ Everything else is out of scope.
 
 Current root structure:
 
+
+
+src/
+App.jsx
+main.jsx
+routes/
+Router.jsx
+context/
+SessionContext.jsx
+ViaContentContext.jsx
+hooks/
+useWashingtonEvents.js
+via/
+viaClient.js
+components/
+LayoutShell.jsx
+OnboardingModal.jsx
+via/
+ViaRibbon.jsx
+ViaInvestigatePanel.jsx
+pages/
+VideoLandingPage.jsx
+ViewerPage.jsx
+data/
+videoContent.json
+viaInsights.json
+styles/
+globals.css
+VideoLandingPage.css
+ViewerPage.css
+OnboardingModal.css
+ViaRibbon.css
+ViaInvestigatePanel.css
+
+
+---
+
+# 4. Routing Model
+
+Washington uses **react-router-dom** with two routes:
+
+
+
+/ → VideoLandingPage
+/watch/:id → ViewerPage
+
+
+Both routes load inside `<LayoutShell>` and persist:
+
+- Onboarding modal
+- VIA ribbon
+- VIA panel
+
+Routing events produce:
+
+- `PAGE_VIEW` events
+- `CTA_CLICK` events (where applicable)
+
+---
+
+# 5. Data Model
+
+Washington Product One uses **rails-based content**:
+
+```json
+{
+  "rails": [
+    {
+      "id": "featured",
+      "title": "Featured",
+      "items": [
+        {
+          "id": "wash-101",
+          "title": "Welcome to Washington",
+          "duration": "3:02",
+          "genre": "product",
+          "format": "vertical"
+        }
+      ]
+    }
+  ]
+}
+
+
+This model is intentionally future-proof:
+
+Multi-vertical content model
+
+Metadata ready for prediction
+
+Episodic support (isSeries, season, episodeNumber)
+
+VIA insights keyed by contentId
+
+6. VIA v0.1 Subsystem
+VIA is split into three subsystems:
+A. VIA the Face (REAL)
+
+Ribbon (message cycling)
+
+Investigate panel
+
+Mic button (future toggles)
+
+Routed presence inside the UX
+
+B. VIA the Spine (MINIMAL)
+
+Accepts WashingtonEvent logs
+
+Optional N-BUS publish
+
+No intelligence
+
+C. VIA the Brain (MOCKED)
+
+Static insights from viaInsights.json
+
+Mapping table keyed by contentId
+
+Investigate panel displays static content
+
+Nothing in v0.1 performs any real AI prediction.
+
+7. WashingtonEvent Schema
+
+All events follow:
+
+type WashingtonEvent = {
+  type: string;
+  sessionId: string;
+  timestamp: string;
+  payload: object;
+};
+
+
+Supported v0.1 types:
+
+SESSION_START
+
+PAGE_VIEW
+
+CTA_CLICK
+
+PLAYER_EVENT
+
+ONBOARDING_EVENT
+
+Events are logged using useWashingtonEvents.
+
+8. N-BUS Stub
+
+publishEvent() attempts:
+
+If window.NBUS.publishEvent exists → publish
+
+Else → console fallback
+
+This allows seamless upgrade to a future real N-BUS.
+
+9. Application Contexts
+SessionContext
+
+Generates sessionId once
+
+Persists for the session
+
+Used by WashingtonEvent logger and VIA
+
+ViaContentContext
+
+Tracks currentContentId
+
+Set by:
+
+Landing video click
+
+ViewerPage mount
+
+InvestigatePanel uses this to fetch insights.
+
+10. Component Architecture
+LayoutShell
+
+Global header
+
+Navigation tabs
+
+Container for routed pages
+
+Persistent VIA ribbon + panel mount
+
+OnboardingModal
+
+3-step modal
+
+Uses sessionStorage to avoid repeat showing
+
+Emits ONBOARDING_EVENT
+
+VideoLandingPage
+
+Displays Rails → Grid → Cards
+
+Logs:
+
+PAGE_VIEW
+
+CTA_CLICK (landing_video_click)
+
+ViewerPage
+
+Displays vertical video placeholder
+
+Logs:
+
+PAGE_VIEW
+
+CTA_CLICK (back_to_landing)
+
+PLAYER_EVENT (play/pause)
+
+VIA Ribbon
+
+Shows static message
+
+Controls investigate panel
+
+Logs CTA_CLICK events
+
+VIA Investigate Panel
+
+Internal content insight viewer
+
+Pulls from viaInsights.json
+
+Logs open/close events
+
+11. Future Expansion
+
+Not in v0.1, but the architecture supports:
+
+Multi-vertical content ingestion
+
+VIA real brain (LLM graph)
+
+VIA negotiation (Mentor)
+
+Social graph
+
+Creator workspace
+
+Content metadata authoring
+
+N-BUS distributed event transport
+
+Multi-device session continuity
+
+Nothing in v0.1 blocks these future states.
+
+12. Guiding Architectural Rules
+
+State must be local to UI unless shared globally.
+
+VIA must never block navigation.
+
+Onboarding must never block routing.
+
+Everything must be replaceable by real services later.
+
+UI must be predictable and stable.
+
+Events must fire with zero side effects.
+
+JSON → UI mapping must remain flat and simple.
