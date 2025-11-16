@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "@/App.css";
+import { Toaster } from "@/components/ui/toaster";
 import { Router } from "./routes/Router.jsx";
 import { LayoutShell } from "./components/LayoutShell.jsx";
 import { OnboardingModal } from "./components/OnboardingModal.jsx";
@@ -28,6 +29,7 @@ function App() {
         <Router />
         <ViaRibbon onToggleInvestigate={handleToggleInvestigate} isInvestigateOpen={investigateOpen} />
         <ViaInvestigatePanel open={investigateOpen} />
+        <Toaster />
       </LayoutShell>
     </div>
   );
