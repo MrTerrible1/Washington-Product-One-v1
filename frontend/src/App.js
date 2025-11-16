@@ -1,52 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import { Router } from "./routes/Router.jsx";
+import { LayoutShell } from "./components/LayoutShell.jsx";
+import { OnboardingModal } from "./components/OnboardingModal.jsx";
+import { ViaRibbon } from "./components/via/ViaRibbon.jsx";
+import { ViaInvestigatePanel } from "./components/via/ViaInvestigatePanel.jsx";
+import { useWashingtonEvents } from "./hooks/useWashingtonEvents";
+import { EVENT_TYPES } from "./events/eventTypes";
 
 function App() {
+  const [investigateOpen, setInvestigateOpen] = useState(false);
+  const { logEvent } = useWashingtonEvents("app-shell");
+
+  // Single SESSION_START per load
+  useEffect(() => {
+    logEvent(EVENT_TYPES.SESSION_START);
+  }, [logEvent]);
+
+  const handleToggleInvestigate = () => {
+    setInvestigateOpen((prev) => !prev);
+  };
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <div className="App min-h-screen bg-background text-foreground">
+      <LayoutShell>
+        <OnboardingModal />
+        <Router />
+        <ViaRibbon onToggleInvestigate={handleToggleInvestigate} isInvestigateOpen={investigateOpen} />
+        <ViaInvestigatePanel open={investigateOpen} />
+      </LayoutShell>
     </div>
   );
 }

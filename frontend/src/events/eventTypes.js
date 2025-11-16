@@ -1,0 +1,8 @@
+// WashingtonEvent canonical types for Product One v0.1
+export const EVENT_TYPES = {
+  SESSION_START: "SESSION_START",
+  PAGE_VIEW: "PAGE_VIEW",
+  PLAYER_EVENT: "PLAYER_EVENT",
+  CTA_CLICK: "CTA_CLICK",
+  ONBOARDING_EVENT: "ONBOARDING_EVENT",
+};
