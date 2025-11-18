@@ -68,7 +68,7 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isOnDemand
-                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-medium"
+                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
                     : "rounded-full px-4 py-1.5 text-muted-foreground hover:bg-secondary transition-colors"
                 }
                 onClick={() => navigate("/")}
@@ -80,7 +80,7 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isBroadcast
-                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-medium"
+                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
                     : "rounded-full px-4 py-1.5 text-muted-foreground hover:bg-secondary transition-colors"
                 }
                 onClick={() => navigate("/broadcast-preview")}
