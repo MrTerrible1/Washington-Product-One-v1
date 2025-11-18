@@ -9,14 +9,15 @@ import {
 } from "@/components/ui/tooltip";
 
 const CHANNELS = [
-  { id: "channel-1", label: "Channel 1" },
-  { id: "channel-2", label: "Channel 2" },
-  { id: "channel-3", label: "Channel 3" },
-  { id: "channel-4", label: "Channel 4" },
-  { id: "channel-5", label: "Channel 5" },
+  { id: "channel-1", label: "Channel 1 — McDonald’s" },
+  { id: "channel-2", label: "Channel 2 — VIA" },
+  { id: "channel-3", label: "Channel 3 — Creator Spotlight" },
+  { id: "channel-4", label: "Channel 4 — Brand Studio" },
+  { id: "channel-5", label: "Channel 5 — Community Picks" },
 ];
 
 const TIMESLOTS = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+const CURRENT_INDEX = 2; // static "now" column for preview only
 
 // Static program grid for preview only
 const PROGRAM_GRID = {
@@ -66,10 +67,11 @@ export function BroadcastPreviewPage() {
 
   const grid = useMemo(() => PROGRAM_GRID, []);
 
-  const handleProgramInteract = (channelId, time, program) => {
+  const handleProgramInteract = (channelId, time, program, channelLabel) => {
     logEvent(EVENT_TYPES.CTA_CLICK, {
       ctaName: "broadcast_program_hover",
       channelId,
+      channelLabel,
       slotTime: time,
       programTitle: program?.title || "TBD Slot",
     });
@@ -79,9 +81,9 @@ export function BroadcastPreviewPage() {
     <div className="max-w-5xl mx-auto py-8 space-y-8">
       {/* Title */}
       <section className="space-y-1">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Broadcast Preview</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Channel Guide Preview</h1>
         <p className="text-sm text-muted-foreground">
-          A static look at Washington&apos;s programmed stream. Everything here is mock data in guest mode.
+          A static look at Washington&apos;s programmed stream by channel and timeslot.
         </p>
       </section>
 
@@ -98,16 +100,26 @@ export function BroadcastPreviewPage() {
         </div>
       </section>
 
+      {/* Time preview label */}
+      <section className="text-[11px] md:text-xs text-muted-foreground">
+        All times shown as static guest preview.
+      </section>
+
       {/* Grid + side ad */}
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_220px] items-start">
-        {/* TV Guide grid */}
+        {/* Channel Guide grid */}
         <TooltipProvider>
           <div className="rounded-2xl border border-border bg-card overflow-hidden">
             {/* Header row */}
             <div className="grid grid-cols-[120px_repeat(6,minmax(0,1fr))] border-b border-border bg-muted/60 text-[11px] text-muted-foreground">
               <div className="px-3 py-2 font-medium uppercase tracking-[0.18em]">Channel</div>
-              {TIMESLOTS.map((time) => (
-                <div key={time} className="px-3 py-2 border-l border-border text-center">
+              {TIMESLOTS.map((time, index) => (
+                <div
+                  key={time}
+                  className={`px-3 py-2 border-l border-border text-center ${
+                    index === CURRENT_INDEX ? "bg-secondary/70 border-b-2 border-b-foreground" : ""
+                  }`}
+                >
                   {time}
                 </div>
               ))}
@@ -123,18 +135,22 @@ export function BroadcastPreviewPage() {
                   <div className="px-3 py-3 border-r border-border flex items-center font-medium text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                     {channel.label}
                   </div>
-                  {TIMESLOTS.map((time) => {
+                  {TIMESLOTS.map((time, index) => {
                     const program = grid[channel.id]?.[time];
-                    const badgeClass = program?.type ? TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY : "bg-muted text-foreground";
+                    const badgeClass = program?.type
+                      ? TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY
+                      : "bg-muted text-foreground";
 
                     return (
                       <Tooltip key={time} delayDuration={200}>
                         <TooltipTrigger asChild>
                           <button
                             type="button"
-                            className="px-3 py-2 border-l border-border text-left hover:bg-muted/60 transition-colors flex flex-col gap-1"
-                            onMouseEnter={() => handleProgramInteract(channel.id, time, program)}
-                            onClick={() => handleProgramInteract(channel.id, time, program)}
+                            className={`px-3 py-2 border-l border-border text-left hover:bg-muted/60 transition-colors flex flex-col gap-1 ${
+                              index === CURRENT_INDEX ? "bg-secondary/20" : ""
+                            }`}
+                            onMouseEnter={() => handleProgramInteract(channel.id, time, program, channel.label)}
+                            onClick={() => handleProgramInteract(channel.id, time, program, channel.label)}
                           >
                             <span className="text-xs font-medium truncate">
                               {program?.title || "TBD Slot"}
@@ -150,10 +166,13 @@ export function BroadcastPreviewPage() {
                           <div className="space-y-1">
                             <p className="text-xs font-semibold">{program?.title || "TBD Slot"}</p>
                             <p className="text-[11px] text-muted-foreground">
+                              {channel.label} · {time}–{time}
+                            </p>
+                            <p className="text-[11px] text-muted-foreground">
                               {program?.genre || "Unspecified genre"} · {program?.duration || "Duration TBA"}
                             </p>
                             <p className="text-[11px] text-muted-foreground mt-1">
-                              Play from beginning
+                              Play from beginning (demo)
                             </p>
                           </div>
                         </TooltipContent>
