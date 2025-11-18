@@ -4,6 +4,7 @@ import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 import { useViaContent } from "../context/ViaContentContext.jsx";
+import { useToast } from "@/hooks/use-toast";
 
 export function VideoLandingPage() {
   const rails = videoData.rails || [];
@@ -11,6 +12,7 @@ export function VideoLandingPage() {
   const { setCurrentContentId } = useViaContent();
   const navigate = useNavigate();
   const firstRailRef = useRef(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     logEvent(EVENT_TYPES.PAGE_VIEW, { source: "video-landing", route: "ondemand" });
@@ -57,6 +59,10 @@ export function VideoLandingPage() {
     .filter((rail) => rail.items.length > 0);
 
   const handleSidebarClick = (label) => {
+    toast({
+      title: label,
+      description: "This area is coming soon in the full Washington platform.",
+    });
     logEvent(EVENT_TYPES.CTA_CLICK, {
       ctaName: "sidebar_click",
       label,
@@ -123,11 +129,11 @@ export function VideoLandingPage() {
         {/* Main column */}
         <div className="space-y-10">
           {/* Hero */}
-          <section className="rounded-3xl overflow-hidden shadow-xl border border-border">
-            <div className="relative w-full pt-[56.25%] bg-foreground">
+          <section className="group rounded-3xl overflow-hidden shadow-xl border border-border">
+            <div className="relative w-full pt-[56.25%] bg-foreground overflow-hidden">
               <div className="absolute inset-0">
                 <div
-                  className="w-full h-full bg-cover bg-center"
+                  className="w-full h-full bg-cover bg-center transform group-hover:scale-105 transition-transform duration-400 ease-out"
                   style={{ backgroundImage: "url(/hero/heroDefault.jpg)" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/0" />
@@ -246,11 +252,11 @@ export function VideoLandingPage() {
 
       {/* Mobile/tablet: hero + rails only (no sidebar) */}
       <div className="lg:hidden space-y-8">
-        <section className="rounded-3xl overflow-hidden shadow-xl border border-border">
-          <div className="relative w-full pt-[56.25%] bg-foreground">
+        <section className="group rounded-3xl overflow-hidden shadow-xl border border-border">
+          <div className="relative w-full pt-[56.25%] bg-foreground overflow-hidden">
             <div className="absolute inset-0">
               <div
-                className="w-full h-full bg-cover bg-center"
+                className="w-full h-full bg-cover bg-center transform group-hover:scale-105 transition-transform duration-400 ease-out"
                 style={{ backgroundImage: "url(/hero/heroDefault.jpg)" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/0" />
