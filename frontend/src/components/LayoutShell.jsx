@@ -24,7 +24,7 @@ export function LayoutShell({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isOnDemand = location.pathname === "/";
+  const isOnDemand = location.pathname === "/" || location.pathname.startsWith("/content");
   const isBroadcast = location.pathname.startsWith("/broadcast-preview");
 
   const handleComingSoon = (label) => {
@@ -118,7 +118,7 @@ export function LayoutShell({ children }) {
         </div>
       </header>
       <main className="flex-1 px-4 pb-20 pt-6 md:px-10 md:pt-8 flex flex-col items-stretch">
-        <div className="w-full max-w-5xl mx-auto">{children}</div>
+        <div className="w-full max-w-6xl mx-auto">{children}</div>
       </main>
     </div>
   );
