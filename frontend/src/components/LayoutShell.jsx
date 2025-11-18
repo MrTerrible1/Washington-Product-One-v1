@@ -19,13 +19,32 @@ const SILO_TABS = [
   { id: "social", label: "Social" },
 ];
 
+const BROADCAST_CATEGORY_TABS = [
+  { id: "video", label: "Video" },
+  { id: "radio", label: "Radio" },
+  { id: "podcast", label: "Podcasts" },
+  { id: "twitch", label: "Live & Twitch-style" },
+  { id: "howto", label: "How-To & Builds" },
+  { id: "unboxing", label: "Reviews & Unboxing" },
+  { id: "kids", label: "Kids & Family" },
+];
+
 export function LayoutShell({ children }) {
   const { toast } = useToast();
   const location = useLocation();
   const navigate = useNavigate();
+  const pathname = location.pathname;
 
-  const isOnDemand = location.pathname === "/" || location.pathname.startsWith("/content");
-  const isBroadcast = location.pathname.startsWith("/broadcast-preview");
+  // Treat "/" and any "/content/..." as OnDemand
+  const isOnDemand =
+    pathname === "/" ||
+    pathname === "/ondemand" ||
+    pathname.startsWith("/content");
+
+  // Treat any "/broadcast" or "/broadcast-preview" as Broadcast
+  const isBroadcast =
+    pathname.startsWith("/broadcast") ||
+    pathname.startsWith("/broadcast-preview");
 
   const handleComingSoon = (label) => {
     toast({
