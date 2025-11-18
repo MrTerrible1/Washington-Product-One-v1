@@ -212,14 +212,14 @@ export function BroadcastPreviewPage() {
               <div key={channel.id} className="flex flex-col gap-2">
                 <div className="flex gap-3 items-stretch">
                   {/* Station ID */}
-                  <div className="w-[140px] flex flex-col justify-center gap-1">
-                    <div className="h-10 w-10 rounded-full bg-primary/60 flex items-center justify-center text-[11px] font-semibold text-primary-foreground">
+                  <div className="w-[160px] flex flex-col justify-center gap-1">
+                    <div className="h-11 w-11 rounded-full bg-primary flex items-center justify-center text-sm font-semibold text-primary-foreground">
                       {channel.shortName}
                     </div>
-                    <div className="text-sm font-medium text-foreground leading-snug">
+                    <div className="text-base font-semibold text-foreground leading-snug">
                       {channel.displayName}
                     </div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-sm text-muted-foreground">
                       {channel.ownerType}
                     </div>
                   </div>
