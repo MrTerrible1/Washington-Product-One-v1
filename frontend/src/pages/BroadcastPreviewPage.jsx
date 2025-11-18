@@ -198,7 +198,7 @@ export function BroadcastPreviewPage() {
         {/* Guide on left */}
         <div className="space-y-4">
           {/* Time ruler */}
-          <div className="flex items-center gap-6 text-xs md:text-sm text-muted-foreground pl-[140px]">
+          <div className="flex items-center gap-6 text-xs md:text-sm text-muted-foreground pl-[160px]">
             {TIMES.map((time) => (
               <div key={time} className="flex-1 text-center border-t border-border/40 pt-1">
                 {time}
