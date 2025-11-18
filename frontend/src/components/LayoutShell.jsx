@@ -1,4 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const COMING_SOON_MESSAGE = "This area is coming soon.";
 
@@ -20,6 +21,7 @@ const SILO_TABS = [
 
 export function LayoutShell({ children }) {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleComingSoon = (label) => {
     toast({
@@ -42,13 +44,14 @@ export function LayoutShell({ children }) {
               <button
                 type="button"
                 className="rounded-full px-3 py-1 bg-foreground text-background font-medium"
+                onClick={() => navigate("/")}
               >
                 OnDemand
               </button>
               <button
                 type="button"
                 className="rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
-                onClick={() => handleComingSoon("Broadcast")}
+                onClick={() => navigate("/broadcast-preview")}
               >
                 Broadcast
               </button>
