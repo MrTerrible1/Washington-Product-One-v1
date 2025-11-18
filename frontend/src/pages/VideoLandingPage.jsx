@@ -120,26 +120,26 @@ export function VideoLandingPage() {
                         )}
                         <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
                         {genre && (
-                          <span className="absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded-full bg-black/70 text-white">
+                          <span className="absolute top-2 left-2 text-[11px] px-2 py-0.5 rounded-full bg-black/70 text-white">
                             {genre}
                           </span>
                         )}
                         {isHighlighted && (
-                          <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-semibold">
+                          <span className="absolute top-2 right-2 text-[11px] px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-semibold">
                             {rail.id === "featured" ? "FEATURED" : "NEW"}
                           </span>
                         )}
                         {video.duration && (
-                          <span className="absolute bottom-2 left-2 text-[10px] px-2 py-0.5 rounded-full bg-black/80 text-white">
+                          <span className="absolute bottom-2 left-2 text-[11px] px-2 py-0.5 rounded-full bg-black/80 text-white">
                             {video.duration}
                           </span>
                         )}
                       </div>
                       <div className="px-3 py-3 space-y-1">
-                        <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-foreground">
+                        <h3 className="text-base font-semibold leading-snug line-clamp-2 text-foreground">
                           {video.title}
                         </h3>
-                        <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
+                        <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
                           {video.tagline || video.meta}
                         </p>
                       </div>
