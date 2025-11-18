@@ -144,7 +144,7 @@ export function BroadcastPreviewPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-xs md:text-sm">
+        <div className="flex flex-wrap gap-2 text-sm md:text-base">
           {BROADCAST_FILTERS.map((filter) => (
             <button
               key={filter}
