@@ -216,10 +216,10 @@ export function BroadcastPreviewPage() {
                     <div className="h-10 w-10 rounded-full bg-primary/60 flex items-center justify-center text-[11px] font-semibold text-primary-foreground">
                       {channel.shortName}
                     </div>
-                    <div className="text-xs font-medium text-foreground leading-snug">
+                    <div className="text-sm font-medium text-foreground leading-snug">
                       {channel.displayName}
                     </div>
-                    <div className="text-[10px] text-muted-foreground">
+                    <div className="text-xs text-muted-foreground">
                       {channel.ownerType}
                     </div>
                   </div>
