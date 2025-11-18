@@ -210,9 +210,9 @@ export function BroadcastPreviewPage() {
           <div className="space-y-4">
             {CHANNELS.map((channel) => (
               <div key={channel.id} className="flex flex-col gap-2">
-                <div className="flex gap-3 items-stretch">
-                  {/* Station ID */}
-                  <div className="w-[160px] flex flex-col justify-center gap-1">
+                <div className="flex gap-0 items-stretch">
+                  {/* Station ID rail with right divider */}
+                  <div className="w-[160px] flex flex-col justify-center gap-1 pr-4 mr-4 border-r border-border/70">
                     <div className="h-11 w-11 rounded-full bg-primary flex items-center justify-center text-sm font-semibold text-primary-foreground">
                       {channel.shortName}
                     </div>
@@ -239,7 +239,7 @@ export function BroadcastPreviewPage() {
                           <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <span
-                              className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${badgeClass}`}
+                              className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass} text-[11px]`}
                             >
                               {program.type}
                             </span>
