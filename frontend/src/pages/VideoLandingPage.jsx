@@ -36,40 +36,32 @@ export function VideoLandingPage() {
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {/* Hero */}
-      <section className="group rounded-3xl overflow-hidden shadow-xl border border-border max-w-6xl mx-auto">
-        <div className="relative w-full pt-[56.25%] bg-foreground overflow-hidden">
-          <div className="absolute inset-0">
-            <div
-              className="w-full h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 group-hover:scale-105 transition-transform duration-500 ease-out"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/0" />
-          </div>
-          <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-            <div className="space-y-2 max-w-xl">
-              <p className="text-[11px] uppercase tracking-[0.26em] text-white/70">
-                Guest OnDemand
-              </p>
-              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-white">
-                OnDemand for Washington
-              </h1>
-              <p className="text-sm md:text-base text-white/80 max-w-md">
-                A curated preview of Washington&apos;s OnDemand Stream. Drop into sessions without creating an account.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 mt-4">
+      <section className="rounded-3xl bg-card border border-border/60 shadow-lg p-6 md:p-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-3 max-w-xl">
+            <p className="text-[12px] uppercase tracking-[0.22em] text-muted-foreground">
+              Guest OnDemand
+            </p>
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+              OnDemand for Washington
+            </h1>
+            <p className="text-sm md:text-base text-muted-foreground max-w-md">
+              A curated preview of Washington&apos;s OnDemand Stream. Drop into sessions without creating an account.
+            </p>
+            <div className="flex flex-wrap items-center gap-3 mt-1">
               <button
                 type="button"
                 onClick={handleHeroScroll}
-                className="inline-flex items-center justify-center rounded-full bg-white text-black px-4 py-1.5 text-sm font-medium hover:bg-white/90 transition-colors"
+                className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-sm font-medium hover:bg-primary/90 transition-colors"
               >
                 Watch Now
               </button>
               <button
                 type="button"
                 onClick={handleHeroScroll}
-                className="inline-flex items-center justify-center rounded-full border border-white/60 text-xs md:text-sm text-white/90 px-3 py-1 hover:bg-white/10 transition-colors"
+                className="inline-flex items-center justify-center rounded-full border border-primary/60 text-xs md:text-sm text-primary px-3 py-1 hover:bg-primary/10 transition-colors"
               >
                 Learn more
               </button>
@@ -79,7 +71,7 @@ export function VideoLandingPage() {
       </section>
 
       {/* Rails */}
-      <section className="space-y-8 max-w-6xl mx-auto" aria-label="OnDemand video rails">
+      <section className="space-y-8" aria-label="OnDemand video rails">
         {railsWithItems.map((rail, index) => (
           <div
             key={rail.id}
@@ -87,7 +79,7 @@ export function VideoLandingPage() {
             ref={index === 0 ? firstRailRef : undefined}
           >
             <div className="flex items-center justify-between gap-2">
-              <h2 className="text-base md:text-lg font-semibold tracking-tight">{rail.title}</h2>
+              <h2 className="text-lg font-semibold tracking-tight text-foreground">{rail.title}</h2>
               <button
                 type="button"
                 className="text-[11px] md:text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
@@ -115,8 +107,8 @@ export function VideoLandingPage() {
                     onClick={() => handleCardClick(rail.id, video)}
                     className="group w-44 md:w-52 shrink-0 text-left"
                   >
-                    <div className="rounded-2xl overflow-hidden bg-card border border-border shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
-                      <div className="relative pt-[56.25%] bg-gradient-to-br from-accent to-muted overflow-hidden">
+                    <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                      <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
                         {thumbnail && (
                           <div
                             className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
@@ -124,16 +116,16 @@ export function VideoLandingPage() {
                           />
                         )}
                         {!thumbnail && (
-                          <div className="absolute inset-0 bg-gradient-to-br from-accent to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
+                          <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
                         )}
-                        <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-foreground/60 rounded-2xl pointer-events-none" />
+                        <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
                         {genre && (
                           <span className="absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded-full bg-black/70 text-white">
                             {genre}
                           </span>
                         )}
                         {isHighlighted && (
-                          <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full bg-amber-500 text-black font-semibold">
+                          <span className="absolute top-2 right-2 text-[10px] px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-semibold">
                             {rail.id === "featured" ? "FEATURED" : "NEW"}
                           </span>
                         )}
@@ -144,7 +136,7 @@ export function VideoLandingPage() {
                         )}
                       </div>
                       <div className="px-3 py-3 space-y-1">
-                        <h3 className="text-sm font-semibold leading-snug line-clamp-2">
+                        <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-foreground">
                           {video.title}
                         </h3>
                         <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2">

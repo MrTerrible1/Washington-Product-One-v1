@@ -7,7 +7,7 @@ const TIMES = ["1:00p", "2:00p", "3:00p", "4:00p"];
 const CHANNELS = [
   {
     id: "channel-1",
-    label: "CHANNEL 1 — WASHINGTON FEATURE",
+    label: "Channel 1 — Washington Feature",
     programs: [
       {
         id: "prog-1",
@@ -37,7 +37,7 @@ const CHANNELS = [
   },
   {
     id: "channel-2",
-    label: "CHANNEL 2 — VIA CURATED",
+    label: "Channel 2 — VIA Curated",
     programs: [
       {
         id: "prog-4",
@@ -67,7 +67,7 @@ const CHANNELS = [
   },
   {
     id: "channel-3",
-    label: "CHANNEL 3 — CREATOR SHOWCASE",
+    label: "Channel 3 — Creator Showcase",
     programs: [
       {
         id: "prog-7",
@@ -91,7 +91,7 @@ const CHANNELS = [
 
 const TYPE_BADGE_CLASS = {
   LIVE: "bg-red-500 text-white",
-  PREMIERE: "bg-foreground text-background",
+  PREMIERE: "bg-primary text-primary-foreground",
   REPLAY: "bg-muted text-foreground",
   BLOCK: "bg-secondary text-secondary-foreground",
 };
@@ -117,42 +117,42 @@ export function BroadcastPreviewPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-10 space-y-8">
+    <div className="py-10 space-y-8">
       {/* A) Page Title + Subtitle */}
       <section className="space-y-1">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Broadcast Preview</h1>
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Broadcast Preview</h1>
         <p className="text-sm text-muted-foreground">
           A static look at Washington&apos;s programmed stream.
         </p>
       </section>
 
       {/* B) Full-width hero sponsor band */}
-      <section className="rounded-3xl bg-foreground text-background overflow-hidden">
+      <section className="rounded-3xl bg-card border border-border/60 overflow-hidden">
         <div className="flex flex-col md:flex-row gap-6 p-6 md:p-8">
           {/* Left: feature presentation */}
           <div className="flex-1 space-y-3">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-background/80">
-              Channel 1 · Feature Presentation
+            <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              Channel 1 · Feature presentation
             </p>
-            <h2 className="text-2xl md:text-3xl font-semibold leading-tight">The Long Night</h2>
-            <p className="text-xs md:text-sm text-background/80">
+            <h2 className="text-2xl md:text-3xl font-semibold leading-tight">
+              The Long Night
+            </h2>
+            <p className="text-xs md:text-sm text-muted-foreground">
               Premiering now · 2h runtime · already 32 minutes in
             </p>
-            <p className="text-xs md:text-sm text-background/80 max-w-xl leading-relaxed">
+            <p className="text-xs md:text-sm text-muted-foreground max-w-xl leading-relaxed">
               A long-form Washington feature that stitches together guest sessions into a single, cinematic stream.
-              This is a static preview of how scheduled programming could feel inside Washington.
             </p>
           </div>
 
           {/* Right: sponsored slot */}
           <div className="w-full md:w-64 space-y-3">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-background/80">Sponsored Slot</p>
-            <div className="rounded-xl bg-muted h-32 md:h-40 flex items-center justify-center text-[11px] text-muted-foreground">
-              Brand creative preview
-            </div>
-            <p className="text-[11px] text-background/70">
-              This slot represents a static preview of how a hero sponsor band could appear in broadcast mode.
+            <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              Brand spotlight
             </p>
+            <div className="rounded-xl bg-muted h-32 md:h-40 flex items-center justify-center text-[11px] text-muted-foreground">
+              Example sponsor placement
+            </div>
           </div>
         </div>
       </section>
@@ -164,7 +164,7 @@ export function BroadcastPreviewPage() {
           {/* Time ruler */}
           <div className="flex items-center gap-6 text-[11px] md:text-xs text-muted-foreground pl-[120px]">
             {TIMES.map((time) => (
-              <div key={time} className="flex-1 text-center">
+              <div key={time} className="flex-1 text-center border-t border-border/40 pt-1">
                 {time}
               </div>
             ))}
@@ -174,24 +174,25 @@ export function BroadcastPreviewPage() {
           <div className="space-y-4">
             {CHANNELS.map((channel) => (
               <div key={channel.id} className="flex flex-col gap-2">
-                <div className="text-[11px] md:text-xs font-semibold tracking-[0.18em] uppercase text-muted-foreground pl-[2px]">
+                <div className="text-xs md:text-sm font-medium text-foreground pl-[2px]">
                   {channel.label}
                 </div>
-                <div className="flex gap-2 bg-muted/40 rounded-2xl p-1">
+                <div className="flex gap-2 bg-secondary/30 rounded-2xl p-1">
                   {channel.programs.map((program) => {
-                    const badgeClass =
-                      TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY;
+                    const badgeClass = TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY;
                     return (
                       <button
                         key={program.id}
                         type="button"
                         style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                        className="rounded-xl bg-card border border-border px-3 py-2 text-left flex flex-col gap-1 hover:bg-card/80 transition-colors overflow-hidden"
+                        className="rounded-xl bg-card border border-border/70 px-3 py-2 text-left flex flex-col gap-1 hover:bg-card/80 transition-colors overflow-hidden"
                         onClick={() => handleProgramClick(channel.id, program)}
                       >
                         <span className="text-xs font-semibold truncate">{program.title}</span>
                         <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                          <span className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass}`}>
+                          <span
+                            className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass}`}
+                          >
                             {program.type}
                           </span>
                           <span>{program.duration}</span>
@@ -210,32 +211,26 @@ export function BroadcastPreviewPage() {
 
         {/* Right skyscraper ad */}
         <div className="hidden lg:block w-64">
-          <div className="rounded-2xl border bg-card p-4 space-y-3">
+          <div className="rounded-2xl border border-border/60 bg-card p-4 space-y-3">
             <div className="uppercase text-xs tracking-wider text-muted-foreground">
-              AD PREVIEW
+              Brand spotlight
             </div>
             <div className="rounded-xl bg-muted h-64 flex items-center justify-center text-xs text-muted-foreground">
-              Static brand creative
+              Example sponsor placement
             </div>
-            <p className="text-xs text-muted-foreground">
-              Placeholder for 300x600 sponsor slot.
-            </p>
           </div>
         </div>
       </section>
 
       {/* Mobile/tablet skyscraper ad */}
       <section className="lg:hidden">
-        <div className="rounded-2xl border bg-card p-4 space-y-3">
+        <div className="rounded-2xl border border-border/60 bg-card p-4 space-y-3">
           <div className="uppercase text-xs tracking-wider text-muted-foreground">
-            AD PREVIEW
+            Brand spotlight
           </div>
           <div className="rounded-xl bg-muted h-40 flex items-center justify-center text-xs text-muted-foreground">
-            Static brand creative
+            Example sponsor placement
           </div>
-          <p className="text-xs text-muted-foreground">
-            Placeholder for 300x600 sponsor slot.
-          </p>
         </div>
       </section>
     </div>

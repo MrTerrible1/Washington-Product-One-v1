@@ -36,10 +36,10 @@ export function LayoutShell({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-20 flex flex-col gap-2 px-6 py-3 border-b border-border bg-background/80 backdrop-blur">
+      <header className="sticky top-0 z-20 flex flex-col gap-2 px-8 py-4 border-b border-border/60 bg-background/80 backdrop-blur">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <span className="font-semibold tracking-[0.18em] uppercase text-sm">
+          <div className="flex items-center gap-8">
+            <span className="font-semibold tracking-[0.22em] uppercase text-sm">
               WASHINGTON
             </span>
 
@@ -49,8 +49,8 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isOnDemand
-                    ? "rounded-full px-3 py-1 bg-foreground text-background font-medium"
-                    : "rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-medium"
+                    : "rounded-full px-4 py-1.5 text-muted-foreground hover:bg-secondary transition-colors"
                 }
                 onClick={() => navigate("/")}
               >
@@ -61,8 +61,8 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isBroadcast
-                    ? "rounded-full px-3 py-1 bg-foreground text-background font-medium"
-                    : "rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-medium"
+                    : "rounded-full px-4 py-1.5 text-muted-foreground hover:bg-secondary transition-colors"
                 }
                 onClick={() => navigate("/broadcast-preview")}
               >
@@ -71,11 +71,14 @@ export function LayoutShell({ children }) {
             </nav>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
+            <span className="hidden md:inline-flex items-center rounded-full bg-secondary/60 px-3 py-1">
+              Guest preview
+            </span>
             <button
               type="button"
               disabled
-              className="text-xs md:text-sm px-3 py-1 rounded-full border border-border text-muted-foreground opacity-60 cursor-not-allowed"
+              className="text-xs md:text-sm px-3 py-1 rounded-full text-muted-foreground/70 cursor-not-allowed"
               onClick={() => handleComingSoon("Login")}
             >
               Login
@@ -83,7 +86,7 @@ export function LayoutShell({ children }) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-1 text-[11px] md:text-xs text-muted-foreground">
+        <div className="flex items-center justify-between gap-4 text-[11px] md:text-xs text-muted-foreground mt-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="font-semibold tracking-[0.18em] uppercase">Verticals</span>
             <div className="flex items-center gap-1 flex-wrap">
@@ -91,7 +94,7 @@ export function LayoutShell({ children }) {
                 <button
                   key={tab.id}
                   type="button"
-                  className="rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                  className="rounded-full px-3 py-1 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
                   onClick={() => handleComingSoon(tab.label)}
                 >
                   {tab.label}
@@ -100,14 +103,14 @@ export function LayoutShell({ children }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="hidden md:flex items-center gap-2 flex-wrap">
             <span className="font-semibold tracking-[0.18em] uppercase">Silos</span>
             <div className="flex items-center gap-1 flex-wrap">
               {SILO_TABS.map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
-                  className="rounded-full px-2.5 py-0.5 border border-border text-[11px] md:text-xs text-muted-foreground hover:bg-secondary transition-colors"
+                  className="rounded-full px-2.5 py-0.5 bg-background/40 border border-border/60 text-[11px] text-muted-foreground hover:bg-secondary/60 transition-colors"
                   onClick={() => handleComingSoon(tab.label)}
                 >
                   {tab.label}
@@ -118,7 +121,7 @@ export function LayoutShell({ children }) {
         </div>
       </header>
       <main className="flex-1 px-4 pb-20 pt-6 md:px-10 md:pt-8 flex flex-col items-stretch">
-        <div className="w-full max-w-6xl mx-auto">{children}</div>
+        <div className="w-full max-w-6xl mx-auto space-y-8">{children}</div>
       </main>
     </div>
   );
