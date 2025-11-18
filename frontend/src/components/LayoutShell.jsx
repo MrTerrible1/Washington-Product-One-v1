@@ -1,7 +1,6 @@
 import { useToast } from "@/hooks/use-toast";
 
-const COMING_SOON_MESSAGE =
-  "This area is coming soon in the full Washington platform.";
+const COMING_SOON_MESSAGE = "This area is coming soon.";
 
 // Top-level navigation tabs for the Washington shell.
 // Verticals: Video, Music, Games, Books
@@ -31,23 +30,47 @@ export function LayoutShell({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-20 flex items-center justify-between px-6 py-3 border-b border-border bg-background/80 backdrop-blur">
-        <div className="flex items-center gap-6">
-          <span className="font-semibold tracking-[0.18em] uppercase text-sm">
-            WASHINGTON
-          </span>
+      <header className="sticky top-0 z-20 flex flex-col gap-2 px-6 py-3 border-b border-border bg-background/80 backdrop-blur">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <span className="font-semibold tracking-[0.18em] uppercase text-sm">
+              WASHINGTON
+            </span>
 
-          <nav className="flex items-center gap-3 text-xs md:text-sm">
-            {/* Primary Product One tab */}
+            <nav className="flex items-center gap-2 text-xs md:text-sm">
+              {/* Primary Product One tab */}
+              <button
+                type="button"
+                className="rounded-full px-3 py-1 bg-foreground text-background font-medium"
+              >
+                OnDemand
+              </button>
+              <button
+                type="button"
+                className="rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                onClick={() => handleComingSoon("Broadcast")}
+              >
+                Broadcast
+              </button>
+            </nav>
+          </div>
+
+          <div className="flex items-center gap-3">
             <button
               type="button"
-              className="rounded-full px-3 py-1 bg-foreground text-background font-medium"
+              disabled
+              className="text-xs md:text-sm px-3 py-1 rounded-full border border-border text-muted-foreground opacity-60 cursor-not-allowed"
+              onClick={() => handleComingSoon("Login")}
             >
-              OnDemand
+              Login
             </button>
+          </div>
+        </div>
 
-            {/* Verticals group */}
-            <div className="flex items-center gap-1">
+        <div className="flex flex-col gap-1 text-[11px] md:text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-semibold tracking-[0.18em] uppercase">Verticals</span>
+            <div className="flex items-center gap-1 flex-wrap">
               {VERTICAL_TABS.map((tab) => (
                 <button
                   key={tab.id}
@@ -59,35 +82,23 @@ export function LayoutShell({ children }) {
                 </button>
               ))}
             </div>
+          </div>
 
-            {/* Silos group */}
-            <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-semibold tracking-[0.18em] uppercase">Silos</span>
+            <div className="flex items-center gap-1 flex-wrap">
               {SILO_TABS.map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
-                  className="rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                  className="rounded-full px-2.5 py-0.5 border border-border text-[11px] md:text-xs text-muted-foreground hover:bg-secondary transition-colors"
                   onClick={() => handleComingSoon(tab.label)}
                 >
                   {tab.label}
                 </button>
               ))}
             </div>
-          </nav>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs text-muted-foreground bg-card">
-            Guest preview
-          </span>
-          <button
-            type="button"
-            disabled
-            className="text-xs md:text-sm px-3 py-1 rounded-full border border-border text-muted-foreground opacity-60 cursor-not-allowed"
-            onClick={() => handleComingSoon("Login")}
-          >
-            Login
-          </button>
+          </div>
         </div>
       </header>
       <main className="flex-1 px-4 pb-20 pt-6 md:px-10 md:pt-8 flex flex-col items-stretch">
