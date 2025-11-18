@@ -88,35 +88,28 @@ export function LayoutShell({ children }) {
 
         <div className="flex items-center justify-between gap-4 text-[11px] md:text-xs text-muted-foreground mt-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-semibold tracking-[0.18em] uppercase">Verticals</span>
-            <div className="flex items-center gap-1 flex-wrap">
-              {VERTICAL_TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className="rounded-full px-3 py-1 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
-                  onClick={() => handleComingSoon(tab.label)}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+            {VERTICAL_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className="rounded-full px-3 py-1 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
+                onClick={() => handleComingSoon(tab.label)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
-
           <div className="hidden md:flex items-center gap-2 flex-wrap">
-            <span className="font-semibold tracking-[0.18em] uppercase">Silos</span>
-            <div className="flex items-center gap-1 flex-wrap">
-              {SILO_TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className="rounded-full px-2.5 py-0.5 bg-background/40 border border-border/60 text-[11px] text-muted-foreground hover:bg-secondary/60 transition-colors"
-                  onClick={() => handleComingSoon(tab.label)}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+            {SILO_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className="rounded-full px-2.5 py-0.5 bg-background/40 border border-border/60 text-[11px] text-muted-foreground hover:bg-secondary/60 transition-colors"
+                onClick={() => handleComingSoon(tab.label)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
       </header>
