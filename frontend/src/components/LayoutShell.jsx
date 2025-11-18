@@ -1,5 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const COMING_SOON_MESSAGE = "This area is coming soon.";
 
@@ -21,7 +21,11 @@ const SILO_TABS = [
 
 export function LayoutShell({ children }) {
   const { toast } = useToast();
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const isOnDemand = location.pathname === "/";
+  const isBroadcast = location.pathname.startsWith("/broadcast-preview");
 
   const handleComingSoon = (label) => {
     toast({
@@ -40,17 +44,26 @@ export function LayoutShell({ children }) {
             </span>
 
             <nav className="flex items-center gap-2 text-xs md:text-sm">
-              {/* Primary Product One tab */}
+              {/* OnDemand tab */}
               <button
                 type="button"
-                className="rounded-full px-3 py-1 bg-foreground text-background font-medium"
+                className={
+                  isOnDemand
+                    ? "rounded-full px-3 py-1 bg-foreground text-background font-medium"
+                    : "rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                }
                 onClick={() => navigate("/")}
               >
                 OnDemand
               </button>
+              {/* Broadcast tab */}
               <button
                 type="button"
-                className="rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                className={
+                  isBroadcast
+                    ? "rounded-full px-3 py-1 bg-foreground text-background font-medium"
+                    : "rounded-full px-3 py-1 border border-border text-muted-foreground hover:bg-secondary transition-colors"
+                }
                 onClick={() => navigate("/broadcast-preview")}
               >
                 Broadcast
