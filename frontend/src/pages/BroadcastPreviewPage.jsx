@@ -1,13 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 
 const TIMES = ["1:00p", "2:00p", "3:00p", "4:00p"];
 
+const BROADCAST_FILTERS = [
+  "All",
+  "Live Streams",
+  "Games & Esports",
+  "How-To & Builds",
+  "Reviews & Unboxing",
+  "Talk & Podcasts",
+  "Kids & Family",
+];
+
 const CHANNELS = [
   {
     id: "channel-1",
-    label: "Channel 1 — Washington Feature",
+    shortName: "C1",
+    displayName: "Channel 1 — Washington Feature",
+    ownerType: "Brand",
     programs: [
       {
         id: "prog-1",
@@ -37,7 +49,9 @@ const CHANNELS = [
   },
   {
     id: "channel-2",
-    label: "Channel 2 — VIA Curated",
+    shortName: "C2",
+    displayName: "Channel 2 — VIA Curated",
+    ownerType: "VIA",
     programs: [
       {
         id: "prog-4",
@@ -67,7 +81,9 @@ const CHANNELS = [
   },
   {
     id: "channel-3",
-    label: "Channel 3 — Creator Showcase",
+    shortName: "C3",
+    displayName: "Channel 3 — Creator Showcase",
+    ownerType: "Creator",
     programs: [
       {
         id: "prog-7",
@@ -98,6 +114,7 @@ const TYPE_BADGE_CLASS = {
 
 export function BroadcastPreviewPage() {
   const { logEvent } = useWashingtonEvents("broadcast-preview");
+  const [activeFilter, setActiveFilter] = useState("All");
 
   useEffect(() => {
     logEvent(EVENT_TYPES.PAGE_VIEW, {
@@ -118,12 +135,31 @@ export function BroadcastPreviewPage() {
 
   return (
     <div className="py-10 space-y-8">
-      {/* A) Page Title + Subtitle */}
-      <section className="space-y-1">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Broadcast Preview</h1>
-        <p className="text-sm text-muted-foreground">
-          A static look at Washington&apos;s programmed stream.
-        </p>
+      {/* A) Page Title + Subtitle + Filters */}
+      <section className="space-y-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Broadcast Preview</h1>
+          <p className="text-sm text-muted-foreground">
+            A static look at Washington&apos;s programmed stream.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 text-[11px] md:text-xs">
+          {BROADCAST_FILTERS.map((filter) => (
+            <button
+              key={filter}
+              type="button"
+              onClick={() => setActiveFilter(filter)}
+              className={
+                activeFilter === filter
+                  ? "rounded-full px-3 py-1 bg-primary text-primary-foreground font-medium"
+                  : "rounded-full px-3 py-1 bg-secondary/40 text-muted-foreground hover:bg-secondary/70 transition-colors"
+              }
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
       </section>
 
       {/* B) Full-width hero sponsor band */}
@@ -162,7 +198,7 @@ export function BroadcastPreviewPage() {
         {/* Guide on left */}
         <div className="space-y-4">
           {/* Time ruler */}
-          <div className="flex items-center gap-6 text-[11px] md:text-xs text-muted-foreground pl-[120px]">
+          <div className="flex items-center gap-6 text-[11px] md:text-xs text-muted-foreground pl-[160px]">
             {TIMES.map((time) => (
               <div key={time} className="flex-1 text-center border-t border-border/40 pt-1">
                 {time}
@@ -170,39 +206,52 @@ export function BroadcastPreviewPage() {
             ))}
           </div>
 
-          {/* Channel rows */}
+          {/* Channel rows with station ID + program track */}
           <div className="space-y-4">
             {CHANNELS.map((channel) => (
               <div key={channel.id} className="flex flex-col gap-2">
-                <div className="text-xs md:text-sm font-medium text-foreground pl-[2px]">
-                  {channel.label}
-                </div>
-                <div className="flex gap-2 bg-secondary/30 rounded-2xl p-1">
-                  {channel.programs.map((program) => {
-                    const badgeClass = TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY;
-                    return (
-                      <button
-                        key={program.id}
-                        type="button"
-                        style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                        className="rounded-xl bg-card border border-border/70 px-3 py-2 text-left flex flex-col gap-1 hover:bg-card/80 transition-colors overflow-hidden"
-                        onClick={() => handleProgramClick(channel.id, program)}
-                      >
-                        <span className="text-xs font-semibold truncate">{program.title}</span>
-                        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                          <span
-                            className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass}`}
-                          >
-                            {program.type}
-                          </span>
-                          <span>{program.duration}</span>
-                        </div>
-                        <p className="text-[10px] text-muted-foreground truncate">
-                          {program.status}
-                        </p>
-                      </button>
-                    );
-                  })}
+                <div className="flex gap-3 items-stretch">
+                  {/* Station ID */}
+                  <div className="w-[140px] flex flex-col justify-center gap-1">
+                    <div className="h-10 w-10 rounded-full bg-primary/60 flex items-center justify-center text-[11px] font-semibold text-primary-foreground">
+                      {channel.shortName}
+                    </div>
+                    <div className="text-xs font-medium text-foreground leading-snug">
+                      {channel.displayName}
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">
+                      {channel.ownerType}
+                    </div>
+                  </div>
+
+                  {/* Program track */}
+                  <div className="flex-1 flex gap-2 bg-secondary/30 rounded-2xl p-1">
+                    {channel.programs.map((program) => {
+                      const badgeClass = TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY;
+                      return (
+                        <button
+                          key={program.id}
+                          type="button"
+                          style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
+                          className="rounded-xl bg-card/95 border border-border/70 px-3 py-2 text-left flex flex-col gap-1 hover:bg-card transition-colors overflow-hidden"
+                          onClick={() => handleProgramClick(channel.id, program)}
+                        >
+                          <span className="text-xs font-semibold truncate">{program.title}</span>
+                          <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                            <span
+                              className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass}`}
+                            >
+                              {program.type}
+                            </span>
+                            <span>{program.duration}</span>
+                          </div>
+                          <p className="text-[10px] text-muted-foreground truncate">
+                            {program.status}
+                          </p>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             ))}
