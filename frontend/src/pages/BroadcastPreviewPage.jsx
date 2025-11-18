@@ -236,8 +236,8 @@ export function BroadcastPreviewPage() {
                           className="rounded-xl bg-card/95 border border-border/70 px-3 py-2 text-left flex flex-col gap-1 hover:bg-card transition-colors overflow-hidden"
                           onClick={() => handleProgramClick(channel.id, program)}
                         >
-                          <span className="text-xs font-semibold truncate">{program.title}</span>
-                          <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                          <span className="text-sm font-semibold truncate">{program.title}</span>
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
                             <span
                               className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass}`}
                             >
@@ -245,7 +245,7 @@ export function BroadcastPreviewPage() {
                             </span>
                             <span>{program.duration}</span>
                           </div>
-                          <p className="text-[10px] text-muted-foreground truncate">
+                          <p className="text-xs text-muted-foreground truncate">
                             {program.status}
                           </p>
                         </button>
