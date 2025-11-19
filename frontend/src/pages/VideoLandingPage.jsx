@@ -44,14 +44,14 @@ export function VideoLandingPage() {
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[180px,minmax(0,1fr)]">
+    <div className="grid gap-8 lg:grid-cols-[150px,minmax(0,1fr)]">
       {/* Left: genre rail */}
       <aside className="hidden lg:flex flex-col gap-4 border-r border-border/70 pr-4">
         <div className="space-y-1">
-          <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+          <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-1">
             Browse
           </div>
-          <div className="text-sm text-foreground font-medium">
+          <div className="text-[11px] text-muted-foreground mb-2">
             OnDemand genres
           </div>
         </div>
@@ -65,8 +65,8 @@ export function VideoLandingPage() {
                 type="button"
                 className={
                   isActive
-                    ? "flex items-center justify-between rounded-l-full rounded-r-2xl px-3 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
-                    : "flex items-center justify-between rounded-l-full rounded-r-2xl px-3 py-1.5 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
+                    ? "flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold text-foreground border-l-4 border-primary bg-background/40"
+                    : "flex items-center justify-between px-2.5 py-1.5 text-xs text-muted-foreground border-l-2 border-transparent hover:border-primary/60 hover:text-foreground"
                 }
                 onClick={() => {
                   setActiveGenre(genre.id);
