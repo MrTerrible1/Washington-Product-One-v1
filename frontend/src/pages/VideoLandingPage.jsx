@@ -44,7 +44,7 @@ export function VideoLandingPage() {
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[220px,minmax(0,1fr)]">
+    <div className="grid gap-8 lg:grid-cols-[180px,minmax(0,1fr)]">
       {/* Left: genre rail */}
       <aside className="hidden lg:flex flex-col gap-4 border-r border-border/70 pr-4">
         <div className="space-y-1">
@@ -65,8 +65,8 @@ export function VideoLandingPage() {
                 type="button"
                 className={
                   isActive
-                    ? "flex items-center justify-between rounded-full px-3 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
-                    : "flex items-center justify-between rounded-full px-3 py-1.5 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
+                    ? "flex items-center justify-between rounded-l-full rounded-r-2xl px-3 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
+                    : "flex items-center justify-between rounded-l-full rounded-r-2xl px-3 py-1.5 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
                 }
                 onClick={() => {
                   setActiveGenre(genre.id);
@@ -86,9 +86,9 @@ export function VideoLandingPage() {
       </aside>
 
       {/* Right: hero + rails */}
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* Hero */}
-        <section className="rounded-3xl bg-card border border-border/60 shadow-lg p-6 md:p-8">
+        <section className="rounded-3xl bg-card border border-border/60 shadow-lg p-4 md:p-6">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="space-y-3 max-w-xl">
               <p className="text-[12px] uppercase tracking-[0.22em] text-muted-foreground">
