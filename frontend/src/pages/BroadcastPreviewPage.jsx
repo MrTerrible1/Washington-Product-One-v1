@@ -186,8 +186,11 @@ export function BroadcastPreviewPage() {
             <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
               Brand spotlight
             </p>
-            <div className="rounded-xl bg-muted h-32 md:h-40 flex items-center justify-center text-[11px] text-muted-foreground">
-              Example sponsor placement
+            <div className="rounded-xl bg-muted h-32 md:h-40 flex flex-col items-center justify-center text-[11px] text-muted-foreground gap-1">
+              <div className="w-16 h-16 rounded-full bg-background/40" />
+              <div className="h-2 w-24 rounded-full bg-background/60" />
+              <div className="h-2 w-16 rounded-full bg-background/40" />
+              <span>Brand creative preview</span>
             </div>
           </div>
         </div>
