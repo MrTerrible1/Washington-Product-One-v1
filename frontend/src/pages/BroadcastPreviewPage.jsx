@@ -233,7 +233,7 @@ export function BroadcastPreviewPage() {
                           key={program.id}
                           type="button"
                           style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                          className="rounded-xl bg-card/95 border border-border/70 px-3 py-2 text-left flex flex-col gap-1 hover:bg-card transition-colors overflow-hidden"
+                          className="group rounded-xl bg-[#20232b] border border-border/70 px-3 py-2 text-left flex flex-col gap-1 hover:bg-[#262b35] hover:border-primary/70 transition-colors shadow-sm"
                           onClick={() => handleProgramClick(channel.id, program)}
                         >
                           <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
@@ -248,6 +248,15 @@ export function BroadcastPreviewPage() {
                           <p className="text-sm text-muted-foreground truncate">
                             {program.status}
                           </p>
+                          {program.id === "prog-1" && (
+                            <div className="mt-1 hidden group-hover:flex flex-col gap-0.5 text-[10px] text-muted-foreground border-t border-border/60 pt-1">
+                              <div className="font-semibold text-foreground">
+                                Key billing block
+                              </div>
+                              <div>Presented by: Aurora Studios</div>
+                              <div>Featuring: Creator Network Spotlight</div>
+                            </div>
+                          )}
                         </button>
                       );
                     })}
