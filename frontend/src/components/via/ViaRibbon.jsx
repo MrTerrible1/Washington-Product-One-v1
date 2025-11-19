@@ -53,7 +53,7 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
               onClick={handleClickInsights}
               className="ml-1 rounded-full bg-background text-foreground text-xs px-3 py-1 font-medium hover:bg-secondary transition-colors"
             >
-              {isInvestigateOpen ? "Hide insights" : "Open insights"}
+              {isInvestigateOpen ? "Close VIA" : "Ask VIA"}
             </button>
           </div>
         )}
