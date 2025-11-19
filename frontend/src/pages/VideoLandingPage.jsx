@@ -200,7 +200,8 @@ export function VideoLandingPage() {
             </div>
           </div>
         ))}
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
