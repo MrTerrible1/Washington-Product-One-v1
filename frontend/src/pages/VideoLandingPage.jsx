@@ -1,9 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 import { useViaContent } from "../context/ViaContentContext.jsx";
+
+const GENRES = [
+  { id: "video", label: "Video" },
+  { id: "music", label: "Music" },
+  { id: "games", label: "Games" },
+  { id: "books", label: "Books" },
+];
 
 export function VideoLandingPage() {
   const rails = videoData.rails || [];
@@ -11,6 +18,7 @@ export function VideoLandingPage() {
   const { setCurrentContentId } = useViaContent();
   const navigate = useNavigate();
   const firstRailRef = useRef(null);
+  const [activeGenre, setActiveGenre] = useState("video");
 
   useEffect(() => {
     logEvent(EVENT_TYPES.PAGE_VIEW, { source: "video-landing", route: "ondemand" });
