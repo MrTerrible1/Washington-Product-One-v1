@@ -44,42 +44,84 @@ export function VideoLandingPage() {
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
 
   return (
-    <div className="space-y-8">
-      {/* Hero */}
-      <section className="rounded-3xl bg-card border border-border/60 shadow-lg p-6 md:p-8">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-3 max-w-xl">
-            <p className="text-[12px] uppercase tracking-[0.22em] text-muted-foreground">
-              Guest OnDemand
-            </p>
-            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-              OnDemand for Washington
-            </h1>
-            <p className="text-sm md:text-base text-muted-foreground max-w-md">
-              A curated preview of Washington&apos;s OnDemand Stream. Drop into sessions without creating an account.
-            </p>
-            <div className="flex flex-wrap items-center gap-3 mt-1">
-              <button
-                type="button"
-                onClick={handleHeroScroll}
-                className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-sm font-medium hover:bg-primary/90 transition-colors"
-              >
-                Watch Now
-              </button>
-              <button
-                type="button"
-                onClick={handleHeroScroll}
-                className="inline-flex items-center justify-center rounded-full border border-primary/60 text-xs md:text-sm text-primary px-3 py-1 hover:bg-primary/10 transition-colors"
-              >
-                Learn more
-              </button>
-            </div>
+    <div className="grid gap-8 lg:grid-cols-[220px,minmax(0,1fr)]">
+      {/* Left: genre rail */}
+      <aside className="hidden lg:flex flex-col gap-4 border-r border-border/70 pr-4">
+        <div className="space-y-1">
+          <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+            Browse
+          </div>
+          <div className="text-sm text-foreground font-medium">
+            OnDemand genres
           </div>
         </div>
-      </section>
 
-      {/* Rails */}
-      <section className="space-y-8" aria-label="OnDemand video rails">
+        <nav className="flex flex-col gap-1 text-sm">
+          {GENRES.map((genre) => {
+            const isActive = genre.id === activeGenre;
+            return (
+              <button
+                key={genre.id}
+                type="button"
+                className={
+                  isActive
+                    ? "flex items-center justify-between rounded-full px-3 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
+                    : "flex items-center justify-between rounded-full px-3 py-1.5 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
+                }
+                onClick={() => {
+                  setActiveGenre(genre.id);
+                  logEvent(EVENT_TYPES.CTA_CLICK, {
+                    ctaName: "genre_click",
+                    genreId: genre.id,
+                    genreLabel: genre.label,
+                  });
+                }}
+              >
+                <span>{genre.label}</span>
+                {isActive && <span className="text-[11px] opacity-80">●</span>}
+              </button>
+            );
+          })}
+        </nav>
+      </aside>
+
+      {/* Right: hero + rails */}
+      <div className="space-y-8">
+        {/* Hero */}
+        <section className="rounded-3xl bg-card border border-border/60 shadow-lg p-6 md:p-8">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-3 max-w-xl">
+              <p className="text-[12px] uppercase tracking-[0.22em] text-muted-foreground">
+                Guest OnDemand
+              </p>
+              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                OnDemand for Washington
+              </h1>
+              <p className="text-sm md:text-base text-muted-foreground max-w-md">
+                A curated preview of Washington&apos;s OnDemand Stream. Drop into sessions without creating an account.
+              </p>
+              <div className="flex flex-wrap items-center gap-3 mt-1">
+                <button
+                  type="button"
+                  onClick={handleHeroScroll}
+                  className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-sm font-medium hover:bg-primary/90 transition-colors"
+                >
+                  Watch Now
+                </button>
+                <button
+                  type="button"
+                  onClick={handleHeroScroll}
+                  className="inline-flex items-center justify-center rounded-full border border-primary/60 text-xs md:text-sm text-primary px-3 py-1 hover:bg-primary/10 transition-colors"
+                >
+                  Learn more
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Rails */}
+        <section className="space-y-8" aria-label="OnDemand video rails">
         {railsWithItems.map((rail, index) => (
           <div
             key={rail.id}
