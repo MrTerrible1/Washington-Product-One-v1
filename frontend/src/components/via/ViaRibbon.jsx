@@ -13,7 +13,7 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
     setMessages(msgs);
   }, []);
 
-  const currentMessage = messages.length > 0 ? messages[0] : "Calm state preview – VIA will handle search, questions and routing.";
+  const currentMessage = messages.length > 0 ? messages[0] : "Calm preview: VIA will handle search, questions, and routing in the full OS.";
 
   const handleToggleExpand = () => {
     const next = !expanded;
