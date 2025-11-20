@@ -97,14 +97,13 @@ export function LayoutShell({ children }) {
             </nav>
           </div>
 
-          <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
-            <span className="hidden md:inline-flex items-center rounded-full bg-secondary/60 px-3 py-1">
+          <div className="flex items-center gap-3">
+            <span className="hidden md:inline-flex items-center rounded-full bg-secondary/60 px-3 py-1 text-[11px] text-muted-foreground">
               Guest preview
             </span>
             <button
               type="button"
-              disabled
-              className="text-xs md:text-sm px-3 py-1 rounded-full text-muted-foreground/70 cursor-not-allowed"
+              className="rounded-full px-5 py-2 text-sm md:text-base font-semibold bg-secondary text-foreground hover:bg-secondary/90 transition-colors"
               onClick={() => handleComingSoon("Login")}
             >
               Login
