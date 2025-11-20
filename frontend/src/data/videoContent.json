@@ -6,15 +6,16 @@
       "items": [
         {
           "id": "wash-101",
-          "title": "Welcome to Washington OnDemand",
-          "meta": "Product tour \u2022 3 min vertical session",
-          "tagline": "Short intro to how Washington works in guest mode.",
-          "duration": "3:02",
-          "genre": "Product",
-          "format": "Episode",
+          "title": "The Long Night — Washington Original",
+          "meta": "Feature \u2022 2h 8m curated stream",
+          "tagline": "A curated night stream that stitches together the most relevant films, series, and creator sessions for you.",
+          "duration": "2:08",
+          "genre": "Feature",
+          "format": "Film",
           "isSeries": false,
           "season": null,
-          "episodeNumber": null
+          "episodeNumber": null,
+          "thumbnail": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop"
         },
         {
           "id": "wash-102",
