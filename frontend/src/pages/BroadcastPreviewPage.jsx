@@ -450,7 +450,7 @@ export function BroadcastPreviewPage() {
                   </div>
 
                   {/* Program track */}
-                  <div className="flex-1 flex gap-2 bg-secondary/30 rounded-2xl p-1">
+                  <div className="flex-1 flex gap-2 bg-[#191C22] rounded-2xl p-1 border border-border/60">
                     {channel.programs.map((program) => {
                       const badgeClass = TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY;
                       return (
@@ -458,7 +458,7 @@ export function BroadcastPreviewPage() {
                           key={program.id}
                           type="button"
                           style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                          className="group rounded-xl bg-[#262b35] border border-border/60 px-3 py-2 text-left flex flex-col gap-1 hover:bg-[#2f3542] hover:border-primary/70 transition-colors shadow-sm"
+                          className="group relative rounded-xl bg-[#222630] border border-border px-3 py-2 text-left flex flex-col gap-1 shadow-sm hover:shadow-md hover:bg-[#262B36] transition-colors transition-shadow overflow-hidden"
                           onClick={() => handleProgramClick(channel.id, program)}
                         >
                           <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
@@ -474,10 +474,10 @@ export function BroadcastPreviewPage() {
                             {program.status}
                           </p>
                           {program.id === "prog-1" && (
-                            <div className="mt-1 border-t border-border/60 pt-1 text-[10px] text-muted-foreground">
-                              <div className="font-semibold text-foreground">Key billing block</div>
-                              <div>Presented by Aurora Studios</div>
-                              <div>Featuring Creator Network Spotlight</div>
+                            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full mt-2 hidden group-hover:block z-10">
+                              <div className="rounded-xl bg-black/90 text-[11px] text-foreground px-3 py-2 shadow-xl border border-border/80">
+                                Key billing block · Creator, sponsor, and CTA preview appear here on hover.
+                              </div>
                             </div>
                           )}
                         </button>
