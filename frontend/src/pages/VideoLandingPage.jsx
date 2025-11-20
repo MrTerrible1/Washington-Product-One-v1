@@ -140,7 +140,7 @@ export function VideoLandingPage() {
                     })
                   }
                 >
-                  See all
+                  More
                   <span aria-hidden>→</span>
                 </button>
               </div>
