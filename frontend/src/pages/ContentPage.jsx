@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
@@ -9,32 +9,10 @@ export function ContentPage() {
   const navigate = useNavigate();
   const { logEvent } = useWashingtonEvents("content-page");
 
-  const { item, railId, moreLikeThis } = useMemo(() => {
-    const rails = videoData.rails || [];
-    let foundItem = null;
-    let foundRailId = null;
+  const rails = videoData.rails || [];
+  const allVideos = rails.flatMap((r) => r.items || []);
 
-    rails.forEach((rail) => {
-      rail.items?.forEach((video) => {
-        if (!foundItem && String(video.id) === String(id)) {
-          foundItem = video;
-          foundRailId = rail.id;
-        }
-      });
-    });
-
-    const moreFromRail = foundRailId
-      ? rails.find((r) => r.id === foundRailId)?.items || []
-      : rails.flatMap((r) => r.items || []);
-
-    const filteredMore = moreFromRail.filter((video) => String(video.id) !== String(id));
-
-    return {
-      item: foundItem,
-      railId: foundRailId,
-      moreLikeThis: filteredMore,
-    };
-  }, [id]);
+  const video = allVideos.find((v) => String(v.id) === String(id)) || allVideos[0];
 
   useEffect(() => {
     if (id) {
@@ -45,168 +23,220 @@ export function ContentPage() {
     }
   }, [id, logEvent]);
 
-  if (!item) {
+  if (!video) {
     return (
-      <div className="max-w-4xl mx-auto py-10 text-sm text-muted-foreground">
-        <p>Content not found. You may have followed an outdated link.</p>
+      <div className="w-full max-w-6xl mx-auto py-8 px-4 md:px-0">
+        <p className="text-sm text-muted-foreground">Content not found.</p>
       </div>
     );
   }
 
-  const description =
-    item.description ||
-    "Description coming soon. This session is part of the Washington Product One guest preview.";
-
-  const credits = item.credits || {
-    creator: "Example Creator",
-    starring: ["A. Actor", "B. Actor"],
-  };
-
-  const handleMoreClick = (video) => {
+  const handleMoreClick = (targetVideo) => {
     logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "more_like_this_click",
-      railId: railId || "unknown",
-      videoId: video.id,
-      title: video.title,
+      ctaName: "discovery_rail_click",
+      videoId: targetVideo.id,
+      title: targetVideo.title,
     });
-    navigate(`/content/${video.id}`);
+    navigate(`/content/${targetVideo.id}`);
   };
 
   return (
-    <div className="space-y-8">
-      {/* Top session band */}
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
-        {/* Left: player / preview */}
-        <div className="rounded-3xl bg-card border border-border/60 overflow-hidden">
-          <div className="relative pt-[56.25%] bg-muted flex items-center justify-center text-xs text-muted-foreground">
-            <span>Preview unavailable in guest mode</span>
+    <div className="w-full max-w-6xl mx-auto py-8 px-4 md:px-0 space-y-8">
+      {/* Top layout */}
+      <section className="grid gap-8 md:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] items-start">
+        {/* Left: player + primary info */}
+        <div className="space-y-4">
+          <div className="rounded-3xl bg-card border border-border/60 aspect-video flex items-center justify-center text-sm text-muted-foreground">
+            VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
+              {video.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-muted-foreground">
+              {video.duration && <span>{video.duration}</span>}
+              {video.genre && (
+                <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[11px] uppercase tracking-wide">
+                  {video.genre}
+                </span>
+              )}
+              <span>Guest preview · OnDemand</span>
+            </div>
+            {video.tagline && (
+              <p className="text-sm text-muted-foreground max-w-xl">
+                {video.tagline}
+              </p>
+            )}
+          </div>
+
+          {/* Primary actions */}
+          <div className="flex flex-wrap items-center gap-3">
+            <button className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-sm font-medium hover:bg-primary/90 transition-colors">
+              Play (login required)
+            </button>
+            <button className="inline-flex items-center justify-center rounded-full border border-border/70 px-3 py-1.5 text-xs md:text-sm text-muted-foreground hover:border-foreground hover:text-foreground transition-colors">
+              Add to list
+            </button>
+            <button className="inline-flex items-center justify-center rounded-full border border-border/70 px-3 py-1.5 text-xs md:text-sm text-muted-foreground hover:border-foreground hover:text-foreground transition-colors">
+              Share
+            </button>
+            <button className="inline-flex items-center justify-center rounded-full border border-primary/70 px-3 py-1.5 text-xs md:text-sm text-primary hover:bg-primary/10 transition-colors">
+              Login to follow creator
+            </button>
           </div>
         </div>
 
-        {/* Right: session + creator info */}
-        <div className="space-y-3">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-            Product episode
-          </p>
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            {item.title}
-          </h1>
-          <p className="text-sm md:text-base text-muted-foreground">
-            {description}
-          </p>
+        {/* Right: about / credits / sponsor */}
+        <aside className="space-y-4">
+          <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
+            <h2 className="text-sm font-semibold tracking-tight">About this session</h2>
+            <p className="text-sm text-muted-foreground">
+              {video.description || video.meta || "Session description to be provided by the creator."}
+            </p>
+          </div>
 
-          <div className="rounded-2xl bg-secondary/30 border border-border/60 p-3 space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-full bg-primary/70 flex items-center justify-center text-[11px] font-semibold text-primary-foreground">
-                {credits.creator ? credits.creator.substring(0, 2).toUpperCase() : "EC"}
+          <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
+            <h2 className="text-sm font-semibold tracking-tight">Credits & collaborators</h2>
+            <dl className="space-y-1 text-sm text-muted-foreground">
+              <div className="flex justify-between gap-2">
+                <dt>Creator</dt>
+                <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
               </div>
-              <div>
-                <div className="text-sm font-medium">{credits.creator || "Example Creator"}</div>
-                <div className="text-[11px] text-muted-foreground">
-                  {item.genre || "Product walkthroughs"} · {item.format || "Documentaries"}
-                </div>
+              <div className="flex justify-between gap-2">
+                <dt>Brand</dt>
+                <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
               </div>
-            </div>
-            <div className="flex flex-wrap gap-2 text-[11px]">
-              <button className="rounded-full px-3 py-1 bg-card border border-border/60 text-muted-foreground">
-                More from this creator
-              </button>
-              <button className="rounded-full px-3 py-1 bg-card border border-border/60 text-muted-foreground">
-                Collaborate (demo)
-              </button>
+              <div className="flex justify-between gap-2">
+                <dt>Sponsor</dt>
+                <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
+            <h2 className="text-sm font-semibold tracking-tight">Brand spotlight</h2>
+            <div className="rounded-xl bg-muted h-24 flex items-center justify-center text-xs text-muted-foreground">
+              Example sponsor placement
             </div>
           </div>
-        </div>
+        </aside>
       </section>
 
       {/* Discovery rails */}
-      <section className="space-y-8 mt-8">
+      <section className="space-y-8">
         {/* More from this creator */}
         <div className="space-y-3">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="text-lg font-semibold tracking-tight text-foreground">
-              More from this creator
+            <h2 className="text-lg font-semibold tracking-tight">
+              More from {video.creator || "this creator"}
             </h2>
-            <span className="text-[11px] text-muted-foreground">
-              View creator profile
-            </span>
           </div>
-          {/* TODO: reuse the card rail pattern from VideoLandingPage */}
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-              Placeholder card
-            </div>
-            <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-              Placeholder card
-            </div>
-          </div>
-        </div>
-
-        {/* Similar sessions */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="text-lg font-semibold tracking-tight text-foreground">
-              Similar sessions
-            </h2>
-            <span className="text-[11px] text-muted-foreground">
-              VIA: based on what you&apos;re watching
-            </span>
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            {moreLikeThis.length > 0 ? (
-              moreLikeThis.map((video) => (
+          <div className="flex gap-3 overflow-x-auto pb-2 pr-2">
+            {allVideos
+              .filter((v) => v.id !== video.id && v.creator === video.creator)
+              .slice(0, 8)
+              .map((v) => (
                 <button
-                  key={video.id}
+                  key={v.id}
                   type="button"
-                  onClick={() => handleMoreClick(video)}
-                  className="group w-44 md:w-52 shrink-0 text-left"
+                  onClick={() => handleMoreClick(v)}
+                  className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
                 >
-                  <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm group-hover:shadow-md group-hover:-translate-y-0.5 transition-transform transition-shadow duration-150">
-                    <div className="relative pt-[150%] bg-gradient-to-br from-accent to-muted">
-                      <div className="absolute top-2 left-2 text-[11px] px-2 py-0.5 rounded-full bg-foreground text-background">
-                        Vertical
-                      </div>
-                      <div className="absolute bottom-2 right-2 text-[11px] px-2 py-0.5 rounded-full bg-foreground text-background">
-                        {video.duration}
-                      </div>
+                  <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                    <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
+                      {v.thumbnail && (
+                        <div
+                          className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
+                          style={{ backgroundImage: `url(${v.thumbnail})` }}
+                        />
+                      )}
+                      {!v.thumbnail && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
+                      )}
+                      <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
+                      {v.genre && (
+                        <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                          {v.genre}
+                        </span>
+                      )}
+                      {v.duration && (
+                        <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                          {v.duration}
+                        </span>
+                      )}
                     </div>
                     <div className="px-3 py-3 space-y-1">
-                      <h3 className="text-sm font-semibold leading-snug line-clamp-2">{video.title}</h3>
-                      <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
-                        {video.meta}
+                      <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-foreground">
+                        {v.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                        {v.tagline || v.meta}
                       </p>
                     </div>
                   </div>
                 </button>
-              ))
-            ) : (
-              <>
-                <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-                  Placeholder card
-                </div>
-                <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-                  Placeholder card
-                </div>
-              </>
-            )}
+              ))}
           </div>
         </div>
 
-        {/* Collaborators & brands */}
+        {/* More like this */}
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold tracking-tight text-foreground">
-            Collaborators & brands
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <div className="rounded-xl bg-card border border-border/60 px-3 py-2 text-[11px] text-muted-foreground">
-              Example Brand · Sponsorship demo
-            </div>
-            <div className="rounded-xl bg-card border border-border/60 px-3 py-2 text-[11px] text-muted-foreground">
-              Co-creator · Collaboration demo
-            </div>
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="text-lg font-semibold tracking-tight">
+              More like this
+            </h2>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2 pr-2">
+            {allVideos
+              .filter((v) => v.id !== video.id && v.genre === video.genre)
+              .slice(0, 8)
+              .map((v) => (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => handleMoreClick(v)}
+                  className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
+                >
+                  <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                    <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
+                      {v.thumbnail && (
+                        <div
+                          className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
+                          style={{ backgroundImage: `url(${v.thumbnail})` }}
+                        />
+                      )}
+                      {!v.thumbnail && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
+                      )}
+                      <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
+                      {v.genre && (
+                        <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                          {v.genre}
+                        </span>
+                      )}
+                      {v.duration && (
+                        <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                          {v.duration}
+                        </span>
+                      )}
+                    </div>
+                    <div className="px-3 py-3 space-y-1">
+                      <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-foreground">
+                        {v.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                        {v.tagline || v.meta}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              ))}
           </div>
         </div>
       </section>
     </div>
   );
 }
+
+export default ContentPage;
