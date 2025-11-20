@@ -357,13 +357,12 @@ export function BroadcastPreviewPage() {
   };
 
   return (
-    <div className="py-10 space-y-8">
-      {/* A) Page Title + Subtitle + Filters */}
+    <div className="py-6 space-y-6">
+      {/* A) Compact Label + Filters */}
       <section className="space-y-4">
         <div className="space-y-1">
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Broadcast Preview</h1>
-          <p className="text-sm text-muted-foreground">
-            A static look at Washington&apos;s programmed stream.
+          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
+            Broadcast · Programmed stream preview (guest)
           </p>
         </div>
 
