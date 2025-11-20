@@ -209,7 +209,7 @@ export function VideoLandingPage() {
                     msOverflowStyle: 'none',
                   }}
                 >
-                {rail.items.map((video, cardIndex) => {
+                  {rail.items.map((video, cardIndex) => {
                   const isHighlighted = cardIndex === 0 || cardIndex === 1;
                   const thumbnail = video.thumbnail || "";
                   const genre = video.genre || "";
