@@ -450,36 +450,71 @@ export function BroadcastPreviewPage() {
                   </div>
 
                   {/* Program track */}
-                  <div className="flex-1 flex gap-2 bg-[#191C22] rounded-2xl p-1 border border-border/60">
+                  <div className="flex-1 flex gap-2 bg-[#141821] rounded-2xl border border-border/60 px-3 py-2">
                     {channel.programs.map((program) => {
                       const badgeClass = TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY;
+                      
+                      // Special wrapper for prog-1 (The Long Night) with billing tooltip
+                      if (program.id === "prog-1") {
+                        return (
+                          <div
+                            key={program.id}
+                            className="relative group"
+                            style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
+                          >
+                            <button
+                              type="button"
+                              className="w-full rounded-2xl bg-[#1E3A8A] border border-border/70 px-3 py-2 text-left flex flex-col gap-1 text-foreground hover:bg-[#1D4ED8] hover:shadow-md transition"
+                              onClick={() => handleProgramClick(channel.id, program)}
+                            >
+                              <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
+                              <div className="flex items-center gap-2 text-sm text-white/80">
+                                <span className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass} text-[11px]`}>
+                                  {program.type}
+                                </span>
+                                <span>{program.duration}</span>
+                              </div>
+                              <p className="text-sm text-white/70 truncate">
+                                {program.status}
+                              </p>
+                            </button>
+                            
+                            {/* Billing tooltip */}
+                            <div className="pointer-events-none absolute left-0 top-full mt-2 hidden max-w-xs rounded-xl border border-border/70 bg-black/90 px-3 py-2 text-[11px] leading-snug text-foreground shadow-lg group-hover:block z-50">
+                              <div className="font-semibold mb-1">Key billing block</div>
+                              <p>
+                                Starring Example Actor · written & directed by Example Creator ·
+                                produced by Example Producer · director of photography Example DP ·
+                                original music by Example Composer · in partnership with Example Brand.
+                              </p>
+                              <p className="mt-1 opacity-80">
+                                This bubble is where VIA will surface the people and sponsors who
+                                actually move the needle for impressions.
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      }
+                      
+                      // Regular program blocks (blue)
                       return (
                         <button
                           key={program.id}
                           type="button"
                           style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                          className="group relative rounded-xl bg-[#222630] border border-border px-3 py-2 text-left flex flex-col gap-1 shadow-sm hover:shadow-md hover:bg-[#262B36] transition-colors transition-shadow overflow-hidden"
+                          className="rounded-2xl bg-[#1E3A8A] border border-border/70 px-3 py-2 text-left flex flex-col gap-1 text-foreground hover:bg-[#1D4ED8] hover:shadow-md transition"
                           onClick={() => handleProgramClick(channel.id, program)}
                         >
                           <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <span
-                              className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass} text-[11px]`}
-                            >
+                          <div className="flex items-center gap-2 text-sm text-white/80">
+                            <span className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass} text-[11px]`}>
                               {program.type}
                             </span>
                             <span>{program.duration}</span>
                           </div>
-                          <p className="text-sm text-muted-foreground truncate">
+                          <p className="text-sm text-white/70 truncate">
                             {program.status}
                           </p>
-                          {program.id === "prog-1" && (
-                            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full mt-2 hidden group-hover:block z-10">
-                              <div className="rounded-xl bg-black/90 text-[11px] text-foreground px-3 py-2 shadow-xl border border-border/80">
-                                Key billing block · Creator, sponsor, and CTA preview appear here on hover.
-                              </div>
-                            </div>
-                          )}
                         </button>
                       );
                     })}
