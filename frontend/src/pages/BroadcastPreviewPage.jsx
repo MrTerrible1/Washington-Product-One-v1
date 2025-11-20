@@ -463,7 +463,7 @@ export function BroadcastPreviewPage() {
                             style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
                           >
                             <div
-                              className="h-24 flex flex-col justify-center bg-[#2357FF] border border-border/60 rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#2d63ff] hover:shadow-md transition cursor-pointer"
+                              className="h-24 flex flex-col justify-center bg-[#1E5BFF] border border-border/60 rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#225FFF] hover:shadow-md transition cursor-pointer"
                               onClick={() => handleProgramClick(channel.id, program)}
                             >
                               <div className="font-semibold leading-tight line-clamp-2 mb-0.5">{program.title}</div>
