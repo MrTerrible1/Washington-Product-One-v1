@@ -16,7 +16,7 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
   return (
     <>
       {/* Floating VIA Button */}
-      <div className="fixed bottom-6 right-6 z-30">
+      <div className="fixed bottom-6 right-6 z-50">
         <div className="relative">
           {/* Tooltip */}
           {showTooltip && !isInvestigateOpen && (
