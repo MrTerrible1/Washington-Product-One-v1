@@ -150,22 +150,6 @@ export function LayoutShell({ children }) {
                   );
                 })}
           </div>
-
-          {/* Right side chips – only show Silos on OnDemand for now */}
-          {!isBroadcast && (
-            <div className="hidden md:flex items-center gap-2 flex-wrap">
-              {SILO_TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className="rounded-full px-2.5 py-0.5 bg-background/40 border border-border/60 text-[11px] text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
-                  onClick={() => handleComingSoon(tab.label)}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
       </header>
       <main className="flex-1 px-4 pb-20 pt-6 md:px-10 md:pt-8 flex flex-col items-stretch">
