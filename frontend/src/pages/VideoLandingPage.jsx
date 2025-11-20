@@ -93,23 +93,22 @@ export function VideoLandingPage() {
                 Guest OnDemand
               </p>
               <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                OnDemand for Washington
+                {heroVideo?.title || "Featured Content"}
               </h1>
               <p className="text-sm md:text-base text-muted-foreground max-w-md">
-                A curated preview of Washington&apos;s OnDemand Stream. Drop
-                into sessions without creating an account.
+                The most relevant film, series, or live event for your profile. Featured here based on your data-profile.
               </p>
               <div className="flex flex-wrap items-center gap-3 mt-1">
                 <button
                   type="button"
-                  onClick={handleHeroScroll}
+                  onClick={handleHeroClick}
                   className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-sm font-medium hover:bg-primary/90 transition-colors"
                 >
                   Watch Now
                 </button>
                 <button
                   type="button"
-                  onClick={handleHeroScroll}
+                  onClick={handleHeroClick}
                   className="inline-flex items-center justify-center rounded-full border border-primary/60 text-xs md:text-sm text-primary px-3 py-1 hover:bg-primary/10 transition-colors"
                 >
                   Learn more
