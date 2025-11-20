@@ -111,20 +111,27 @@ export function LayoutShell({ children }) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-4 text-[11px] md:text-xs text-muted-foreground mt-1">
-          {/* Left side chips – context aware */}
+        <div className="flex items-center justify-between gap-4 mt-2">
+          {/* Context row – changes based on mode */}
           <div className="flex items-center gap-2 flex-wrap">
             {isBroadcast
-              ? BROADCAST_CATEGORY_TABS.map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    className="rounded-full px-3 py-1 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
-                    onClick={() => handleComingSoon(tab.label)}
-                  >
-                    {tab.label}
-                  </button>
-                ))
+              ? BROADCAST_CATEGORY_TABS.map((tab) => {
+                  const isActive = activeVertical === tab.label;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      className={
+                        isActive
+                          ? "rounded-full px-4 py-1.5 text-xs md:text-sm bg-primary/90 text-primary-foreground font-medium shadow-sm"
+                          : "rounded-full px-4 py-1.5 text-xs md:text-sm border border-border/60 bg-background/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
+                      }
+                      onClick={() => handleComingSoon(tab.label)}
+                    >
+                      {tab.label}
+                    </button>
+                  );
+                })
               : VERTICAL_TABS.map((tab) => {
                   const isActive = activeVertical === tab.label;
                   return (
@@ -133,8 +140,8 @@ export function LayoutShell({ children }) {
                       type="button"
                       className={
                         isActive
-                          ? "rounded-full px-3 py-1 text-xs md:text-sm bg-primary text-primary-foreground font-medium shadow-sm"
-                          : "rounded-full px-3 py-1 text-xs md:text-sm text-muted-foreground hover:bg-secondary/70 transition-colors"
+                          ? "rounded-full px-4 py-1.5 text-xs md:text-sm bg-primary/90 text-primary-foreground font-medium shadow-sm"
+                          : "rounded-full px-4 py-1.5 text-xs md:text-sm border border-border/60 bg-background/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
                       }
                       onClick={() => handleComingSoon(tab.label)}
                     >
