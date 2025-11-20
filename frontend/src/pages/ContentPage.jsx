@@ -63,11 +63,9 @@ export function ContentPage() {
               )}
               <span>Guest preview · OnDemand</span>
             </div>
-            {video.tagline && (
-              <p className="text-sm text-muted-foreground max-w-xl">
-                {video.tagline}
-              </p>
-            )}
+            <p className="text-sm text-muted-foreground max-w-xl">
+              {video.tagline || video.description || "Overview not provided by creator yet. This title is part of the Washington guest library."}
+            </p>
           </div>
 
           {/* Primary actions */}
