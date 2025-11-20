@@ -366,7 +366,7 @@ export function BroadcastPreviewPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-sm md:text-base">
+        <div className="flex flex-wrap gap-2">
           {BROADCAST_FILTERS.map((filter) => (
             <button
               key={filter}
@@ -374,8 +374,8 @@ export function BroadcastPreviewPage() {
               onClick={() => setActiveFilter(filter)}
               className={
                 activeFilter === filter
-                  ? "rounded-full px-3 py-1 bg-primary text-primary-foreground font-medium"
-                  : "rounded-full px-3 py-1 bg-secondary/40 text-muted-foreground hover:bg-secondary/70 transition-colors"
+                  ? "rounded-full px-3 py-1 text-[11px] md:text-xs bg-primary text-primary-foreground font-medium shadow-sm"
+                  : "rounded-full px-3 py-1 text-[11px] md:text-xs bg-secondary/70 text-muted-foreground hover:bg-secondary/90 transition-colors"
               }
             >
               {filter}
