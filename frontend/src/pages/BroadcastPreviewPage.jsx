@@ -236,7 +236,7 @@ export function BroadcastPreviewPage() {
                           key={program.id}
                           type="button"
                           style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                          className="group rounded-xl bg-[#20232b] border border-border/70 px-3 py-2 text-left flex flex-col gap-1 hover:bg-[#262b35] hover:border-primary/70 transition-colors shadow-sm"
+                          className="group rounded-xl bg-[#262b35] border border-border/60 px-3 py-2 text-left flex flex-col gap-1 hover:bg-[#2f3542] hover:border-primary/70 transition-colors shadow-sm"
                           onClick={() => handleProgramClick(channel.id, program)}
                         >
                           <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
