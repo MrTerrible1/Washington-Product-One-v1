@@ -14,6 +14,10 @@ export function VideoLandingPage() {
   const navigate = useNavigate();
   const firstRailRef = useRef(null);
 
+  // Derive hero video from featured rail
+  const featuredRail = rails.find((r) => r.id === "featured") || rails[0];
+  const heroVideo = featuredRail?.items?.[0] || null;
+
   useEffect(() => {
     logEvent(EVENT_TYPES.PAGE_VIEW, {
       source: "video-landing",
@@ -32,13 +36,14 @@ export function VideoLandingPage() {
     navigate(`/content/${video.id}`);
   };
 
-  const handleHeroScroll = () => {
-    if (firstRailRef.current) {
-      firstRailRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
+  const handleHeroClick = () => {
+    if (!heroVideo) return;
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "hero_video_click",
+      videoId: heroVideo.id,
+      title: heroVideo.title,
+    });
+    navigate(`/content/${heroVideo.id}`);
   };
 
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
