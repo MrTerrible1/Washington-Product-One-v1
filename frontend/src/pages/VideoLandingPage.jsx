@@ -89,10 +89,10 @@ export function VideoLandingPage() {
   const activeGenre = "Video";
 
   return (
-    <div className="grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]">
-      {/* LEFT VERTICAL TABS */}
-      <aside className="hidden md:flex flex-col gap-2 pt-2">
-        <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1">
+    <div className="grid gap-8 md:grid-cols-[140px_minmax(0,1fr)]">
+      {/* LEFT VERTICAL TABS - Compressed */}
+      <aside className="hidden md:flex flex-col gap-1.5 pt-2">
+        <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
           Browse
         </p>
         {GENRES.map((label) => {
@@ -103,11 +103,10 @@ export function VideoLandingPage() {
               type="button"
               className={
                 isActive
-                  ? "inline-flex items-center rounded-full w-full justify-start px-4 py-2 text-sm bg-primary text-primary-foreground font-medium"
-                  : "inline-flex items-center rounded-full w-full justify-start px-4 py-2 text-sm bg-transparent border border-border/60 text-muted-foreground hover:bg-secondary/70"
+                  ? "h-9 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-medium transition-colors"
+                  : "h-9 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 text-sm transition-colors"
               }
               onClick={() => {
-                // For now: just log; no filtering in guest mode
                 logEvent(EVENT_TYPES.CTA_CLICK, {
                   ctaName: "genre_click",
                   genre: label,
@@ -122,33 +121,50 @@ export function VideoLandingPage() {
 
       {/* MAIN CONTENT: HERO + RAILS */}
       <div className="space-y-8">
-        {/* Hero */}
-        <section className="rounded-3xl bg-card border border-border/60 shadow-lg p-6 md:p-8">
+        {/* Hero - Premier Window */}
+        <section 
+          className="rounded-3xl bg-card border border-border/60 shadow-lg p-6 md:p-8 cursor-pointer hover:shadow-xl transition-shadow"
+          role="button"
+          tabIndex={0}
+          onClick={handleHeroWatchNow}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleHeroWatchNow();
+            }
+          }}
+        >
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="space-y-3 max-w-xl">
               <p className="text-[12px] uppercase tracking-[0.22em] text-muted-foreground">
-                Guest OnDemand
+                Premier Window
               </p>
               <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
                 {heroVideo?.title || "Featured Content"}
               </h1>
-              <p className="text-sm md:text-base text-muted-foreground max-w-md">
-                The most relevant film, series, or live event for your profile. Featured here based on your data-profile.
+              <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed">
+                Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here.
               </p>
               <div className="flex flex-wrap items-center gap-3 mt-1">
                 <button
                   type="button"
-                  onClick={handleHeroClick}
-                  className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-sm font-medium hover:bg-primary/90 transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleHeroWatchNow();
+                  }}
+                  className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-5 py-2 text-sm font-medium hover:bg-primary/90 transition-colors"
                 >
                   Watch Now
                 </button>
                 <button
                   type="button"
-                  onClick={handleHeroClick}
-                  className="inline-flex items-center justify-center rounded-full border border-primary/60 text-xs md:text-sm text-primary px-3 py-1 hover:bg-primary/10 transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleHeroMoreInfo();
+                  }}
+                  className="inline-flex items-center justify-center rounded-full border border-primary/60 text-xs md:text-sm text-primary px-4 py-1.5 hover:bg-primary/10 transition-colors"
                 >
-                  Learn more
+                  More info
                 </button>
               </div>
             </div>
