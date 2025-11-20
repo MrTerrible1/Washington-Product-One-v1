@@ -173,33 +173,42 @@ export function VideoLandingPage() {
 
         {/* Rails */}
         <section className="space-y-8" aria-label="OnDemand video rails">
-          {railsWithItems.map((rail, index) => (
-            <div
-              key={rail.id}
-              className="space-y-3"
-              ref={index === 0 ? firstRailRef : undefined}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                  {rail.title}
-                </h2>
-                <button
-                  type="button"
-                  className="text-[11px] md:text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
-                  onClick={() =>
-                    logEvent(EVENT_TYPES.CTA_CLICK, {
-                      ctaName: "rail_see_all",
-                      railId: rail.id,
-                    })
-                  }
-                >
-                  More
-                  <span aria-hidden>→</span>
-                </button>
-              </div>
+          {railsWithItems.map((rail) => {
+            const isScrolledToEnd = railScrollStates[rail.id] || false;
+            return (
+              <div key={rail.id} className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                    {rail.title}
+                  </h2>
+                  <button
+                    type="button"
+                    className="text-[11px] md:text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"
+                    onClick={() => handleRailToggle(rail.id)}
+                  >
+                    {isScrolledToEnd ? (
+                      <>
+                        <span aria-hidden>←</span>
+                        Back
+                      </>
+                    ) : (
+                      <>
+                        More
+                        <span aria-hidden>→</span>
+                      </>
+                    )}
+                  </button>
+                </div>
 
-              {/* Horizontal grid that uses more width */}
-              <div className="grid grid-flow-col auto-cols-[minmax(220px,1fr)] gap-4 overflow-x-auto pb-2">
+                {/* Horizontal grid - 6 cards visible, hidden scrollbar */}
+                <div 
+                  id={`rail-${rail.id}`}
+                  className="grid grid-flow-col auto-cols-[minmax(220px,1fr)] gap-5 overflow-x-auto pb-2 scrollbar-hide"
+                  style={{
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                  }}
+                >
                 {rail.items.map((video, cardIndex) => {
                   const isHighlighted = cardIndex === 0 || cardIndex === 1;
                   const thumbnail = video.thumbnail || "";
