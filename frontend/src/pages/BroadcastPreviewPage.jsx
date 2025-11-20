@@ -477,18 +477,9 @@ export function BroadcastPreviewPage() {
                             
                             {/* Billing tooltip */}
                             <div className="absolute left-2 top-full mt-2 hidden group-hover:block w-80 rounded-xl border border-border bg-black/90 text-xs text-white px-4 py-3 shadow-lg z-20">
-                              <div className="text-[11px] uppercase tracking-wide text-white/70 mb-2">
-                                Key Billing Block
-                              </div>
-                              <div className="space-y-1.5 text-[11px] md:text-xs leading-relaxed">
-                                <p><span className="text-white/80">Written & Directed by:</span> Example Creator</p>
-                                <p><span className="text-white/80">Produced by:</span> Example Producer, Example Co-Producer</p>
-                                <p><span className="text-white/80">Director of Photography:</span> Example DP</p>
-                                <p><span className="text-white/80">Editor:</span> Example Editor</p>
-                                <p><span className="text-white/80">Composer:</span> Example Composer</p>
-                                <p><span className="text-white/80">With music by:</span> Example Artist</p>
-                                <p><span className="text-white/80">Top Sponsor:</span> TBD Sponsor</p>
-                              </div>
+                              <p className="leading-relaxed">
+                                <span className="font-semibold">Key billing block:</span> writer, director, top cast, producers, and primary sponsors appear here.
+                              </p>
                             </div>
                           </div>
                         );
