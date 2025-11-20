@@ -149,7 +149,7 @@ export function LayoutShell({ children }) {
         </div>
       </header>
       <main className="flex-1 px-4 pb-20 pt-6 md:px-10 md:pt-8 flex flex-col items-stretch">
-        <div className="w-full max-w-7xl mx-auto space-y-6">{children}</div>
+        <div className="w-full space-y-8">{children}</div>
       </main>
     </div>
   );
