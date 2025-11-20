@@ -54,8 +54,8 @@ export function VideoLandingPage() {
   return (
     <div className="grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]">
       {/* LEFT VERTICAL TABS */}
-      <aside className="hidden md:flex flex-col gap-1 text-sm text-muted-foreground pt-2">
-        <p className="uppercase tracking-[0.18em] text-[11px] mb-2">
+      <aside className="hidden md:flex flex-col gap-2 pt-2">
+        <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1">
           Browse
         </p>
         {GENRES.map((label) => {
@@ -66,8 +66,8 @@ export function VideoLandingPage() {
               type="button"
               className={
                 isActive
-                  ? "flex items-center justify-between rounded-r-full pl-3 pr-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium"
-                  : "flex items-center justify-between rounded-r-full pl-3 pr-4 py-1.5 text-sm text-muted-foreground hover:bg-secondary/60"
+                  ? "inline-flex items-center rounded-full w-full justify-start px-4 py-2 text-sm bg-primary text-primary-foreground font-medium"
+                  : "inline-flex items-center rounded-full w-full justify-start px-4 py-2 text-sm bg-transparent border border-border/60 text-muted-foreground hover:bg-secondary/70"
               }
               onClick={() => {
                 // For now: just log; no filtering in guest mode
