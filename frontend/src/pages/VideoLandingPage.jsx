@@ -12,7 +12,9 @@ export function VideoLandingPage() {
   const { logEvent } = useWashingtonEvents("video-landing");
   const { setCurrentContentId } = useViaContent();
   const navigate = useNavigate();
-  const firstRailRef = useRef(null);
+  
+  // Track scroll state for each rail
+  const [railScrollStates, setRailScrollStates] = useState({});
 
   // Derive hero video from featured rail
   const featuredRail = rails.find((r) => r.id === "featured") || rails[0];
@@ -36,14 +38,49 @@ export function VideoLandingPage() {
     navigate(`/content/${video.id}`);
   };
 
-  const handleHeroClick = () => {
+  const handleHeroWatchNow = () => {
     if (!heroVideo) return;
     logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "hero_video_click",
+      ctaName: "hero_watch_now_click",
       videoId: heroVideo.id,
       title: heroVideo.title,
     });
     navigate(`/content/${heroVideo.id}`);
+  };
+
+  const handleHeroMoreInfo = () => {
+    if (!heroVideo) return;
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "hero_more_info_click",
+      videoId: heroVideo.id,
+      title: heroVideo.title,
+    });
+    navigate(`/content/${heroVideo.id}`);
+  };
+
+  const handleRailToggle = (railId) => {
+    const container = document.getElementById(`rail-${railId}`);
+    if (!container) return;
+
+    const isAtEnd = railScrollStates[railId];
+
+    if (isAtEnd) {
+      // Scroll back to start
+      container.scrollTo({ left: 0, behavior: "smooth" });
+      logEvent(EVENT_TYPES.CTA_CLICK, {
+        ctaName: "rail_back_click",
+        railId,
+      });
+      setRailScrollStates((prev) => ({ ...prev, [railId]: false }));
+    } else {
+      // Scroll to end
+      container.scrollTo({ left: container.scrollWidth, behavior: "smooth" });
+      logEvent(EVENT_TYPES.CTA_CLICK, {
+        ctaName: "rail_more_click",
+        railId,
+      });
+      setRailScrollStates((prev) => ({ ...prev, [railId]: true }));
+    }
   };
 
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
