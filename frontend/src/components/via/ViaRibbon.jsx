@@ -45,7 +45,7 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
           VIA
         </button>
         {expanded && (
-          <div className="flex items-center gap-3 rounded-full bg-foreground text-background px-4 py-2 shadow-lg">
+          <div className="flex items-center gap-3 rounded-full bg-foreground text-background px-4 py-1.5 shadow-lg">
             <span className="text-xs font-semibold tracking-wide uppercase">VIA v0.1 (mocked)</span>
             <span className="text-xs text-background/80 max-w-xs truncate">{currentMessage}</span>
             <button
