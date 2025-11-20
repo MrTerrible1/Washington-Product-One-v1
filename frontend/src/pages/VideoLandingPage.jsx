@@ -260,10 +260,11 @@ export function VideoLandingPage() {
                       </div>
                     </button>
                   );
-                })}
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </section>
       </div>
     </div>
