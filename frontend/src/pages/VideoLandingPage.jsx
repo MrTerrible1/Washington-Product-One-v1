@@ -128,8 +128,8 @@ export function VideoLandingPage() {
           </p>
           <div className="rounded-3xl bg-card border border-border/60 shadow-lg overflow-hidden">
             {/* 16:9 Key Art Container */}
-            <div 
-              className="relative w-full aspect-video bg-gradient-to-br from-accent/40 to-muted cursor-pointer group"
+            <div
+              className="relative w-full aspect-video cursor-pointer group overflow-hidden"
               role="button"
               tabIndex={0}
               onClick={handleHeroWatchNow}
@@ -140,18 +140,31 @@ export function VideoLandingPage() {
                 }
               }}
             >
-              {/* Gradient overlay for text readability */}
+              {/* Key art from heroVideo.thumbnail if available */}
+              {heroVideo?.thumbnail ? (
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${heroVideo.thumbnail})` }}
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted" />
+              )}
+
+              {/* Dark gradient overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              
-              {/* Content positioned at bottom-left */}
+
+              {/* Bottom-left content block */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 space-y-3">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white drop-shadow-lg">
                   {heroVideo?.title || "Featured Content"}
                 </h1>
                 <p className="text-sm md:text-base text-white/90 max-w-2xl leading-relaxed">
-                  {heroVideo?.tagline || heroVideo?.description || "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
+                  {heroVideo?.tagline ||
+                    heroVideo?.description ||
+                    "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
                 </p>
                 <div className="flex flex-wrap items-center gap-3 mt-4">
+                  {/* Watch Now */}
                   <button
                     type="button"
                     onClick={(e) => {
@@ -162,6 +175,7 @@ export function VideoLandingPage() {
                   >
                     Watch Now
                   </button>
+                  {/* More info */}
                   <button
                     type="button"
                     onClick={(e) => {
