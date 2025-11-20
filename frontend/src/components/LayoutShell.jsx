@@ -46,6 +46,13 @@ export function LayoutShell({ children }) {
     pathname.startsWith("/broadcast") ||
     pathname.startsWith("/broadcast-preview");
 
+  // Determine active vertical (Video for all guest routes in this demo)
+  const activeVertical = (() => {
+    if (pathname.startsWith("/broadcast")) return "Video";
+    if (pathname === "/" || pathname.startsWith("/content")) return "Video";
+    return null;
+  })();
+
   const handleComingSoon = (label) => {
     toast({
       title: label,
