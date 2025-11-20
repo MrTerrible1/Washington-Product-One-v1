@@ -463,11 +463,11 @@ export function BroadcastPreviewPage() {
                             style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
                           >
                             <div
-                              className="h-16 md:h-20 flex flex-col justify-center bg-[#2151c5] border border-border rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#2a5fe0] hover:shadow-md transition cursor-pointer"
+                              className="h-24 flex flex-col justify-center bg-[#2357FF] border border-border/60 rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#2d63ff] hover:shadow-md transition cursor-pointer"
                               onClick={() => handleProgramClick(channel.id, program)}
                             >
                               <div className="font-semibold leading-tight line-clamp-2 mb-0.5">{program.title}</div>
-                              <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/70">
+                              <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/80">
                                 <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 font-semibold ${badgeClass} text-[9px] md:text-[10px]`}>
                                   {program.type}
                                 </span>
@@ -476,16 +476,19 @@ export function BroadcastPreviewPage() {
                             </div>
                             
                             {/* Billing tooltip */}
-                            <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 hidden group-hover:block w-72 md:w-80 rounded-xl border border-border bg-black/95 px-4 py-3 text-xs md:text-sm text-muted-foreground shadow-xl z-20">
-                              <div className="text-[11px] uppercase tracking-wide text-muted-foreground/80 mb-1">
-                                Billing block (demo)
+                            <div className="absolute left-2 top-full mt-2 hidden group-hover:block w-80 rounded-xl border border-border bg-black/90 text-xs text-white px-4 py-3 shadow-lg z-20">
+                              <div className="text-[11px] uppercase tracking-wide text-white/70 mb-2">
+                                Key Billing Block
                               </div>
-                              <p className="text-foreground mb-1">
-                                Written & directed by Jane Doe · Produced by John Smith · Starring Alex Example & Casey Sample.
-                              </p>
-                              <p>
-                                With music by River Stone · Presented by Example Brand as lead sponsor.
-                              </p>
+                              <div className="space-y-1.5 text-[11px] md:text-xs leading-relaxed">
+                                <p><span className="text-white/80">Written & Directed by:</span> Example Creator</p>
+                                <p><span className="text-white/80">Produced by:</span> Example Producer, Example Co-Producer</p>
+                                <p><span className="text-white/80">Director of Photography:</span> Example DP</p>
+                                <p><span className="text-white/80">Editor:</span> Example Editor</p>
+                                <p><span className="text-white/80">Composer:</span> Example Composer</p>
+                                <p><span className="text-white/80">With music by:</span> Example Artist</p>
+                                <p><span className="text-white/80">Top Sponsor:</span> TBD Sponsor</p>
+                              </div>
                             </div>
                           </div>
                         );
@@ -496,11 +499,11 @@ export function BroadcastPreviewPage() {
                         <div
                           key={program.id}
                           style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                          className="h-16 md:h-20 flex flex-col justify-center bg-[#2151c5] border border-border rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#2a5fe0] hover:shadow-md transition cursor-pointer"
+                          className="h-24 flex flex-col justify-center bg-[#2357FF] border border-border/60 rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#2d63ff] hover:shadow-md transition cursor-pointer"
                           onClick={() => handleProgramClick(channel.id, program)}
                         >
                           <div className="font-semibold leading-tight line-clamp-2 mb-0.5">{program.title}</div>
-                          <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/70">
+                          <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/80">
                             <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 font-semibold ${badgeClass} text-[9px] md:text-[10px]`}>
                               {program.type}
                             </span>
