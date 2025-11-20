@@ -111,46 +111,28 @@ export function LayoutShell({ children }) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-4 mt-2">
-          {/* Context row – changes based on mode */}
-          <div className="flex items-center gap-2 flex-wrap">
-            {isBroadcast
-              ? BROADCAST_CATEGORY_TABS.map((tab) => {
-                  const isActive = activeVertical === tab.label;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      className={
-                        isActive
-                          ? "rounded-full px-4 py-1.5 text-xs md:text-sm bg-primary/90 text-primary-foreground font-medium shadow-sm"
-                          : "rounded-full px-4 py-1.5 text-xs md:text-sm border border-border/60 bg-background/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
-                      }
-                      onClick={() => handleComingSoon(tab.label)}
-                    >
-                      {tab.label}
-                    </button>
-                  );
-                })
-              : VERTICAL_TABS.map((tab) => {
-                  const isActive = activeVertical === tab.label;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      className={
-                        isActive
-                          ? "rounded-full px-4 py-1.5 text-xs md:text-sm bg-primary/90 text-primary-foreground font-medium shadow-sm"
-                          : "rounded-full px-4 py-1.5 text-xs md:text-sm border border-border/60 bg-background/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
-                      }
-                      onClick={() => handleComingSoon(tab.label)}
-                    >
-                      {tab.label}
-                    </button>
-                  );
-                })}
+        {/* Secondary nav – OnDemand only */}
+        {isOnDemand && (
+          <div className="flex items-center gap-2 flex-wrap mt-2">
+            {VERTICAL_TABS.map((tab) => {
+              const isActive = activeVertical === tab.label;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  className={
+                    isActive
+                      ? "rounded-full px-4 py-1.5 text-xs md:text-sm bg-primary/90 text-primary-foreground font-medium shadow-sm"
+                      : "rounded-full px-4 py-1.5 text-xs md:text-sm border border-border/60 bg-background/60 text-muted-foreground hover:bg-secondary/60 transition-colors"
+                  }
+                  onClick={() => handleComingSoon(tab.label)}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
-        </div>
+        )}
       </header>
       <main className="flex-1 px-4 pb-20 pt-6 md:px-10 md:pt-8 flex flex-col items-stretch">
         <div className="w-full space-y-8">{children}</div>
