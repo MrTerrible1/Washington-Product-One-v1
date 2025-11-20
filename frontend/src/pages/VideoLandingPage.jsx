@@ -103,8 +103,8 @@ export function VideoLandingPage() {
               type="button"
               className={
                 isActive
-                  ? "h-9 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-medium transition-colors"
-                  : "h-9 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 text-sm transition-colors"
+                  ? "h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm transition-all"
+                  : "h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium transition-all"
               }
               onClick={() => {
                 logEvent(EVENT_TYPES.CTA_CLICK, {
