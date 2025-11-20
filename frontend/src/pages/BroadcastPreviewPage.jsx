@@ -164,7 +164,7 @@ export function BroadcastPreviewPage() {
 
       {/* B) Full-width hero sponsor band */}
       <section className="rounded-3xl bg-card border border-border/60 overflow-hidden">
-        <div className="flex flex-col md:flex-row gap-6 p-6 md:p-8">
+        <div className="flex flex-col md:flex-row gap-4 p-5 md:p-6">
           {/* Left: feature presentation */}
           <div className="flex-1 space-y-3">
             <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
