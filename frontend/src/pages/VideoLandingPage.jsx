@@ -65,7 +65,7 @@ export function VideoLandingPage() {
                 type="button"
                 className={
                   isActive
-                    ? "flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold text-foreground border-l-4 border-primary bg-background/40"
+                    ? "flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold text-foreground border-l-4 border-primary bg-background/30"
                     : "flex items-center justify-between px-2.5 py-1.5 text-xs text-muted-foreground border-l-2 border-transparent hover:border-primary/60 hover:text-foreground"
                 }
                 onClick={() => {
