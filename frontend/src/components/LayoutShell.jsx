@@ -114,8 +114,8 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isActive
-                    ? "inline-flex items-center px-4 py-1.5 rounded-full bg-primary text-primary-foreground shadow-sm text-xs md:text-sm font-medium transition-colors"
-                    : "inline-flex items-center px-4 py-1.5 rounded-full bg-muted text-muted-foreground hover:bg-secondary/70 text-xs md:text-sm transition-colors"
+                    ? "inline-flex items-center px-4 py-2 rounded-full bg-primary text-primary-foreground shadow-sm text-sm font-medium transition-all"
+                    : "inline-flex items-center px-4 py-2 rounded-full bg-muted text-muted-foreground hover:bg-secondary/70 hover:text-foreground text-sm font-medium transition-all"
                 }
                 onClick={() => handleComingSoon(tab.label)}
               >
