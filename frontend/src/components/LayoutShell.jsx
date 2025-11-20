@@ -3,22 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const COMING_SOON_MESSAGE = "This area is coming soon.";
 
-// Top-level navigation tabs for the Washington shell.
-// Verticals: Video, Music, Games, Books
-// Silos: Crowdfunding, Store, Social
-const VERTICAL_TABS = [
+// OnDemand category tabs
+const ONDEMAND_CATEGORY_TABS = [
   { id: "video", label: "Video" },
   { id: "music", label: "Music" },
   { id: "games", label: "Games" },
   { id: "books", label: "Books" },
 ];
 
-const SILO_TABS = [
-  { id: "crowdfunding", label: "Crowdfunding" },
-  { id: "store", label: "Store" },
-  { id: "social", label: "Social" },
-];
-
+// Broadcast category tabs
 const BROADCAST_CATEGORY_TABS = [
   { id: "video", label: "Video" },
   { id: "radio", label: "Radio" },
