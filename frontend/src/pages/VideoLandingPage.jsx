@@ -121,51 +121,58 @@ export function VideoLandingPage() {
 
       {/* MAIN CONTENT: HERO + RAILS */}
       <div className="space-y-8">
-        {/* Hero - Premier Window */}
-        <section 
-          className="rounded-3xl bg-card border border-border/60 shadow-lg p-6 md:p-8 cursor-pointer hover:shadow-xl transition-shadow"
-          role="button"
-          tabIndex={0}
-          onClick={handleHeroWatchNow}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              handleHeroWatchNow();
-            }
-          }}
-        >
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="space-y-3 max-w-xl">
-              <p className="text-[12px] uppercase tracking-[0.22em] text-muted-foreground">
-                Premier Window
-              </p>
-              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                {heroVideo?.title || "Featured Content"}
-              </h1>
-              <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed">
-                Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here.
-              </p>
-              <div className="flex flex-wrap items-center gap-3 mt-1">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleHeroWatchNow();
-                  }}
-                  className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-5 py-2 text-sm font-medium hover:bg-primary/90 transition-colors"
-                >
-                  Watch Now
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleHeroMoreInfo();
-                  }}
-                  className="inline-flex items-center justify-center rounded-full border border-primary/60 text-xs md:text-sm text-primary px-4 py-1.5 hover:bg-primary/10 transition-colors"
-                >
-                  More info
-                </button>
+        {/* Hero - Premier Window (16:9 Key Art) */}
+        <section className="space-y-3">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+            Premier Window
+          </p>
+          <div className="rounded-3xl bg-card border border-border/60 shadow-lg overflow-hidden">
+            {/* 16:9 Key Art Container */}
+            <div 
+              className="relative w-full aspect-video bg-gradient-to-br from-accent/40 to-muted cursor-pointer group"
+              role="button"
+              tabIndex={0}
+              onClick={handleHeroWatchNow}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleHeroWatchNow();
+                }
+              }}
+            >
+              {/* Gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              
+              {/* Content positioned at bottom-left */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 space-y-3">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white drop-shadow-lg">
+                  {heroVideo?.title || "Featured Content"}
+                </h1>
+                <p className="text-sm md:text-base text-white/90 max-w-2xl leading-relaxed">
+                  {heroVideo?.tagline || heroVideo?.description || "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
+                </p>
+                <div className="flex flex-wrap items-center gap-3 mt-4">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleHeroWatchNow();
+                    }}
+                    className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold hover:bg-primary/90 transition-colors shadow-lg"
+                  >
+                    Watch Now
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleHeroMoreInfo();
+                    }}
+                    className="inline-flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm border border-white/40 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/30 transition-colors"
+                  >
+                    More info
+                  </button>
+                </div>
               </div>
             </div>
           </div>
