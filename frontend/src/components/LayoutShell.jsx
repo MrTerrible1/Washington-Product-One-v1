@@ -69,26 +69,26 @@ export function LayoutShell({ children }) {
               WASHINGTON
             </span>
 
-            <nav className="flex items-center gap-2 text-xs md:text-sm">
-              {/* OnDemand tab */}
+            <nav className="flex items-center gap-3">
+              {/* OnDemand tab - LARGE */}
               <button
                 type="button"
                 className={
                   isOnDemand
-                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
-                    : "rounded-full px-4 py-1.5 text-muted-foreground hover:bg-secondary transition-colors"
+                    ? "rounded-full px-5 py-2 text-sm md:text-base font-semibold bg-primary text-primary-foreground shadow-sm"
+                    : "rounded-full px-5 py-2 text-sm md:text-base font-semibold border border-border/60 bg-background text-muted-foreground hover:bg-secondary/70 hover:text-foreground transition-colors"
                 }
                 onClick={() => navigate("/")}
               >
                 OnDemand
               </button>
-              {/* Broadcast tab */}
+              {/* Broadcast tab - LARGE */}
               <button
                 type="button"
                 className={
                   isBroadcast
-                    ? "rounded-full px-4 py-1.5 bg-primary text-primary-foreground font-semibold shadow-sm"
-                    : "rounded-full px-4 py-1.5 text-muted-foreground hover:bg-secondary transition-colors"
+                    ? "rounded-full px-5 py-2 text-sm md:text-base font-semibold bg-primary text-primary-foreground shadow-sm"
+                    : "rounded-full px-5 py-2 text-sm md:text-base font-semibold border border-border/60 bg-background text-muted-foreground hover:bg-secondary/70 hover:text-foreground transition-colors"
                 }
                 onClick={() => navigate("/broadcast-preview")}
               >
