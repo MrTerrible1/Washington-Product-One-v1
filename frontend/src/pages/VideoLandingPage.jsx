@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
