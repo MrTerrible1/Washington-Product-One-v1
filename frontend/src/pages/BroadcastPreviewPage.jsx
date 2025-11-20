@@ -450,7 +450,7 @@ export function BroadcastPreviewPage() {
                   </div>
 
                   {/* Program track */}
-                  <div className="flex-1 flex gap-2 bg-[#141821] rounded-2xl border border-border/60 px-3 py-2">
+                  <div className="flex items-stretch gap-2 bg-[#11141b] rounded-2xl px-2 py-2">
                     {channel.programs.map((program) => {
                       const badgeClass = TYPE_BADGE_CLASS[program.type] || TYPE_BADGE_CLASS.REPLAY;
                       
@@ -462,60 +462,51 @@ export function BroadcastPreviewPage() {
                             className="relative group"
                             style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
                           >
-                            <button
-                              type="button"
-                              className="w-full rounded-2xl bg-[#1E3A8A] border border-border/70 px-3 py-2 text-left flex flex-col gap-1 text-foreground hover:bg-[#1D4ED8] hover:shadow-md transition"
+                            <div
+                              className="h-16 md:h-20 flex flex-col justify-center bg-[#2151c5] border border-border rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#2a5fe0] hover:shadow-md transition cursor-pointer"
                               onClick={() => handleProgramClick(channel.id, program)}
                             >
-                              <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
-                              <div className="flex items-center gap-2 text-sm text-white/80">
-                                <span className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass} text-[11px]`}>
+                              <div className="font-semibold leading-tight line-clamp-2 mb-0.5">{program.title}</div>
+                              <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/70">
+                                <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 font-semibold ${badgeClass} text-[9px] md:text-[10px]`}>
                                   {program.type}
                                 </span>
                                 <span>{program.duration}</span>
                               </div>
-                              <p className="text-sm text-white/70 truncate">
-                                {program.status}
-                              </p>
-                            </button>
+                            </div>
                             
                             {/* Billing tooltip */}
-                            <div className="pointer-events-none absolute left-0 top-full mt-2 hidden max-w-xs rounded-xl border border-border/70 bg-black/90 px-3 py-2 text-[11px] leading-snug text-foreground shadow-lg group-hover:block z-50">
-                              <div className="font-semibold mb-1">Key billing block</div>
-                              <p>
-                                Starring Example Actor · written & directed by Example Creator ·
-                                produced by Example Producer · director of photography Example DP ·
-                                original music by Example Composer · in partnership with Example Brand.
+                            <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 hidden group-hover:block w-72 md:w-80 rounded-xl border border-border bg-black/95 px-4 py-3 text-xs md:text-sm text-muted-foreground shadow-xl z-20">
+                              <div className="text-[11px] uppercase tracking-wide text-muted-foreground/80 mb-1">
+                                Billing block (demo)
+                              </div>
+                              <p className="text-foreground mb-1">
+                                Written & directed by Jane Doe · Produced by John Smith · Starring Alex Example & Casey Sample.
                               </p>
-                              <p className="mt-1 opacity-80">
-                                This bubble is where VIA will surface the people and sponsors who
-                                actually move the needle for impressions.
+                              <p>
+                                With music by River Stone · Presented by Example Brand as lead sponsor.
                               </p>
                             </div>
                           </div>
                         );
                       }
                       
-                      // Regular program blocks (blue)
+                      // Regular program blocks (blue) - UNIFORM
                       return (
-                        <button
+                        <div
                           key={program.id}
-                          type="button"
                           style={{ flexBasis: program.flex, flexGrow: 0, flexShrink: 0 }}
-                          className="rounded-2xl bg-[#1E3A8A] border border-border/70 px-3 py-2 text-left flex flex-col gap-1 text-foreground hover:bg-[#1D4ED8] hover:shadow-md transition"
+                          className="h-16 md:h-20 flex flex-col justify-center bg-[#2151c5] border border-border rounded-2xl px-4 text-xs md:text-sm text-white overflow-hidden hover:bg-[#2a5fe0] hover:shadow-md transition cursor-pointer"
                           onClick={() => handleProgramClick(channel.id, program)}
                         >
-                          <span className="text-base md:text-lg font-semibold truncate">{program.title}</span>
-                          <div className="flex items-center gap-2 text-sm text-white/80">
-                            <span className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold ${badgeClass} text-[11px]`}>
+                          <div className="font-semibold leading-tight line-clamp-2 mb-0.5">{program.title}</div>
+                          <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/70">
+                            <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 font-semibold ${badgeClass} text-[9px] md:text-[10px]`}>
                               {program.type}
                             </span>
                             <span>{program.duration}</span>
                           </div>
-                          <p className="text-sm text-white/70 truncate">
-                            {program.status}
-                          </p>
-                        </button>
+                        </div>
                       );
                     })}
                   </div>
