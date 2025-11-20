@@ -126,16 +126,23 @@ export function LayoutShell({ children }) {
                     {tab.label}
                   </button>
                 ))
-              : VERTICAL_TABS.map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    className="rounded-full px-3 py-1 bg-background/40 border border-border/60 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
-                    onClick={() => handleComingSoon(tab.label)}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
+              : VERTICAL_TABS.map((tab) => {
+                  const isActive = activeVertical === tab.label;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      className={
+                        isActive
+                          ? "rounded-full px-3 py-1 text-xs md:text-sm bg-primary text-primary-foreground font-medium shadow-sm"
+                          : "rounded-full px-3 py-1 text-xs md:text-sm text-muted-foreground hover:bg-secondary/70 transition-colors"
+                      }
+                      onClick={() => handleComingSoon(tab.label)}
+                    >
+                      {tab.label}
+                    </button>
+                  );
+                })}
           </div>
 
           {/* Right side chips – only show Silos on OnDemand for now */}
