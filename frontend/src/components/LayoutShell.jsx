@@ -96,7 +96,7 @@ export function LayoutShell({ children }) {
             </span>
             <button
               type="button"
-              className="rounded-full px-5 py-2 text-sm md:text-base font-medium bg-transparent text-muted-foreground hover:bg-secondary/60 transition-colors"
+              className="rounded-full px-5 py-2.5 text-sm md:text-base font-medium bg-transparent text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-all"
               onClick={() => handleComingSoon("Login")}
             >
               Login
