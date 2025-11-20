@@ -252,12 +252,10 @@ export function BroadcastPreviewPage() {
                             {program.status}
                           </p>
                           {program.id === "prog-1" && (
-                            <div className="mt-1 hidden group-hover:flex flex-col gap-0.5 text-[10px] text-muted-foreground border-t border-border/60 pt-1">
-                              <div className="font-semibold text-foreground">
-                                Key billing block
-                              </div>
-                              <div>Presented by: Aurora Studios</div>
-                              <div>Featuring: Creator Network Spotlight</div>
+                            <div className="mt-1 border-t border-border/60 pt-1 text-[10px] text-muted-foreground">
+                              <div className="font-semibold text-foreground">Key billing block</div>
+                              <div>Presented by Aurora Studios</div>
+                              <div>Featuring Creator Network Spotlight</div>
                             </div>
                           )}
                         </button>
