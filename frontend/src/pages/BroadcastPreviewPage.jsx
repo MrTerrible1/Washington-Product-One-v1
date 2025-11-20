@@ -199,11 +199,11 @@ export function BroadcastPreviewPage() {
       {/* C) Main row: guide + skyscraper */}
       <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_260px] items-start">
         {/* Guide on left */}
-        <div className="space-y-4">
+        <div className="space-y-4 rounded-3xl bg-secondary/30 p-3 md:p-4">
           {/* Time ruler */}
           <div className="flex items-center gap-6 text-xs md:text-sm text-muted-foreground pl-[160px]">
             {TIMES.map((time) => (
-              <div key={time} className="flex-1 text-center border-t border-border/60 pt-1">
+              <div key={time} className="flex-1 text-center border-t border-border/60 pt-1 text-[11px] text-muted-foreground">
                 {time}
               </div>
             ))}
