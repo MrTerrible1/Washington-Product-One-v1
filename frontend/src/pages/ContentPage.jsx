@@ -198,6 +198,73 @@ export function ContentPage() {
             </div>
           </div>
 
+          {/* Profile Tabs */}
+          <div className="mt-4 flex flex-wrap gap-2 border-b border-border/60">
+            {PROFILE_TABS.map((tab) => {
+              const isActive = tab.id === activeTab;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={
+                    isActive
+                      ? "px-4 py-2 text-sm md:text-base rounded-t-xl border-b-2 border-primary text-foreground font-semibold"
+                      : "px-4 py-2 text-sm md:text-base rounded-t-xl border-b-2 border-transparent text-muted-foreground hover:text-foreground hover:border-border/80"
+                  }
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Tab Content */}
+          <div className="pt-4 space-y-4">
+            {activeTab === "promo" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Promo clips and trailers will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "stills" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Still images and screenshots will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "bts" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Behind-the-scenes content and production notes will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "info" && (
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground mb-2">About this session</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {video.description || video.meta || "Session description to be provided by the creator."}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground mb-2">Credits & collaborators</h3>
+                  <dl className="space-y-1 text-sm text-muted-foreground">
+                    <div className="flex justify-between gap-2">
+                      <dt>Creator</dt>
+                      <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
+                    </div>
+                    <div className="flex justify-between gap-2">
+                      <dt>Brand</dt>
+                      <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
+                    </div>
+                    <div className="flex justify-between gap-2">
+                      <dt>Sponsor</dt>
+                      <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Title & Metadata */}
           <div className="space-y-3">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
