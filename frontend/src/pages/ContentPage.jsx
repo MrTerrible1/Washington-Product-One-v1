@@ -327,8 +327,8 @@ export function ContentPage() {
         <section className="space-y-6">
           {/* More from this creator */}
           <div className="space-y-3">
-            <h2 className="text-xl font-semibold tracking-tight text-foreground">
-              More from {video.creator || "this creator"}
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+              More from this creator
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
             {allVideos
