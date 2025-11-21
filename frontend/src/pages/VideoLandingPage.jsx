@@ -208,10 +208,10 @@ export function VideoLandingPage() {
 
               {/* Bottom-left content block */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 space-y-3">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white drop-shadow-lg">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2">
                   {heroVideo?.title || "Featured Content"}
                 </h1>
-                <p className="text-sm md:text-base text-white/90 max-w-2xl leading-relaxed">
+                <p className="text-sm md:text-base text-white/85 max-w-2xl leading-relaxed">
                   {heroVideo?.tagline ||
                     heroVideo?.description ||
                     "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
