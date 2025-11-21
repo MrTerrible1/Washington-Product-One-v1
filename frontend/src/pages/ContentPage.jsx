@@ -378,10 +378,10 @@ export function ContentPage() {
           </div>
         </div>
 
-          {/* You might also like */}
+          {/* More from this sponsor */}
           <div className="space-y-3">
-            <h2 className="text-xl font-semibold tracking-tight text-foreground">
-              You might also like
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+              More from this sponsor
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
             {allVideos
