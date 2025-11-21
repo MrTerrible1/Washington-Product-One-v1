@@ -129,30 +129,26 @@ export function ContentPage() {
 
   return (
     <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(0,1fr)]">
-      {/* LEFT SIDEBAR - Browse Controls */}
+      {/* LEFT SIDEBAR - Premier Controls */}
       <aside className="hidden md:flex flex-col gap-1.5 pt-2">
-        <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
-          Browse
+        <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-2 px-2">
+          Premier controls
         </p>
-        {GENRES.map((label) => {
-          const isActive = label === activeGenre;
+        {PREMIER_CONTROLS.map((control, idx) => {
+          // Jump to genre control should be primary/active
+          const isActive = control.id === "jump_genre";
           return (
             <button
-              key={label}
+              key={control.id}
               type="button"
               className={
                 isActive
-                  ? "h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm transition-all"
-                  : "h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium transition-all"
+                  ? "h-9 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm"
+                  : "h-9 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium"
               }
-              onClick={() => {
-                logEvent(EVENT_TYPES.CTA_CLICK, {
-                  ctaName: "content_genre_click",
-                  genre: label,
-                });
-              }}
+              onClick={() => handleControlClick(control)}
             >
-              <span>{label}</span>
+              <span>{control.label}</span>
             </button>
           );
         })}
