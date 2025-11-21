@@ -226,14 +226,12 @@ export function ContentPage() {
           </div>
         </div>
 
-        {/* More like this */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="text-lg font-semibold tracking-tight">
-              More like this
+          {/* You might also like */}
+          <div className="space-y-3">
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">
+              You might also like
             </h2>
-          </div>
-          <div className="flex gap-3 overflow-x-auto pb-2 pr-2">
+            <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
             {allVideos
               .filter((v) => v.id !== video.id && v.genre === video.genre)
               .slice(0, 8)
