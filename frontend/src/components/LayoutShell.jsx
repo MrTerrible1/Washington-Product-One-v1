@@ -133,6 +133,12 @@ export function LayoutShell({ children }) {
       <main className="flex-1 px-4 pb-20 pt-6 md:px-10 md:pt-8 flex flex-col items-stretch">
         <div className="w-full space-y-8">{children}</div>
       </main>
+
+      {/* VIA Floating Button + Panel */}
+      <ViaRibbon
+        isInvestigateOpen={isInvestigateOpen}
+        onToggleInvestigate={() => setIsInvestigateOpen((v) => !v)}
+      />
     </div>
   );
 }
