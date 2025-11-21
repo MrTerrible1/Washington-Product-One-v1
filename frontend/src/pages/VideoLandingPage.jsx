@@ -108,15 +108,12 @@ export function VideoLandingPage() {
 
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
 
-  // For demo, Video is the active genre
-  const activeGenre = "Video";
-
   return (
-    <div className="grid gap-8 md:grid-cols-[140px_minmax(0,1fr)]">
-      {/* LEFT VERTICAL TABS - Compressed */}
+    <div className="grid gap-6 md:grid-cols-[140px_minmax(0,1fr)]">
+      {/* LEFT VERTICAL TABS - Premier Controls */}
       <aside className="hidden md:flex flex-col gap-1.5 pt-2">
         <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
-          Browse
+          Premier Controls
         </p>
         {GENRES.map((label) => {
           const isActive = label === activeGenre;
@@ -130,8 +127,9 @@ export function VideoLandingPage() {
                   : "h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium transition-all"
               }
               onClick={() => {
+                setActiveGenre(label);
                 logEvent(EVENT_TYPES.CTA_CLICK, {
-                  ctaName: "genre_click",
+                  ctaName: "hero_mode_click",
                   genre: label,
                 });
               }}
