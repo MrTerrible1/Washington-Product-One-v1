@@ -178,7 +178,7 @@ export function ContentPage() {
             <h2 className="text-xl font-semibold tracking-tight text-foreground">
               More from {video.creator || "this creator"}
             </h2>
-          <div className="flex gap-3 overflow-x-auto pb-2 pr-2">
+            <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
             {allVideos
               .filter((v) => v.id !== video.id && v.creator === video.creator)
               .slice(0, 8)
