@@ -342,6 +342,11 @@ export function VideoLandingPage() {
                               {video.duration}
                             </span>
                           )}
+                          {isFirstRail && (
+                            <span className="absolute bottom-2 right-2 text-[10px] px-2 py-0.5 rounded-full bg-[#3b82a6] text-white font-semibold">
+                              {activePremierFormat === "horizontal" ? "16:9" : "9:16"}
+                            </span>
+                          )}
                         </div>
                         <div className="px-3 py-3 space-y-1">
                           <h3 className="text-lg md:text-xl font-semibold leading-snug line-clamp-2 text-foreground">
