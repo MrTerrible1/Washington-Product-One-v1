@@ -154,8 +154,8 @@ export function VideoLandingPage() {
                   type="button"
                   className={
                     isActive
-                      ? "h-8 inline-flex items-center justify-between gap-2 px-3 rounded-full bg-[#3b82a6] text-white text-[11px] font-semibold shadow-md border-2 border-[#3b82a6] transition-all"
-                      : "h-8 inline-flex items-center px-3 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-[11px] font-medium transition-all"
+                      ? "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-xs md:text-sm font-semibold shadow-sm"
+                      : "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 text-xs md:text-sm font-medium hover:bg-secondary/60 hover:text-foreground"
                   }
                   onClick={() => {
                     setActivePremierFormat(item.id);
@@ -166,11 +166,6 @@ export function VideoLandingPage() {
                   }}
                 >
                   <span>{item.label}</span>
-                  {isActive && (
-                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white text-[#3b82a6] font-bold">
-                      Active
-                    </span>
-                  )}
                 </button>
               );
             })}
