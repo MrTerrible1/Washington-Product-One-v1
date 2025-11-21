@@ -16,22 +16,22 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
   return (
     <>
       {/* Floating VIA Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-50">
         <div className="relative">
           {/* Tooltip */}
           {showTooltip && !isInvestigateOpen && (
-            <div className="absolute bottom-full right-0 mb-2 w-64 px-4 py-3 bg-black/90 text-white text-xs rounded-xl shadow-xl">
-              I'm VIA, your AI search engine. What can I help you find?
+            <div className="absolute bottom-full right-0 mb-2 w-[260px] md:w-[280px] px-4 py-3 bg-black/90 text-white text-xs rounded-xl shadow-xl">
+              I'm VIA, your AI search engine. I can help you find shows, creators, and set up your free profile.
             </div>
           )}
           
-          {/* Small Circular Button */}
+          {/* Circular Button */}
           <button
             type="button"
             onClick={handleClickVIA}
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
-            className="h-10 w-10 rounded-full bg-muted/70 text-muted-foreground border border-border/70 flex items-center justify-center text-[10px] font-semibold shadow-sm hover:bg-primary hover:text-primary-foreground hover:scale-105 hover:shadow-xl transition-all duration-200"
+            className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center font-semibold text-xs md:text-sm hover:scale-105 hover:shadow-xl transition-all duration-200"
             aria-label="Open VIA Assistant"
           >
             VIA
