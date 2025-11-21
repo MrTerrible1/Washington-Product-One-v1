@@ -22,8 +22,8 @@ export function VideoLandingPage() {
   // Track scroll state for each rail
   const [railScrollStates, setRailScrollStates] = useState({});
 
-  // Active genre for Premier Window
-  const [activeGenre, setActiveGenre] = useState("Video");
+  // Track active premier control (default to highlights which maps to featured)
+  const [activeControl, setActiveControl] = useState("highlights");
 
   // Derive hero video based on active genre
   const getHeroForGenre = (genre) => {
