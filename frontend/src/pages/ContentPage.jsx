@@ -278,9 +278,45 @@ export function ContentPage() {
                   </div>
                 </button>
               ))}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* RIGHT COLUMN - Meta Cards */}
+      <aside className="space-y-4">
+        <div className="rounded-2xl bg-card border border-border/60 p-5 space-y-2">
+          <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] text-muted-foreground">About this session</h2>
+          <p className="text-sm md:text-[15px] text-muted-foreground">
+            {video.description || video.meta || "Session description to be provided by the creator."}
+          </p>
+        </div>
+
+        <div className="rounded-2xl bg-card border border-border/60 p-5 space-y-2">
+          <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] text-muted-foreground">Credits & collaborators</h2>
+          <dl className="space-y-1 text-sm md:text-[15px] text-muted-foreground">
+            <div className="flex justify-between gap-2">
+              <dt>Creator</dt>
+              <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
+            </div>
+            <div className="flex justify-between gap-2">
+              <dt>Brand</dt>
+              <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
+            </div>
+            <div className="flex justify-between gap-2">
+              <dt>Sponsor</dt>
+              <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="rounded-2xl bg-card border border-border/60 p-5 space-y-2">
+          <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] text-muted-foreground">Brand spotlight</h2>
+          <div className="rounded-xl bg-muted h-24 flex items-center justify-center text-xs text-muted-foreground">
+            Example sponsor placement
           </div>
         </div>
-      </section>
+      </aside>
     </div>
   );
 }
