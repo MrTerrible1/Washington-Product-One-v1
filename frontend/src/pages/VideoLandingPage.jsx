@@ -224,7 +224,7 @@ export function VideoLandingPage() {
                       e.stopPropagation();
                       handleHeroWatchNow();
                     }}
-                    className="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold hover:bg-primary/90 transition-colors shadow-lg"
+                    className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
                   >
                     Watch Now
                   </button>
@@ -235,7 +235,7 @@ export function VideoLandingPage() {
                       e.stopPropagation();
                       handleHeroMoreInfo();
                     }}
-                    className="inline-flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm border border-white/40 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/30 transition-colors"
+                    className="rounded-full bg-white/12 border border-white/30 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/18"
                   >
                     More info
                   </button>
