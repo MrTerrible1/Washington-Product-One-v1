@@ -122,23 +122,18 @@ export function VideoLandingPage() {
                   type="button"
                   className={
                     isActive
-                      ? "h-9 inline-flex items-center justify-between gap-2 px-4 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-md border-2 border-primary transition-all"
-                      : "h-9 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-xs font-medium transition-all"
+                      ? "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-xs md:text-sm font-semibold shadow-sm"
+                      : "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 text-xs md:text-sm font-medium hover:bg-secondary/60 hover:text-foreground"
                   }
                   onClick={() => {
                     setActivePremierGenre(item.id);
                     logEvent(EVENT_TYPES.CTA_CLICK, {
-                      ctaName: "premier_control_click",
+                      ctaName: "premier_genre_click",
                       genre: item.label,
                     });
                   }}
                 >
                   <span>{item.label}</span>
-                  {isActive && (
-                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground text-primary font-bold">
-                      Active
-                    </span>
-                  )}
                 </button>
               );
             })}
