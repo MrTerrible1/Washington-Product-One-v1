@@ -4,7 +4,20 @@ import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 
-const GENRES = ["Video", "Music", "Games", "Books"];
+const PREMIER_CONTROLS = [
+  { id: "back", label: "Back to OnDemand" },
+  { id: "jump_genre", label: "Jump to Sci-Fi" },
+  { id: "save", label: "Save for later" },
+  { id: "remind", label: "Remind me" },
+  { id: "share", label: "Share" },
+];
+
+const PROFILE_TABS = [
+  { id: "promo", label: "Promo" },
+  { id: "stills", label: "Stills" },
+  { id: "bts", label: "BTS" },
+  { id: "info", label: "Info" },
+];
 
 export function ContentPage() {
   const { id } = useParams();
@@ -12,6 +25,7 @@ export function ContentPage() {
   const { logEvent } = useWashingtonEvents("content-page");
 
   const [showFollowHint, setShowFollowHint] = useState(false);
+  const [activeTab, setActiveTab] = useState("promo");
 
   const rails = videoData.rails || [];
   const allVideos = rails.flatMap((r) => r.items || []);
@@ -35,13 +49,48 @@ export function ContentPage() {
     );
   }
 
-  const handleMoreClick = (targetVideo) => {
+  const handleCardClick = (source, targetVideo) => {
     logEvent(EVENT_TYPES.CTA_CLICK, {
       ctaName: "discovery_rail_click",
+      source,
       videoId: targetVideo.id,
       title: targetVideo.title,
     });
     navigate(`/content/${targetVideo.id}`);
+  };
+
+  const handleWatch = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_watch_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleTrailer = () => {
+    setActiveTab("promo");
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_trailer_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleFollowHero = () => {
+    setShowFollowHint(true);
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_follow_click_hero",
+      videoId: video.id,
+    });
+  };
+
+  const handleControlClick = (control) => {
+    if (control.id === "back") {
+      navigate("/");
+    }
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_control_click",
+      control: control.id,
+      videoId: video.id,
+    });
   };
 
   const handlePlay = () => {
@@ -73,7 +122,10 @@ export function ContentPage() {
     });
   };
 
-  const activeGenre = "Video";
+  // Get similar videos for "More like this"
+  const similarVideos = allVideos.filter(v => v.id !== video.id && v.genre === video.genre).slice(0, 5);
+  const creatorVideos = allVideos.filter(v => v.id !== video.id && v.creator === video.creator).slice(0, 8);
+  const sponsorVideos = allVideos.filter(v => v.id !== video.id).slice(0, 8);
 
   return (
     <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(0,1fr)]">
