@@ -155,12 +155,47 @@ export function ContentPage() {
       </aside>
 
       {/* MAIN COLUMN */}
-      <div className="space-y-8">
-        {/* Top section - Player + Primary Info */}
+      <div className="space-y-4 pt-4">
+        {/* Top section - 16:9 Preview with Overlay CTAs */}
         <section className="space-y-4">
           {/* Video Preview */}
-          <div className="rounded-3xl bg-card border border-border/60 aspect-video flex items-center justify-center text-sm text-muted-foreground">
-            VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
+          <div className="relative w-full aspect-video rounded-3xl bg-card border border-border/60 overflow-hidden">
+            {/* Placeholder */}
+            <div className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground">
+              VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
+            </div>
+            
+            {/* Overlay CTAs - bottom-left */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={handleWatch}
+                className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+              >
+                Watch
+              </button>
+              <button
+                type="button"
+                onClick={handleTrailer}
+                className="rounded-full bg-white/10 border border-white/40 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/20"
+              >
+                Trailer
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("info")}
+                className="rounded-full bg-black/40 text-white px-4 py-2 text-xs md:text-sm hover:bg-black/60"
+              >
+                More info
+              </button>
+              <button
+                type="button"
+                onClick={handleFollowHero}
+                className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
+              >
+                Follow
+              </button>
+            </div>
           </div>
 
           {/* Title & Metadata */}
