@@ -30,6 +30,9 @@ export function LayoutShell({ children }) {
   const navigate = useNavigate();
   const pathname = location.pathname;
 
+  // VIA panel state
+  const [isInvestigateOpen, setIsInvestigateOpen] = useState(false);
+
   // Treat "/" and any "/content/..." as OnDemand
   const isOnDemand =
     pathname === "/" ||
