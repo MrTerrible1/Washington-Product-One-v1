@@ -251,11 +251,18 @@ export function VideoLandingPage() {
         <section className="space-y-6" aria-label="OnDemand video rails">
           {railsWithItems.map((rail) => {
             const isScrolledToEnd = railScrollStates[rail.id] || false;
+            
+            // Optional: prepend active genre label to featured rail
+            const activePremierGenreLabel = PREMIER_GENRES.find(g => g.id === activePremierGenre)?.label || "";
+            const heading = rail.id === "featured" 
+              ? `${activePremierGenreLabel} · ${rail.title}`
+              : rail.title;
+            
             return (
               <div key={rail.id} id={`rail-${rail.id}`} className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                    {rail.title}
+                    {heading}
                   </h2>
                   <button
                     type="button"
