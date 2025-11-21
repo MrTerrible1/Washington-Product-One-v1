@@ -210,7 +210,7 @@ export function VideoLandingPage() {
           {railsWithItems.map((rail) => {
             const isScrolledToEnd = railScrollStates[rail.id] || false;
             return (
-              <div key={rail.id} className="space-y-3">
+              <div key={rail.id} id={`rail-${rail.id}`} className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-lg font-semibold tracking-tight text-foreground">
                     {rail.title}
