@@ -173,54 +173,11 @@ export function ContentPage() {
           </div>
         </section>
 
-        {/* Discovery Rails */}
-        <section className="space-y-8">
-
-        {/* Right: about / credits / sponsor */}
-        <aside className="space-y-4">
-          <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
-            <h2 className="text-sm font-semibold tracking-tight">About this session</h2>
-            <p className="text-sm text-muted-foreground">
-              {video.description || video.meta || "Session description to be provided by the creator."}
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
-            <h2 className="text-sm font-semibold tracking-tight">Credits & collaborators</h2>
-            <dl className="space-y-1 text-sm text-muted-foreground">
-              <div className="flex justify-between gap-2">
-                <dt>Creator</dt>
-                <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
-              </div>
-              <div className="flex justify-between gap-2">
-                <dt>Brand</dt>
-                <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
-              </div>
-              <div className="flex justify-between gap-2">
-                <dt>Sponsor</dt>
-                <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
-              </div>
-            </dl>
-          </div>
-
-          <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
-            <h2 className="text-sm font-semibold tracking-tight">Brand spotlight</h2>
-            <div className="rounded-xl bg-muted h-24 flex items-center justify-center text-xs text-muted-foreground">
-              Example sponsor placement
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      {/* Discovery rails */}
-      <section className="space-y-8">
-        {/* More from this creator */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="text-lg font-semibold tracking-tight">
+          {/* More from this creator */}
+          <div className="space-y-3">
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">
               More from {video.creator || "this creator"}
             </h2>
-          </div>
           <div className="flex gap-3 overflow-x-auto pb-2 pr-2">
             {allVideos
               .filter((v) => v.id !== video.id && v.creator === video.creator)
