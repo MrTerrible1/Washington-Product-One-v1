@@ -213,7 +213,7 @@ export function ContentPage() {
                       )}
                     </div>
                     <div className="px-3 py-3 space-y-1">
-                      <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-foreground">
+                      <h3 className="text-base md:text-[17px] font-semibold leading-snug line-clamp-2 text-foreground">
                         {v.title}
                       </h3>
                       <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
@@ -268,7 +268,7 @@ export function ContentPage() {
                       )}
                     </div>
                     <div className="px-3 py-3 space-y-1">
-                      <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-foreground">
+                      <h3 className="text-base md:text-[17px] font-semibold leading-snug line-clamp-2 text-foreground">
                         {v.title}
                       </h3>
                       <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
