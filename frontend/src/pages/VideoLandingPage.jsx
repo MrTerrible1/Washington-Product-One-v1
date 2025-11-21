@@ -5,12 +5,20 @@ import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 import { useViaContent } from "../context/ViaContentContext.jsx";
 
-const PREMIER_CONTROLS = [
-  { id: "continue", label: "Continue watching" },
-  { id: "highlights", label: "Highlights & trailers" },
-  { id: "new", label: "New & trending" },
-  { id: "short", label: "Short format" },
-  { id: "classic", label: "Classics" },
+const PREMIER_GENRES = [
+  { id: "sci-fi", label: "Sci-Fi" },
+  { id: "comedy", label: "Comedy" },
+  { id: "drama", label: "Drama" },
+  { id: "action", label: "Action" },
+  { id: "rom-com", label: "Rom-com" },
+  { id: "kids", label: "Kids" },
+  { id: "animated", label: "Animated" },
+  { id: "ai", label: "AI" },
+];
+
+const PREMIER_FORMATS = [
+  { id: "horizontal", label: "Horizontal" },
+  { id: "vertical", label: "Vertical" },
 ];
 
 export function VideoLandingPage() {
