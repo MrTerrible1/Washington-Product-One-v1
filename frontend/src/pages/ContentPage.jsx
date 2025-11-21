@@ -155,48 +155,77 @@ export function ContentPage() {
       </aside>
 
       {/* MAIN COLUMN */}
-      <div className="space-y-4 pt-4">
-        {/* Top section - 16:9 Preview with Overlay CTAs */}
+      <div className="space-y-6">
+        {/* Top section - Hero + Title/CTAs above fold */}
         <section className="space-y-4">
-          {/* Video Preview */}
-          <div className="relative w-full aspect-video rounded-3xl bg-card border border-border/60 overflow-hidden">
-            {/* Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground">
-              VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
+          {/* Video Preview - fixed 16:9 */}
+          <div className="rounded-3xl bg-card border border-border/60 overflow-hidden">
+            <div className="relative w-full aspect-video max-h-[460px] lg:max-h-[420px] bg-background flex items-center justify-center">
+              <p className="text-sm text-muted-foreground">
+                VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
+              </p>
             </div>
-            
-            {/* Overlay CTAs - bottom-left */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-wrap items-center gap-3">
+          </div>
+
+          {/* Title/Meta + CTAs Row */}
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            {/* Left: Title and metadata */}
+            <div className="space-y-1.5">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                {video.title}
+              </h1>
+              <div className="flex flex-wrap items-center gap-3 text-sm md:text-base text-muted-foreground">
+                {video.duration && <span>{video.duration}</span>}
+                {video.genre && (
+                  <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[11px] uppercase tracking-wide">
+                    {video.genre}
+                  </span>
+                )}
+                <span>Guest preview · OnDemand</span>
+              </div>
+            </div>
+
+            {/* Right: Primary CTAs */}
+            <div className="flex flex-wrap gap-3">
               <button
                 type="button"
-                onClick={handleWatch}
+                onClick={handlePlay}
                 className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
               >
-                Watch
+                Play (login required)
               </button>
               <button
                 type="button"
                 onClick={handleTrailer}
-                className="rounded-full bg-white/10 border border-white/40 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/20"
+                className="rounded-full bg-secondary text-foreground px-5 py-2 text-sm md:text-base font-medium hover:bg-secondary/90"
               >
                 Trailer
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab("info")}
-                className="rounded-full bg-black/40 text-white px-4 py-2 text-xs md:text-sm hover:bg-black/60"
+                className="rounded-full border border-border px-5 py-2 text-sm md:text-base text-foreground hover:bg-secondary/60"
               >
                 More info
               </button>
               <button
                 type="button"
-                onClick={handleFollowHero}
+                onClick={handleFollow}
                 className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
               >
-                Follow
+                Follow creator
               </button>
             </div>
           </div>
+
+          {/* Follow Hint */}
+          {showFollowHint && (
+            <p className="mt-2 text-xs md:text-sm text-muted-foreground max-w-md">
+              To follow creators and get updates, you&apos;ll need a free Washington profile.
+              In the full product, VIA will walk you through setup from here.
+            </p>
+          )}
+        </section>
 
           {/* Profile Tabs */}
           <div className="mt-4 flex flex-wrap gap-2 border-b border-border/60">
