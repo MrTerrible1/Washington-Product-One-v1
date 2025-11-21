@@ -105,41 +105,74 @@ export function VideoLandingPage() {
 
   return (
     <div className="grid gap-6 md:grid-cols-[140px_minmax(0,1fr)]">
-      {/* LEFT VERTICAL CONTROLS - Premier Controls */}
-      <aside className="hidden md:flex flex-col gap-1.5 pt-2">
-        <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
-          Premier Controls
-        </p>
-        {PREMIER_CONTROLS.map((control) => {
-          const isActive = control.id === activeControl;
-          return (
-            <button
-              key={control.id}
-              type="button"
-              className={
-                isActive
-                  ? "h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm transition-all"
-                  : "h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium transition-all"
-              }
-              onClick={() => {
-                setActiveControl(control.id);
-                logEvent(EVENT_TYPES.CTA_CLICK, {
-                  ctaName: "premier_control_click",
-                  controlId: control.id,
-                  label: control.label,
-                });
-                
-                // Scroll to matching rail if exists
-                const railElement = document.getElementById(`rail-${control.id}`);
-                if (railElement) {
-                  railElement.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-              }}
-            >
-              <span>{control.label}</span>
-            </button>
-          );
-        })}
+      {/* LEFT VERTICAL CONTROLS - Premier Controls (Genres + Formats) */}
+      <aside className="hidden md:flex flex-col gap-4 pt-2">
+        <div>
+          <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-2 px-2">
+            Premier controls
+          </p>
+
+          {/* Genres */}
+          <div className="flex flex-col gap-1.5">
+            {PREMIER_GENRES.map((item) => {
+              const isActive = item.id === activePremierGenre;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={
+                    isActive
+                      ? "h-9 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-sm transition-all"
+                      : "h-9 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-xs font-medium transition-all"
+                  }
+                  onClick={() => {
+                    setActivePremierGenre(item.id);
+                    logEvent(EVENT_TYPES.CTA_CLICK, {
+                      ctaName: "premier_genre_click",
+                      genreId: item.id,
+                      genreLabel: item.label,
+                    });
+                  }}
+                >
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Formats subset */}
+        <div>
+          <p className="uppercase tracking-[0.18em] text-[10px] text-muted-foreground mb-1 px-2">
+            Formats
+          </p>
+          <div className="flex flex-col gap-1.5">
+            {PREMIER_FORMATS.map((item) => {
+              const isActive = item.id === activePremierFormat;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={
+                    isActive
+                      ? "h-8 inline-flex items-center px-3 rounded-full bg-secondary text-foreground text-[11px] font-semibold shadow-sm transition-all"
+                      : "h-8 inline-flex items-center px-3 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-[11px] font-medium transition-all"
+                  }
+                  onClick={() => {
+                    setActivePremierFormat(item.id);
+                    logEvent(EVENT_TYPES.CTA_CLICK, {
+                      ctaName: "premier_format_click",
+                      formatId: item.id,
+                      formatLabel: item.label,
+                    });
+                  }}
+                >
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </aside>
 
       {/* MAIN CONTENT: HERO + RAILS */}
