@@ -73,8 +73,8 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isOnDemand
-                    ? "rounded-full px-5 py-2.5 text-sm md:text-base font-semibold bg-primary text-primary-foreground shadow-md transition-all"
-                    : "rounded-full px-5 py-2.5 text-sm md:text-base font-medium bg-transparent text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-all"
+                    ? "px-5 py-2.5 text-sm md:text-base font-semibold rounded-full bg-primary text-primary-foreground shadow-md"
+                    : "px-5 py-2.5 text-sm md:text-base font-medium rounded-full bg-transparent text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
                 }
                 onClick={() => navigate("/")}
               >
@@ -85,8 +85,8 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isBroadcast
-                    ? "rounded-full px-5 py-2.5 text-sm md:text-base font-semibold bg-primary text-primary-foreground shadow-md transition-all"
-                    : "rounded-full px-5 py-2.5 text-sm md:text-base font-medium bg-transparent text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-all"
+                    ? "px-5 py-2.5 text-sm md:text-base font-semibold rounded-full bg-primary text-primary-foreground shadow-md"
+                    : "px-5 py-2.5 text-sm md:text-base font-medium rounded-full bg-transparent text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
                 }
                 onClick={() => navigate("/broadcast-preview")}
               >
