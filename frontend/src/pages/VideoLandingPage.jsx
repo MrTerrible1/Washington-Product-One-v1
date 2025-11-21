@@ -30,8 +30,9 @@ export function VideoLandingPage() {
   // Track scroll state for each rail
   const [railScrollStates, setRailScrollStates] = useState({});
 
-  // Track active premier control (default to highlights which maps to featured)
-  const [activeControl, setActiveControl] = useState("highlights");
+  // Track active premier genre and format
+  const [activePremierGenre, setActivePremierGenre] = useState("sci-fi");
+  const [activePremierFormat, setActivePremierFormat] = useState("horizontal");
 
   // Hero always comes from featured rail
   const featuredRail = rails.find((r) => r.id === "featured") || rails[0];
