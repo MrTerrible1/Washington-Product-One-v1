@@ -25,29 +25,9 @@ export function VideoLandingPage() {
   // Track active premier control (default to highlights which maps to featured)
   const [activeControl, setActiveControl] = useState("highlights");
 
-  // Derive hero video based on active genre
-  const getHeroForGenre = (genre) => {
-    if (!rails.length) return null;
-
-    // Default: use Featured rail for Video
-    if (genre === "Video") {
-      const featuredRail = rails.find((r) => r.id === "featured") || rails[0];
-      return featuredRail?.items?.[0] || null;
-    }
-
-    // For now, flatten all items and look for a matching vertical field
-    const flatItems = rails.flatMap((r) => r.items || []);
-
-    // Expect optional `vertical` field like "music", "games", "books"
-    const match = flatItems.find(
-      (v) => v.vertical && v.vertical.toLowerCase() === genre.toLowerCase()
-    );
-
-    // Fallback: just use the first available item if nothing matches
-    return match || flatItems[0] || null;
-  };
-
-  const heroVideo = getHeroForGenre(activeGenre);
+  // Hero always comes from featured rail
+  const featuredRail = rails.find((r) => r.id === "featured") || rails[0];
+  const heroVideo = featuredRail?.items?.[0] || null;
 
   useEffect(() => {
     logEvent(EVENT_TYPES.PAGE_VIEW, {
