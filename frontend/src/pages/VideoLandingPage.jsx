@@ -135,15 +135,24 @@ export function VideoLandingPage() {
 
       {/* MAIN CONTENT: HERO + RAILS */}
       <div className="space-y-6">
-        {/* Hero - Premier Window (Compact Key Art) */}
+        {/* Hero - Premier Window (Fixed Height Banner) */}
         <section className="space-y-2">
           <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
             Premier Window
           </p>
           <div className="rounded-3xl bg-card border border-border/60 shadow-lg overflow-hidden">
-            {/* Compact Key Art Container */}
+            {/* Fixed Height Banner */}
             <div
-              className="relative w-full aspect-[21/9] max-h-[420px] md:max-h-[380px] cursor-pointer group overflow-hidden"
+              className="relative w-full h-[320px] md:h-[360px] lg:h-[400px] bg-black cursor-pointer group"
+              style={
+                heroVideo?.thumbnail
+                  ? {
+                      backgroundImage: `url(${heroVideo.thumbnail})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }
+                  : {}
+              }
               role="button"
               tabIndex={0}
               onClick={handleHeroWatchNow}
@@ -154,18 +163,8 @@ export function VideoLandingPage() {
                 }
               }}
             >
-              {/* Key art from heroVideo.thumbnail if available */}
-              {heroVideo?.thumbnail ? (
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${heroVideo.thumbnail})` }}
-                />
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted" />
-              )}
-
-              {/* Dark gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              {/* Dark gradient overlay so the image doesn't nuke the UI */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
               {/* Bottom-left content block */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 space-y-3">
