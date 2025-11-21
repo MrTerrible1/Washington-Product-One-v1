@@ -433,37 +433,59 @@ export function ContentPage() {
         </section>
       </div>
 
-      {/* RIGHT COLUMN - Meta Cards */}
+      {/* RIGHT COLUMN - More like this */}
       <aside className="space-y-4">
-        <div className="rounded-2xl bg-card border border-border/60 p-5 space-y-2">
-          <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] text-muted-foreground">About this session</h2>
-          <p className="text-sm md:text-[15px] text-muted-foreground">
+        {/* About this session - compact */}
+        <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
+          <h2 className="text-xs uppercase tracking-[0.22em] text-muted-foreground">About this session</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
             {video.description || video.meta || "Session description to be provided by the creator."}
           </p>
         </div>
 
-        <div className="rounded-2xl bg-card border border-border/60 p-5 space-y-2">
-          <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] text-muted-foreground">Credits & collaborators</h2>
-          <dl className="space-y-1 text-sm md:text-[15px] text-muted-foreground">
+        {/* Credits & collaborators - compact */}
+        <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
+          <h2 className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Credits</h2>
+          <dl className="space-y-1 text-xs text-muted-foreground">
             <div className="flex justify-between gap-2">
               <dt>Creator</dt>
-              <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
-            </div>
-            <div className="flex justify-between gap-2">
-              <dt>Brand</dt>
-              <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
+              <dd className="font-medium text-foreground text-sm">{video.creator || "Example Creator"}</dd>
             </div>
             <div className="flex justify-between gap-2">
               <dt>Sponsor</dt>
-              <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+              <dd className="font-medium text-foreground text-sm">{video.sponsor || "TBD Sponsor"}</dd>
             </div>
           </dl>
         </div>
 
-        <div className="rounded-2xl bg-card border border-border/60 p-5 space-y-2">
-          <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] text-muted-foreground">Brand spotlight</h2>
-          <div className="rounded-xl bg-muted h-24 flex items-center justify-center text-xs text-muted-foreground">
-            Example sponsor placement
+        {/* More like this - subdued vertical strip */}
+        <div>
+          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-2 px-1">
+            More like this
+          </p>
+          <div className="space-y-3">
+            {similarVideos.map((v) => (
+              <button
+                key={v.id}
+                type="button"
+                onClick={() => handleCardClick("sidebar_similar", v)}
+                className="w-full text-left group"
+              >
+                <div className="flex gap-3 items-center rounded-2xl bg-card/70 border border-border/60 px-3 py-2.5 hover:bg-card hover:border-border/80 transition">
+                  <div className="w-16 h-10 rounded-xl bg-muted/70 overflow-hidden flex-shrink-0">
+                    {/* optional tiny thumbnail placeholder */}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-foreground line-clamp-2 group-hover:text-primary transition">
+                      {v.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground line-clamp-1">
+                      {v.genre || "Feature"}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
       </aside>
