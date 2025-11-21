@@ -128,7 +128,7 @@ export function ContentPage() {
   const sponsorVideos = allVideos.filter(v => v.id !== video.id).slice(0, 8);
 
   return (
-    <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(0,1fr)]">
+    <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(260px,1fr)]">
       {/* LEFT SIDEBAR - Premier Controls */}
       <aside className="hidden md:flex flex-col gap-1.5 pt-2">
         <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-2 px-2">
