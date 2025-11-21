@@ -5,7 +5,13 @@ import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 import { useViaContent } from "../context/ViaContentContext.jsx";
 
-const GENRES = ["Video", "Music", "Games", "Books"];
+const PREMIER_CONTROLS = [
+  { id: "continue", label: "Continue watching" },
+  { id: "highlights", label: "Highlights & trailers" },
+  { id: "new", label: "New & trending" },
+  { id: "short", label: "Short format" },
+  { id: "classic", label: "Classics" },
+];
 
 export function VideoLandingPage() {
   const rails = videoData.rails || [];
