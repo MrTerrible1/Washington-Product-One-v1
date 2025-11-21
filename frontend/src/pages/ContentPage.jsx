@@ -356,7 +356,7 @@ export function ContentPage() {
               More from this sponsor
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
-            {allVideos
+              {allVideos
               .filter((v) => v.id !== video.id && v.genre === video.genre)
               .slice(0, 8)
               .map((v) => (
