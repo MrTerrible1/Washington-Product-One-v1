@@ -73,8 +73,8 @@ export function LayoutShell({ children }) {
                 type="button"
                 className={
                   isOnDemand
-                    ? "px-5 py-2.5 text-sm md:text-base font-semibold rounded-full bg-primary text-primary-foreground shadow-md"
-                    : "px-5 py-2.5 text-sm md:text-base font-medium rounded-full bg-transparent text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
+                    ? "inline-flex items-center px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm md:text-base font-semibold shadow-md transition-all"
+                    : "inline-flex items-center px-5 py-2.5 rounded-full bg-transparent text-muted-foreground text-sm md:text-base font-medium hover:bg-secondary/80 hover:text-foreground transition-all"
                 }
                 onClick={() => navigate("/")}
               >
