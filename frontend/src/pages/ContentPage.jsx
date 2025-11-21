@@ -173,6 +173,8 @@ export function ContentPage() {
           </div>
         </section>
 
+        {/* Discovery Rails */}
+        <section className="space-y-6">
           {/* More from this creator */}
           <div className="space-y-3">
             <h2 className="text-xl font-semibold tracking-tight text-foreground">
