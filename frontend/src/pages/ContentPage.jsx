@@ -266,8 +266,8 @@ export function ContentPage() {
           </div>
 
           {/* Title & Metadata */}
-          <div className="space-y-3">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
+          <div className="mt-6 space-y-3">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-1">
               {video.title}
             </h1>
             <div className="flex flex-wrap items-center gap-3 text-sm md:text-base text-muted-foreground">
@@ -279,7 +279,7 @@ export function ContentPage() {
               )}
               <span>Guest preview · OnDemand</span>
             </div>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
+            <p className="mt-3 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
               {video.tagline || video.description || "Overview not provided by creator yet. This title is part of the Washington guest library."}
             </p>
           </div>
