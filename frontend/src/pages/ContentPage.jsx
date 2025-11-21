@@ -1,13 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 
+const GENRES = ["Video", "Music", "Games", "Books"];
+
 export function ContentPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { logEvent } = useWashingtonEvents("content-page");
+
+  const [showFollowHint, setShowFollowHint] = useState(false);
 
   const rails = videoData.rails || [];
   const allVideos = rails.flatMap((r) => r.items || []);
@@ -40,10 +44,72 @@ export function ContentPage() {
     navigate(`/content/${targetVideo.id}`);
   };
 
+  const handlePlay = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_play_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleAddToList = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_add_to_list_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleLike = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_like_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleFollow = () => {
+    setShowFollowHint(true);
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_follow_click_guest",
+      videoId: video.id,
+    });
+  };
+
+  const activeGenre = "Video";
+
   return (
-    <div className="w-full max-w-6xl mx-auto py-8 px-4 md:px-0 space-y-8">
-      {/* Top layout */}
-      <section className="grid gap-8 md:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] items-start">
+    <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(0,1fr)]">
+      {/* LEFT SIDEBAR - Browse Controls */}
+      <aside className="hidden md:flex flex-col gap-1.5 pt-2">
+        <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
+          Browse
+        </p>
+        {GENRES.map((label) => {
+          const isActive = label === activeGenre;
+          return (
+            <button
+              key={label}
+              type="button"
+              className={
+                isActive
+                  ? "h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm transition-all"
+                  : "h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium transition-all"
+              }
+              onClick={() => {
+                logEvent(EVENT_TYPES.CTA_CLICK, {
+                  ctaName: "content_genre_click",
+                  genre: label,
+                });
+              }}
+            >
+              <span>{label}</span>
+            </button>
+          );
+        })}
+      </aside>
+
+      {/* MAIN COLUMN */}
+      <div className="space-y-8">
+        {/* Top section - Player + Primary Info */}
+        <section className="space-y-4">
         {/* Left: player + primary info */}
         <div className="space-y-4">
           <div className="rounded-3xl bg-card border border-border/60 aspect-video flex items-center justify-center text-sm text-muted-foreground">
