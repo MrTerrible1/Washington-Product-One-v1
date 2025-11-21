@@ -183,9 +183,9 @@ export function VideoLandingPage() {
             Premier Window
           </p>
           <div className="rounded-3xl bg-card border border-border/60 shadow-lg overflow-hidden">
-            {/* True 16:9 Key Art with Max Height */}
+            {/* True 16:9 Key Art with Reduced Height */}
             <div
-              className="relative w-full aspect-video max-h-[540px] bg-black cursor-pointer group rounded-3xl overflow-hidden"
+              className="relative w-full aspect-video max-h-[450px] bg-black cursor-pointer group rounded-3xl overflow-hidden"
               style={
                 heroVideo?.thumbnail
                   ? {
