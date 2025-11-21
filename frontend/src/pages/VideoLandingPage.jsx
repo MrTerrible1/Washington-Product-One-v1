@@ -96,16 +96,16 @@ export function VideoLandingPage() {
 
   return (
     <div className="grid gap-6 md:grid-cols-[140px_minmax(0,1fr)]">
-      {/* LEFT VERTICAL TABS - Premier Controls */}
+      {/* LEFT VERTICAL CONTROLS - Premier Controls */}
       <aside className="hidden md:flex flex-col gap-1.5 pt-2">
         <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
           Premier Controls
         </p>
-        {GENRES.map((label) => {
-          const isActive = label === activeGenre;
+        {PREMIER_CONTROLS.map((control) => {
+          const isActive = control.id === activeControl;
           return (
             <button
-              key={label}
+              key={control.id}
               type="button"
               className={
                 isActive
@@ -113,14 +113,21 @@ export function VideoLandingPage() {
                   : "h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium transition-all"
               }
               onClick={() => {
-                setActiveGenre(label);
+                setActiveControl(control.id);
                 logEvent(EVENT_TYPES.CTA_CLICK, {
-                  ctaName: "hero_mode_click",
-                  genre: label,
+                  ctaName: "premier_control_click",
+                  controlId: control.id,
+                  label: control.label,
                 });
+                
+                // Scroll to matching rail if exists
+                const railElement = document.getElementById(`rail-${control.id}`);
+                if (railElement) {
+                  railElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
               }}
             >
-              <span>{label}</span>
+              <span>{control.label}</span>
             </button>
           );
         })}
