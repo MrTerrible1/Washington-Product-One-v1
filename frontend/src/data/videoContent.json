@@ -2,7 +2,7 @@
   "rails": [
     {
       "id": "featured",
-      "title": "Featured",
+      "title": "Highlights & trailers",
       "items": [
         {
           "id": "wash-101",
