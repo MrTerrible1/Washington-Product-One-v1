@@ -252,29 +252,29 @@ export function ContentPage() {
           <div className="pt-4 space-y-4">
             {activeTab === "promo" && (
               <div className="text-sm text-muted-foreground">
-                <p>Promo clips and trailers will appear here in the full product.</p>
+                <p>Trailers, sizzle reels, and promo clips will appear here in the full product.</p>
               </div>
             )}
             {activeTab === "stills" && (
               <div className="text-sm text-muted-foreground">
-                <p>Still images and screenshots will appear here in the full product.</p>
+                <p>Key art frames and still images from this title will appear here in the full product.</p>
               </div>
             )}
             {activeTab === "bts" && (
               <div className="text-sm text-muted-foreground">
-                <p>Behind-the-scenes content and production notes will appear here in the full product.</p>
+                <p>Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
               </div>
             )}
             {activeTab === "info" && (
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-2">About this session</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {video.description || video.meta || "Session description to be provided by the creator."}
+                  <h3 className="text-sm font-semibold text-foreground mb-2">Full Description</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-2">Credits & collaborators</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-2">Credits & Collaborators</h3>
                   <dl className="space-y-1 text-sm text-muted-foreground">
                     <div className="flex justify-between gap-2">
                       <dt>Creator</dt>
@@ -291,63 +291,6 @@ export function ContentPage() {
                   </dl>
                 </div>
               </div>
-            )}
-          </div>
-
-          {/* Title & Metadata */}
-          <div className="mt-6 space-y-3">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-1">
-              {video.title}
-            </h1>
-            <div className="flex flex-wrap items-center gap-3 text-sm md:text-base text-muted-foreground">
-              {video.duration && <span>{video.duration}</span>}
-              {video.genre && (
-                <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[11px] uppercase tracking-wide">
-                  {video.genre}
-                </span>
-              )}
-              <span>Guest preview · OnDemand</span>
-            </div>
-            <p className="mt-3 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-              {video.tagline || video.description || "Overview not provided by creator yet. This title is part of the Washington guest library."}
-            </p>
-          </div>
-
-          {/* Primary Action Row */}
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                onClick={handlePlay}
-                className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
-              >
-                Play (login required)
-              </button>
-              <button
-                onClick={handleAddToList}
-                className="rounded-full bg-secondary text-foreground px-5 py-2 text-sm md:text-base font-medium hover:bg-secondary/90"
-              >
-                Add to list
-              </button>
-              <button
-                onClick={handleLike}
-                className="rounded-full border border-border px-5 py-2 text-sm md:text-base text-foreground hover:bg-secondary/60"
-              >
-                Like
-              </button>
-              <button
-                onClick={handleFollow}
-                className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
-              >
-                Follow creator
-              </button>
-            </div>
-
-            {/* Follow Hint */}
-            {showFollowHint && (
-              <p className="mt-2 text-xs md:text-sm text-muted-foreground max-w-md">
-                To follow creators and get updates, you&apos;ll need a free Washington profile.
-                In the full product, VIA will walk you through setup from here.
-              </p>
             )}
           </div>
         </section>
