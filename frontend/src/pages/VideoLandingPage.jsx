@@ -108,7 +108,7 @@ export function VideoLandingPage() {
       {/* LEFT VERTICAL CONTROLS - Premier Controls (Genres + Formats) */}
       <aside className="hidden md:flex flex-col gap-4 pt-2">
         <div>
-          <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-2 px-2">
+          <p className="uppercase tracking-[0.22em] text-[11px] text-muted-foreground mb-2 px-2">
             Premier controls
           </p>
 
