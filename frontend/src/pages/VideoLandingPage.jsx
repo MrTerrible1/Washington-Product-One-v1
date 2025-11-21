@@ -150,9 +150,9 @@ export function VideoLandingPage() {
             Premier Window
           </p>
           <div className="rounded-3xl bg-card border border-border/60 shadow-lg overflow-hidden">
-            {/* Fixed Height Banner */}
+            {/* True 16:9 Key Art with Max Height */}
             <div
-              className="relative w-full h-[320px] md:h-[360px] lg:h-[400px] bg-black cursor-pointer group"
+              className="relative w-full aspect-video max-h-[540px] bg-black cursor-pointer group rounded-3xl overflow-hidden"
               style={
                 heroVideo?.thumbnail
                   ? {
