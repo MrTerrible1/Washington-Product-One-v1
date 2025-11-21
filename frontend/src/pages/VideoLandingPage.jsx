@@ -260,11 +260,14 @@ export function VideoLandingPage() {
           {railsWithItems.map((rail) => {
             const isScrolledToEnd = railScrollStates[rail.id] || false;
             
-            // Optional: prepend active genre label to featured rail
+            // Prepend active genre label to featured rail
             const activePremierGenreLabel = PREMIER_GENRES.find(g => g.id === activePremierGenre)?.label || "";
             const heading = rail.id === "featured" 
-              ? `${activePremierGenreLabel} · ${rail.title}`
+              ? `${activePremierGenreLabel} – ${rail.title}`
               : rail.title;
+            
+            // Determine if this is the first rail (featured) for format badges
+            const isFirstRail = rail.id === "featured";
             
             return (
               <div key={rail.id} id={`rail-${rail.id}`} className="space-y-3">
