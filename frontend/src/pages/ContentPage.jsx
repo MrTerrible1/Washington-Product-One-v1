@@ -228,7 +228,7 @@ export function ContentPage() {
         </section>
 
           {/* Profile Tabs */}
-          <div className="mt-4 flex flex-wrap gap-2 border-b border-border/60">
+          <nav className="border-b border-border flex gap-6 mt-6">
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
               return (
@@ -238,15 +238,15 @@ export function ContentPage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={
                     isActive
-                      ? "px-4 py-2 text-sm md:text-base rounded-t-xl border-b-2 border-primary text-foreground font-semibold"
-                      : "px-4 py-2 text-sm md:text-base rounded-t-xl border-b-2 border-transparent text-muted-foreground hover:text-foreground hover:border-border/80"
+                      ? "pb-3 text-sm md:text-base font-semibold text-foreground border-b-2 border-primary"
+                      : "pb-3 text-sm md:text-base text-muted-foreground hover:text-foreground"
                   }
                 >
                   {tab.label}
                 </button>
               );
             })}
-          </div>
+          </nav>
 
           {/* Tab Content */}
           <div className="pt-4 space-y-4">
