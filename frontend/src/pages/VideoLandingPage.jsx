@@ -141,16 +141,16 @@ export function VideoLandingPage() {
       </aside>
 
       {/* MAIN CONTENT: HERO + RAILS */}
-      <div className="space-y-8">
-        {/* Hero - Premier Window (16:9 Key Art) */}
-        <section className="space-y-3">
+      <div className="space-y-6">
+        {/* Hero - Premier Window (Compact Key Art) */}
+        <section className="space-y-2">
           <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
             Premier Window
           </p>
           <div className="rounded-3xl bg-card border border-border/60 shadow-lg overflow-hidden">
-            {/* 16:9 Key Art Container */}
+            {/* Compact Key Art Container */}
             <div
-              className="relative w-full aspect-video cursor-pointer group overflow-hidden"
+              className="relative w-full aspect-[21/9] max-h-[420px] md:max-h-[380px] cursor-pointer group overflow-hidden"
               role="button"
               tabIndex={0}
               onClick={handleHeroWatchNow}
