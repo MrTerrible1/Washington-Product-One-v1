@@ -262,12 +262,12 @@ export function VideoLandingPage() {
             return (
               <div key={rail.id} id={`rail-${rail.id}`} className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
-                  <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                  <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
                     {heading}
                   </h2>
                   <button
                     type="button"
-                    className="text-[11px] md:text-xs text-muted-foreground hover:text-[#3b82a6] inline-flex items-center gap-1 transition-colors"
+                    className="text-[11px] md:text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
                     onClick={() => handleRailToggle(rail.id)}
                   >
                     {isScrolledToEnd ? (
