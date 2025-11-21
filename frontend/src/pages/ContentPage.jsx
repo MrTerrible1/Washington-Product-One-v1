@@ -303,7 +303,7 @@ export function ContentPage() {
               More from this creator
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
-            {allVideos
+              {allVideos
               .filter((v) => v.id !== video.id && v.creator === video.creator)
               .slice(0, 8)
               .map((v) => (
