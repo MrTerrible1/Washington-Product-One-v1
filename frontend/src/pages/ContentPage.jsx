@@ -405,19 +405,26 @@ export function ContentPage() {
         </section>
       </div>
 
-      {/* RIGHT COLUMN - More like this */}
+      {/* RIGHT COLUMN - Confirmation + More like this */}
       <aside className="space-y-4">
-        {/* About this session - compact */}
-        <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
-          <h2 className="text-xs uppercase tracking-[0.22em] text-muted-foreground">About this session</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {video.description || video.meta || "Session description to be provided by the creator."}
+        {/* Top card - confirms what you clicked */}
+        <div className="rounded-3xl bg-card border border-border/60 px-5 py-4 space-y-2">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            About this session
+          </p>
+          <p className="text-sm font-semibold text-foreground">
+            {video.title}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            {video.genre || "Feature"} • {video.duration || "Duration TBD"} curated stream
           </p>
         </div>
 
-        {/* Credits & collaborators - compact */}
-        <div className="rounded-2xl bg-card border border-border/60 p-4 space-y-2">
-          <h2 className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Credits</h2>
+        {/* Combined credits/brand card */}
+        <div className="rounded-3xl bg-card border border-border/60 px-5 py-4 space-y-2">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            Credits & Brand
+          </p>
           <dl className="space-y-1 text-xs text-muted-foreground">
             <div className="flex justify-between gap-2">
               <dt>Creator</dt>
@@ -430,31 +437,34 @@ export function ContentPage() {
           </dl>
         </div>
 
-        {/* More like this - subdued vertical strip */}
+        {/* More like this - vertical strip */}
         <div>
-          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-2 px-1">
+          <h3 className="mt-6 mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
             More like this
-          </p>
+          </h3>
           <div className="space-y-3">
-            {similarVideos.map((v) => (
+            {similarVideos.slice(0, 4).map((item) => (
               <button
-                key={v.id}
+                key={item.id}
                 type="button"
-                onClick={() => handleCardClick("sidebar_similar", v)}
-                className="w-full text-left group"
+                onClick={() => handleCardClick("more_like_this_sidebar", item)}
+                className="w-full flex gap-3 items-center text-left group"
               >
-                <div className="flex gap-3 items-center rounded-2xl bg-card/70 border border-border/60 px-3 py-2.5 hover:bg-card hover:border-border/80 transition">
-                  <div className="w-16 h-10 rounded-xl bg-muted/70 overflow-hidden flex-shrink-0">
-                    {/* optional tiny thumbnail placeholder */}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground line-clamp-2 group-hover:text-primary transition">
-                      {v.title}
-                    </p>
-                    <p className="text-xs text-muted-foreground line-clamp-1">
-                      {v.genre || "Feature"}
-                    </p>
-                  </div>
+                <div className="relative w-20 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+                  {item.thumbnail && (
+                    <div
+                      className="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-100 transition-opacity"
+                      style={{ backgroundImage: `url(${item.thumbnail})` }}
+                    />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground">
+                    {item.duration || "—"}
+                  </p>
                 </div>
               </button>
             ))}
