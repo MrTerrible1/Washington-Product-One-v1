@@ -21,17 +21,17 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
           {/* Tooltip */}
           {showTooltip && !isInvestigateOpen && (
             <div className="absolute bottom-full right-0 mb-2 w-64 px-4 py-3 bg-black/90 text-white text-xs rounded-xl shadow-xl">
-              I'm VIA, your AI search engine. How can I help you find what you need?
+              I'm VIA, your AI search engine. What can I help you find?
             </div>
           )}
           
-          {/* Button */}
+          {/* Small Circular Button */}
           <button
             type="button"
             onClick={handleClickVIA}
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
-            className="h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center font-bold text-sm hover:scale-105 hover:shadow-xl transition-all duration-200"
+            className="h-10 w-10 rounded-full bg-muted/70 text-muted-foreground border border-border/70 flex items-center justify-center text-[10px] font-semibold shadow-sm hover:bg-primary hover:text-primary-foreground hover:scale-105 hover:shadow-xl transition-all duration-200"
             aria-label="Open VIA Assistant"
           >
             VIA
