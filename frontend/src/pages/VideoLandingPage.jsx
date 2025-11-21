@@ -142,7 +142,7 @@ export function VideoLandingPage() {
 
         {/* Formats subset */}
         <div>
-          <p className="uppercase tracking-[0.18em] text-[10px] text-muted-foreground mb-1 px-2">
+          <p className="uppercase tracking-[0.22em] text-[11px] text-muted-foreground mb-2 px-2">
             Formats
           </p>
           <div className="flex flex-col gap-1.5">
