@@ -145,7 +145,7 @@ export function ContentPage() {
         <aside className="space-y-4">
           {/* Compact title block */}
           <div className="space-y-2">
-            <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               {video.title}
             </h1>
 
@@ -159,43 +159,44 @@ export function ContentPage() {
               <span>Guest preview · OnDemand</span>
             </div>
 
-            <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed line-clamp-3">
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-3">
               {video.description || video.tagline || "A curated Washington experience."}
             </p>
           </div>
 
-          {/* Primary CTAs - Stacked */}
-          <div className="space-y-2">
+          {/* Primary CTAs - Play full-width, then 3-button grid */}
+          <div className="space-y-3">
             <button
               type="button"
               onClick={handlePlay}
-              className="w-full rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm font-semibold shadow-md hover:bg-primary/90"
+              className="w-full rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
             >
               Play (login required)
             </button>
-            <div className="grid grid-cols-2 gap-2">
+            
+            <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={handleTrailer}
-                className="rounded-full bg-secondary text-foreground px-4 py-2 text-sm font-medium hover:bg-secondary/90"
+                className="rounded-full bg-secondary text-foreground px-3 py-2 text-xs md:text-sm font-medium hover:bg-secondary/90"
               >
                 Trailer
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab("info")}
-                className="rounded-full border border-border px-4 py-2 text-sm text-foreground hover:bg-secondary/60"
+                className="rounded-full border border-border px-3 py-2 text-xs md:text-sm text-foreground hover:bg-secondary/60"
               >
                 More info
               </button>
+              <button
+                type="button"
+                onClick={handleFollow}
+                className="rounded-full border border-primary/70 text-primary px-3 py-2 text-xs md:text-sm font-medium hover:bg-primary/10"
+              >
+                Follow creator
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={handleFollow}
-              className="w-full rounded-full border border-primary/70 text-primary px-5 py-2 text-sm font-medium hover:bg-primary/10"
-            >
-              Follow creator
-            </button>
 
             {/* Follow Hint */}
             {showFollowHint && (
@@ -205,41 +206,41 @@ export function ContentPage() {
             )}
           </div>
 
-          {/* More like this - Compact list */}
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          {/* More like this - Only 3 items, no scroll */}
+          <section className="mt-6">
+            <h3 className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-3">
               More like this
-            </p>
-            <div className="space-y-2 max-h-[260px] overflow-y-auto">
-              {similarVideos.map((item) => (
+            </h3>
+            <div className="space-y-2">
+              {similarVideos.slice(0, 3).map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => handleCardClick("more_like_this_sidebar", item)}
-                  className="w-full flex items-center gap-3 rounded-2xl bg-card/80 border border-border/60 px-3 py-2 text-left hover:bg-card transition"
+                  className="w-full flex items-center gap-3 rounded-2xl bg-[#101318] border border-border/40 px-3 py-2 text-left hover:border-border/80 hover:bg-[#141820] transition"
                 >
-                  <div className="h-12 w-20 rounded-xl bg-muted overflow-hidden flex-shrink-0">
+                  <div className="h-10 w-16 rounded-xl bg-muted/60 overflow-hidden flex-shrink-0">
                     {item.thumbnail ? (
                       <div
-                        className="w-full h-full bg-cover bg-center opacity-80"
+                        className="w-full h-full bg-cover bg-center"
                         style={{ backgroundImage: `url(${item.thumbnail})` }}
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-accent/30 to-muted/60" />
+                      <div className="w-full h-full bg-gradient-to-br from-accent/20 to-muted/40" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium line-clamp-1 text-foreground/90">
+                    <p className="text-xs md:text-sm font-medium text-foreground truncate">
                       {item.title}
                     </p>
-                    <p className="text-[11px] text-muted-foreground line-clamp-1">
-                      {item.meta || item.tagline || item.duration}
+                    <p className="text-[11px] text-muted-foreground truncate">
+                      {item.duration || item.genre || "Similar content"}
                     </p>
                   </div>
                 </button>
               ))}
             </div>
-          </div>
+          </section>
         </aside>
       </div>
 
