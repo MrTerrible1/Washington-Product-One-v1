@@ -20,6 +20,7 @@ export function ContentPage() {
 
   const [showFollowHint, setShowFollowHint] = useState(false);
   const [activeTab, setActiveTab] = useState("info");
+  const [showFullPlot, setShowFullPlot] = useState(false);
 
   const rails = videoData.rails || [];
   const allVideos = rails.flatMap((r) => r.items || []);
