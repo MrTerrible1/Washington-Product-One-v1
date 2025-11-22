@@ -104,10 +104,10 @@ export function ContentPage() {
   const creatorVideos = allVideos.filter(v => v.id !== video.id && v.creator === video.creator).slice(0, 8);
 
   return (
-    <div className="space-y-4">
-      {/* TOP SECTION - Hero + Info Grid */}
-      <div className="grid gap-8 md:grid-cols-[120px_minmax(0,2.4fr)_minmax(320px,1fr)] items-start">
-        {/* LEFT CONTROLS - Simplified 3 buttons */}
+    <div>
+      {/* THREE-COLUMN GRID */}
+      <div className="grid gap-6 md:grid-cols-[120px_minmax(0,2.3fr)_minmax(320px,1fr)] items-start">
+        {/* LEFT COLUMN - CONTROLS */}
         <aside className="hidden md:flex flex-col gap-3">
           <button
             type="button"
@@ -132,12 +132,84 @@ export function ContentPage() {
           </button>
         </aside>
 
-        {/* CENTER - Preview Window Only */}
-        <div className="relative bg-[#101318] rounded-3xl border border-border/60 overflow-hidden aspect-video max-h-[360px] mx-auto w-full mt-4 mb-2">
-          <div className="absolute inset-0 flex items-center justify-center bg-background">
+        {/* CENTER COLUMN - HERO + PROFILE TABS */}
+        <div className="flex flex-col">
+          {/* Hero Preview */}
+          <div className="aspect-video w-full max-h-[300px] rounded-3xl bg-[#101318] border border-border/60 flex items-center justify-center">
             <p className="text-sm text-muted-foreground">
               VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
             </p>
+          </div>
+
+          {/* PROFILE TABS DIRECTLY UNDER HERO */}
+          <nav className="mt-4 border-b border-border/60 flex gap-4">
+            {PROFILE_TABS.map((tab) => {
+              const isActive = tab.id === activeTab;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={
+                    isActive
+                      ? "pb-3 text-sm md:text-base font-semibold text-foreground border-b-2 border-primary"
+                      : "pb-3 text-sm md:text-base text-muted-foreground hover:text-foreground"
+                  }
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* ACTIVE TAB CONTENT */}
+          <div className="mt-3">
+            {activeTab === "promo" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Trailers, sizzle reels, and promo clips will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "stills" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Key art frames and still images from this title will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "bts" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "info" && (
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-base font-semibold text-foreground mb-3">About This Title</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-foreground mb-3">Credits & Brand</h3>
+                  <dl className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
+                    <div>
+                      <dt className="text-muted-foreground">Creator</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.creator || "Example Creator"}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Sponsor</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.sponsor || "TBD Sponsor"}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Brand</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.brand || "Washington"}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Genre</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.genre || "—"}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
