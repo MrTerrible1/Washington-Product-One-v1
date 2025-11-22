@@ -182,34 +182,21 @@ export function ContentPage() {
           {/* ACTIVE TAB CONTENT */}
           <div className="mt-4">
             {activeTab === "info" && (
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div>
-                  <h3 className="text-base font-semibold text-foreground mb-3">Synopsis</h3>
+                  <h3 className="text-base font-semibold text-foreground mb-2">Synopsis</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
                   </p>
                 </div>
-                <div>
-                  <h3 className="text-base font-semibold text-foreground mb-3">Full Credits</h3>
-                  <dl className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
+                {video.genre && (
+                  <div className="flex gap-4 text-sm">
                     <div>
-                      <dt className="text-muted-foreground">Creator</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.creator || "Example Creator"}</dd>
+                      <span className="text-muted-foreground">Genre:</span>
+                      <span className="ml-2 text-foreground font-medium">{video.genre}</span>
                     </div>
-                    <div>
-                      <dt className="text-muted-foreground">Sponsor</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.sponsor || "TBD Sponsor"}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Brand</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.brand || "Washington"}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Genre</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.genre || "—"}</dd>
-                    </div>
-                  </dl>
-                </div>
+                  </div>
+                )}
               </div>
             )}
             {activeTab === "promo" && (
@@ -222,7 +209,7 @@ export function ContentPage() {
                       type="button"
                       onClick={() => {
                         logEvent(EVENT_TYPES.CTA_CLICK, {
-                          ctaName: "promo_video_click",
+                          ctaName: "content_promo_click",
                           promoType: promoType,
                           videoId: video.id,
                         });
@@ -245,13 +232,38 @@ export function ContentPage() {
               </div>
             )}
             {activeTab === "stills" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Key art frames and still images from this title will appear here in the full product.</p>
+              <div>
+                <h3 className="text-sm font-semibold text-foreground mb-3">Official Stills</h3>
+                <p className="text-sm text-muted-foreground">Key art frames and still images from this title will appear here in the full product.</p>
               </div>
             )}
             {activeTab === "bts" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
+              <div>
+                <h3 className="text-sm font-semibold text-foreground mb-3">Behind the Scenes</h3>
+                <p className="text-sm text-muted-foreground">Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "credits" && (
+              <div>
+                <h3 className="text-base font-semibold text-foreground mb-4">Full Credits</h3>
+                <dl className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                  <div>
+                    <dt className="text-muted-foreground mb-1">Creator</dt>
+                    <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground mb-1">Sponsor</dt>
+                    <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground mb-1">Brand</dt>
+                    <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground mb-1">Genre</dt>
+                    <dd className="font-medium text-foreground">{video.genre || "—"}</dd>
+                  </div>
+                </dl>
               </div>
             )}
           </div>
