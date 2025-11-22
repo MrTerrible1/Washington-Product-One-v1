@@ -312,7 +312,7 @@ export function ContentPage() {
                 <button
                   key={v.id}
                   type="button"
-                  onClick={() => handleMoreClick(v)}
+                  onClick={() => handleCardClick("more_from_creator", v)}
                   className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
                 >
                   <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
@@ -365,7 +365,7 @@ export function ContentPage() {
                 <button
                   key={v.id}
                   type="button"
-                  onClick={() => handleMoreClick(v)}
+                  onClick={() => handleCardClick("more_from_creator", v)}
                   className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
                 >
                   <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
