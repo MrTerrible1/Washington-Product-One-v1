@@ -3,19 +3,26 @@
     {
       "id": "featured",
       "title": "Highlights & trailers",
-      "items": [
-        {
+      "items": [        {
           "id": "wash-101",
           "title": "The Long Night — Washington Original",
-          "meta": "Feature \u2022 2h 8m curated stream",
+          "meta": "Feature • 2h 8m curated stream",
           "tagline": "A curated night stream that stitches together the most relevant films, series, and creator sessions for you.",
+          "description": "A curated night stream that stitches together the most relevant films, series, and creator sessions for you. This immersive experience combines carefully selected content into a seamless viewing journey.",
           "duration": "2:08",
           "genre": "Feature",
           "format": "Film",
           "isSeries": false,
           "season": null,
           "episodeNumber": null,
-          "thumbnail": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop"
+          "thumbnail": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop",
+          "creator": "Autumn Shih",
+          "sponsor": "REDAVID HAIR",
+          "brand": "Washington",
+          "billingBlock": {
+            "rawText": "Starring: VIOLA HAYDEN, WESTON HAYDEN, with KIM HAYDEN\nDirector of Photography: JESSE YOUNG\nProduction Designer: JORDAN NINKOVICH\nCostume Designer: KELSEY BARAN\nEditor: AUTUMN SHIH\nSupervising Producer: JUDAH SHIH\nProduced by: AUTUMN SHIH, NOAH SHIH\nWritten and Directed by: AUTUMN SHIH\nEnabling Sponsor: REDAVID HAIR\nProduct Sponsors: PAPPA LEO'S PIZZA, OXYGEN YOGA, SAVE-ON-FOODS (Port Coquitlam)",
+            "shortText": "Written and Directed by: AUTUMN SHIH"
+          }
         },
         {
           "id": "wash-102",
