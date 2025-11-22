@@ -407,6 +407,7 @@ export function ContentPage() {
               ))}
             </div>
           </div>
+          )}
         </section>
       </div>
 
