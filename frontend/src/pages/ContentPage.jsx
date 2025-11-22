@@ -182,21 +182,47 @@ export function ContentPage() {
           {/* ACTIVE TAB CONTENT - No max-height, expands naturally */}
           <div className="mt-4">
             {activeTab === "info" && (
-              <div className="space-y-4">
+              <div className="space-y-6">
+                {/* Synopsis */}
                 <div>
                   <h3 className="text-base font-semibold text-foreground mb-2">Synopsis</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
                   </p>
                 </div>
-                {video.genre && (
-                  <div className="flex gap-4 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">Genre:</span>
-                      <span className="ml-2 text-foreground font-medium">{video.genre}</span>
-                    </div>
-                  </div>
-                )}
+
+                {/* Meta line */}
+                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                  {video.duration && <span>{video.duration}</span>}
+                  {video.genre && <span>• FEATURE •</span>}
+                  <span>Guest preview · OnDemand</span>
+                </div>
+
+                {/* Billing Block */}
+                <div>
+                  <h3 className="mt-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    Billing Block
+                  </h3>
+                  {video.billingBlock?.rawText ? (
+                    <pre className="mt-2 whitespace-pre-wrap text-sm text-foreground leading-snug font-sans">
+                      {video.billingBlock.rawText}
+                    </pre>
+                  ) : (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Billing block coming soon.
+                    </p>
+                  )}
+                </div>
+
+                {/* Full Plot */}
+                <div>
+                  <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    Full Plot
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Extended plot details will appear here.
+                  </p>
+                </div>
               </div>
             )}
             {activeTab === "promo" && (
