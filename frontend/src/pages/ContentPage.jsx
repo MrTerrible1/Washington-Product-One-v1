@@ -443,31 +443,33 @@ export function ContentPage() {
 
         {/* More like this - vertical strip */}
         <div>
-          <h3 className="mt-6 mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          <p className="mt-6 mb-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
             More like this
-          </h3>
+          </p>
           <div className="space-y-3">
             {similarVideos.slice(0, 4).map((item) => (
               <button
                 key={item.id}
                 type="button"
-                onClick={() => handleCardClick("more_like_this_sidebar", item)}
-                className="w-full flex gap-3 items-center text-left group"
+                onClick={() => handleCardClick("content_more_like_this_click", item)}
+                className="w-full text-left rounded-xl bg-card/60 border border-border/60 overflow-hidden hover:bg-card hover:border-primary/60 transition-colors group"
               >
-                <div className="relative w-20 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0">
-                  {item.thumbnail && (
+                <div className="relative pt-[56.25%] bg-muted">
+                  {item.thumbnail ? (
                     <div
-                      className="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-100 transition-opacity"
+                      className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"
                       style={{ backgroundImage: `url(${item.thumbnail})` }}
                     />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted opacity-70 group-hover:opacity-90 transition-opacity" />
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                <div className="px-3 py-2 space-y-1">
+                  <p className="text-sm font-semibold line-clamp-2 text-foreground">
                     {item.title}
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
-                    {item.duration || "—"}
+                  <p className="text-xs text-muted-foreground line-clamp-2">
+                    {item.tagline || item.duration || ""}
                   </p>
                 </div>
               </button>
