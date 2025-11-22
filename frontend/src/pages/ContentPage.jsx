@@ -419,9 +419,10 @@ export function ContentPage() {
               ))}
             </div>
           </div>
-        </section>
+        </div>
         )}
-      </div>
+      </section>
+    </div>
 
       {/* RIGHT COLUMN - Slim, secondary: About + Credits + More like this */}
       <aside className="space-y-4">
