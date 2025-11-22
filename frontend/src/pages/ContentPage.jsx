@@ -59,29 +59,6 @@ export function ContentPage() {
     navigate(`/content/${targetVideo.id}`);
   };
 
-  const handleWatch = () => {
-    logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "content_watch_click",
-      videoId: video.id,
-    });
-  };
-
-  const handleTrailer = () => {
-    setActiveTab("promo");
-    logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "content_trailer_click",
-      videoId: video.id,
-    });
-  };
-
-  const handleFollowHero = () => {
-    setShowFollowHint(true);
-    logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "content_follow_click_hero",
-      videoId: video.id,
-    });
-  };
-
   const handleControlClick = (control) => {
     if (control.id === "back") {
       navigate("/");
@@ -100,16 +77,10 @@ export function ContentPage() {
     });
   };
 
-  const handleAddToList = () => {
+  const handleTrailer = () => {
+    setActiveTab("promo");
     logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "content_add_to_list_click",
-      videoId: video.id,
-    });
-  };
-
-  const handleLike = () => {
-    logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "content_like_click",
+      ctaName: "content_trailer_click",
       videoId: video.id,
     });
   };
@@ -273,53 +244,6 @@ export function ContentPage() {
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
               return (
-              <button
-                type="button"
-                onClick={handlePlay}
-                className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
-              >
-                Play (login required)
-              </button>
-              <button
-                type="button"
-                onClick={handleTrailer}
-                className="rounded-full bg-secondary text-foreground px-5 py-2 text-sm md:text-base font-medium hover:bg-secondary/90"
-              >
-                Trailer
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("info")}
-                className="rounded-full border border-border px-5 py-2 text-sm md:text-base text-foreground hover:bg-secondary/60"
-              >
-                More info
-              </button>
-              <button
-                type="button"
-                onClick={handleFollow}
-                className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
-              >
-                Follow creator
-              </button>
-            </div>
-          </div>
-
-          {/* Follow Hint */}
-          {showFollowHint && (
-            <p className="mt-2 text-xs md:text-sm text-muted-foreground max-w-md">
-              To follow creators and get updates, you&apos;ll need a free Washington profile.
-              In the full product, VIA will walk you through setup from here.
-            </p>
-          )}
-        </section>
-
-        {/* Profile Tabs & Content Section */}
-        <section className="space-y-4">
-          {/* Profile Tabs */}
-          <nav className="border-b border-border flex gap-6">
-            {PROFILE_TABS.map((tab) => {
-              const isActive = tab.id === activeTab;
-              return (
                 <button
                   key={tab.id}
                   type="button"
@@ -384,11 +308,11 @@ export function ContentPage() {
         </section>
 
         {/* Discovery Rails */}
+        {creatorVideos.length > 0 && (
         <section className="space-y-6">
           {/* More from this creator */}
-          {creatorVideos.length > 0 && (
           <div className="space-y-3">
-            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">
               More from this creator
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
@@ -401,13 +325,12 @@ export function ContentPage() {
                 >
                   <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
                     <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
-                      {v.thumbnail && (
+                      {v.thumbnail ? (
                         <div
                           className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
                           style={{ backgroundImage: `url(${v.thumbnail})` }}
                         />
-                      )}
-                      {!v.thumbnail && (
+                      ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
                       )}
                       <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
@@ -435,12 +358,10 @@ export function ContentPage() {
               ))}
             </div>
           </div>
-          )}
 
           {/* More from this sponsor */}
-          {creatorVideos.length > 0 && (
           <div className="space-y-3">
-            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">
               More from this sponsor
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
@@ -451,18 +372,17 @@ export function ContentPage() {
                 <button
                   key={v.id}
                   type="button"
-                  onClick={() => handleCardClick("more_from_creator", v)}
+                  onClick={() => handleCardClick("more_from_sponsor", v)}
                   className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
                 >
                   <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
                     <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
-                      {v.thumbnail && (
+                      {v.thumbnail ? (
                         <div
                           className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
                           style={{ backgroundImage: `url(${v.thumbnail})` }}
                         />
-                      )}
-                      {!v.thumbnail && (
+                      ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
                       )}
                       <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
@@ -490,78 +410,9 @@ export function ContentPage() {
               ))}
             </div>
           </div>
-          )}
         </section>
+        )}
       </div>
-
-      {/* RIGHT COLUMN - Confirmation + More like this */}
-      <aside className="space-y-4">
-        {/* Top card - confirms what you clicked */}
-        <div className="rounded-3xl bg-card border border-border/60 px-5 py-4 space-y-2">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            About this session
-          </p>
-          <p className="text-sm font-semibold text-foreground">
-            {video.title}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {video.genre || "Feature"} • {video.duration || "Duration TBD"} curated stream
-          </p>
-        </div>
-
-        {/* Combined credits/brand card */}
-        <div className="rounded-3xl bg-card border border-border/60 px-5 py-4 space-y-2">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            Credits & Brand
-          </p>
-          <dl className="space-y-1 text-xs text-muted-foreground">
-            <div className="flex justify-between gap-2">
-              <dt>Creator</dt>
-              <dd className="font-medium text-foreground text-sm">{video.creator || "Example Creator"}</dd>
-            </div>
-            <div className="flex justify-between gap-2">
-              <dt>Sponsor</dt>
-              <dd className="font-medium text-foreground text-sm">{video.sponsor || "TBD Sponsor"}</dd>
-            </div>
-          </dl>
-        </div>
-
-        {/* More like this - vertical strip */}
-        <div>
-          <p className="mt-6 mb-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            More like this
-          </p>
-          <div className="space-y-3">
-            {similarVideos.slice(0, 4).map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => handleCardClick("content_more_like_this_click", item)}
-                className="w-full text-left rounded-xl bg-card/60 border border-border/60 overflow-hidden hover:bg-card hover:border-primary/60 transition-colors group"
-              >
-                <div className="relative pt-[56.25%] bg-muted">
-                  {item.thumbnail ? (
-                    <div
-                      className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"
-                      style={{ backgroundImage: `url(${item.thumbnail})` }}
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted opacity-70 group-hover:opacity-90 transition-opacity" />
-                  )}
-                </div>
-                <div className="px-3 py-2 space-y-1">
-                  <p className="text-sm font-semibold line-clamp-2 text-foreground">
-                    {item.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {item.tagline || item.duration || ""}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </aside>
     </div>
   );
 }

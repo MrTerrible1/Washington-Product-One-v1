@@ -1,40 +1,36 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
+
+const PREMIER_CONTROLS = [
+  { id: "back", label: "Back to OnDemand" },
+  { id: "jump_genre", label: "Jump to Sci-Fi" },
+  { id: "save", label: "Save for later" },
+  { id: "remind", label: "Remind me" },
+  { id: "share", label: "Share" },
+];
+
+const PROFILE_TABS = [
+  { id: "promo", label: "Promo" },
+  { id: "stills", label: "Stills" },
+  { id: "bts", label: "BTS" },
+  { id: "info", label: "Info" },
+];
 
 export function ContentPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { logEvent } = useWashingtonEvents("content-page");
 
-  const { item, railId, moreLikeThis } = useMemo(() => {
-    const rails = videoData.rails || [];
-    let foundItem = null;
-    let foundRailId = null;
+  const [showFollowHint, setShowFollowHint] = useState(false);
+  const [activeTab, setActiveTab] = useState("promo");
 
-    rails.forEach((rail) => {
-      rail.items?.forEach((video) => {
-        if (!foundItem && String(video.id) === String(id)) {
-          foundItem = video;
-          foundRailId = rail.id;
-        }
-      });
-    });
+  const rails = videoData.rails || [];
+  const allVideos = rails.flatMap((r) => r.items || []);
 
-    const moreFromRail = foundRailId
-      ? rails.find((r) => r.id === foundRailId)?.items || []
-      : rails.flatMap((r) => r.items || []);
-
-    const filteredMore = moreFromRail.filter((video) => String(video.id) !== String(id));
-
-    return {
-      item: foundItem,
-      railId: foundRailId,
-      moreLikeThis: filteredMore,
-    };
-  }, [id]);
+  const video = allVideos.find((v) => String(v.id) === String(id)) || allVideos[0];
 
   useEffect(() => {
     if (id) {
@@ -45,168 +41,529 @@ export function ContentPage() {
     }
   }, [id, logEvent]);
 
-  if (!item) {
+  if (!video) {
     return (
-      <div className="max-w-4xl mx-auto py-10 text-sm text-muted-foreground">
-        <p>Content not found. You may have followed an outdated link.</p>
+      <div className="w-full max-w-6xl mx-auto py-8 px-4 md:px-0">
+        <p className="text-sm text-muted-foreground">Content not found.</p>
       </div>
     );
   }
 
-  const description =
-    item.description ||
-    "Description coming soon. This session is part of the Washington Product One guest preview.";
-
-  const credits = item.credits || {
-    creator: "Example Creator",
-    starring: ["A. Actor", "B. Actor"],
-  };
-
-  const handleMoreClick = (video) => {
+  const handleCardClick = (source, targetVideo) => {
     logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "more_like_this_click",
-      railId: railId || "unknown",
-      videoId: video.id,
-      title: video.title,
+      ctaName: "discovery_rail_click",
+      source,
+      videoId: targetVideo.id,
+      title: targetVideo.title,
     });
-    navigate(`/content/${video.id}`);
+    navigate(`/content/${targetVideo.id}`);
   };
+
+  const handleWatch = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_watch_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleTrailer = () => {
+    setActiveTab("promo");
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_trailer_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleFollowHero = () => {
+    setShowFollowHint(true);
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_follow_click_hero",
+      videoId: video.id,
+    });
+  };
+
+  const handleControlClick = (control) => {
+    if (control.id === "back") {
+      navigate("/");
+    }
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_control_click",
+      control: control.id,
+      videoId: video.id,
+    });
+  };
+
+  const handlePlay = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_play_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleAddToList = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_add_to_list_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleLike = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_like_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleFollow = () => {
+    setShowFollowHint(true);
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_follow_click_guest",
+      videoId: video.id,
+    });
+  };
+
+  // Get similar videos for "More like this"
+  const genreMatches = allVideos.filter(v => v.id !== video.id && v.genre === video.genre);
+  const similarVideos = genreMatches.length > 0 
+    ? genreMatches.slice(0, 5)
+    : allVideos.filter(v => v.id !== video.id).slice(0, 5);
+  const creatorVideos = allVideos.filter(v => v.id !== video.id && v.creator === video.creator).slice(0, 8);
 
   return (
-    <div className="space-y-8">
-      {/* Top session band */}
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
-        {/* Left: player / preview */}
-        <div className="rounded-3xl bg-card border border-border/60 overflow-hidden">
-          <div className="relative pt-[56.25%] bg-muted flex items-center justify-center text-xs text-muted-foreground">
-            <span>Preview unavailable in guest mode</span>
+    <div className="space-y-6">
+      {/* HERO ROW - 3-column grid */}
+      <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(0,1.4fr)]">
+        {/* LEFT CONTROLS */}
+        <aside className="hidden md:flex flex-col gap-2">
+          <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
+            Premier controls
+          </p>
+          {PREMIER_CONTROLS.map((control) => {
+            const isActive = control.id === "jump_genre";
+            return (
+              <button
+                key={control.id}
+                type="button"
+                className={
+                  isActive
+                    ? "h-9 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm"
+                    : "h-9 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium"
+                }
+                onClick={() => handleControlClick(control)}
+              >
+                <span>{control.label}</span>
+              </button>
+            );
+          })}
+        </aside>
+
+        {/* HERO PREVIEW (center) */}
+        <div className="relative w-full aspect-video max-h-[420px] rounded-3xl bg-card border border-border/60 overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center bg-background">
+            <p className="text-sm text-muted-foreground">
+              VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
+            </p>
           </div>
         </div>
 
-        {/* Right: session + creator info */}
-        <div className="space-y-3">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-            Product episode
-          </p>
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            {item.title}
-          </h1>
-          <p className="text-sm md:text-base text-muted-foreground">
-            {description}
-          </p>
+        {/* RIGHT SIDEBAR - Profile summary + CTAs + More like this */}
+        <aside className="space-y-4">
+          {/* Summary card */}
+          <div className="rounded-2xl bg-card border border-border/60 px-5 py-4 space-y-2">
+            <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+              {video.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm text-muted-foreground">
+              {video.duration && <span>{video.duration}</span>}
+              {video.genre && (
+                <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[11px] uppercase tracking-wide">
+                  {video.genre}
+                </span>
+              )}
+              <span>Guest preview · OnDemand</span>
+            </div>
+            <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed line-clamp-3">
+              {video.tagline || video.description || "A curated Washington experience."}
+            </p>
+          </div>
 
-          <div className="rounded-2xl bg-secondary/30 border border-border/60 p-3 space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-full bg-primary/70 flex items-center justify-center text-[11px] font-semibold text-primary-foreground">
-                {credits.creator ? credits.creator.substring(0, 2).toUpperCase() : "EC"}
+          {/* Primary actions card */}
+          <div className="rounded-2xl bg-card border border-border/60 px-5 py-4 space-y-3">
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={handlePlay}
+                className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+              >
+                Play (login required)
+              </button>
+              <button
+                type="button"
+                onClick={handleTrailer}
+                className="rounded-full bg-secondary text-foreground px-5 py-2 text-sm md:text-base font-medium hover:bg-secondary/90"
+              >
+                Trailer
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("info")}
+                className="rounded-full border border-border px-5 py-2 text-sm md:text-base text-foreground hover:bg-secondary/60"
+              >
+                More info
+              </button>
+              <button
+                type="button"
+                onClick={handleFollow}
+                className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
+              >
+                Follow creator
+              </button>
+            </div>
+            {showFollowHint && (
+              <p className="text-xs md:text-sm text-muted-foreground">
+                To follow creators and get updates, you&apos;ll need a free Washington profile.
+                In the full product, VIA will walk you through setup from here.
+              </p>
+            )}
+          </div>
+
+          {/* More like this - compact stack */}
+          <div>
+            <h3 className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-2">
+              More like this
+            </h3>
+            <div className="space-y-2">
+              {similarVideos.slice(0, 4).map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleCardClick("related", item)}
+                  className="w-full rounded-xl bg-muted/40 border border-border/50 flex items-center gap-3 px-3 py-2 text-left hover:bg-muted/70 transition-colors group"
+                >
+                  <div className="h-12 w-20 rounded-lg overflow-hidden bg-gradient-to-br from-accent/30 to-muted/60 flex-shrink-0">
+                    {item.thumbnail ? (
+                      <div
+                        className="w-full h-full bg-cover bg-center opacity-70 group-hover:opacity-100 transition-opacity"
+                        style={{ backgroundImage: `url(${item.thumbnail})` }}
+                      />
+                    ) : (
+                      <div className="w-full h-full opacity-70 group-hover:opacity-100 transition-opacity" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium text-foreground line-clamp-2">
+                      {item.title}
+                    </p>
+                    <p className="text-[11px] text-muted-foreground">
+                      {item.duration} · {item.genre || "Similar"}
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {/* TABS & DEEP CONTENT - Below hero row */}
+      <div className="space-y-6">
+        {/* Profile Tabs */}
+        <section className="space-y-4">
+          <nav className="border-b border-border flex gap-6">
+            {PROFILE_TABS.map((tab) => {
+              const isActive = tab.id === activeTab;
+              return (
+              <button
+                type="button"
+                onClick={handlePlay}
+                className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+              >
+                Play (login required)
+              </button>
+              <button
+                type="button"
+                onClick={handleTrailer}
+                className="rounded-full bg-secondary text-foreground px-5 py-2 text-sm md:text-base font-medium hover:bg-secondary/90"
+              >
+                Trailer
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("info")}
+                className="rounded-full border border-border px-5 py-2 text-sm md:text-base text-foreground hover:bg-secondary/60"
+              >
+                More info
+              </button>
+              <button
+                type="button"
+                onClick={handleFollow}
+                className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
+              >
+                Follow creator
+              </button>
+            </div>
+          </div>
+
+          {/* Follow Hint */}
+          {showFollowHint && (
+            <p className="mt-2 text-xs md:text-sm text-muted-foreground max-w-md">
+              To follow creators and get updates, you&apos;ll need a free Washington profile.
+              In the full product, VIA will walk you through setup from here.
+            </p>
+          )}
+        </section>
+
+        {/* Profile Tabs & Content Section */}
+        <section className="space-y-4">
+          {/* Profile Tabs */}
+          <nav className="border-b border-border flex gap-6">
+            {PROFILE_TABS.map((tab) => {
+              const isActive = tab.id === activeTab;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={
+                    isActive
+                      ? "pb-3 text-sm md:text-base font-semibold text-foreground border-b-2 border-primary"
+                      : "pb-3 text-sm md:text-base text-muted-foreground hover:text-foreground"
+                  }
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Tab Content */}
+          <div className="pt-4 space-y-4">
+            {activeTab === "promo" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Trailers, sizzle reels, and promo clips will appear here in the full product.</p>
               </div>
-              <div>
-                <div className="text-sm font-medium">{credits.creator || "Example Creator"}</div>
-                <div className="text-[11px] text-muted-foreground">
-                  {item.genre || "Product walkthroughs"} · {item.format || "Documentaries"}
+            )}
+            {activeTab === "stills" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Key art frames and still images from this title will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "bts" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "info" && (
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground mb-2">Full Description</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground mb-2">Credits & Collaborators</h3>
+                  <dl className="space-y-1 text-sm text-muted-foreground">
+                    <div className="flex justify-between gap-2">
+                      <dt>Creator</dt>
+                      <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
+                    </div>
+                    <div className="flex justify-between gap-2">
+                      <dt>Brand</dt>
+                      <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
+                    </div>
+                    <div className="flex justify-between gap-2">
+                      <dt>Sponsor</dt>
+                      <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+                    </div>
+                  </dl>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-wrap gap-2 text-[11px]">
-              <button className="rounded-full px-3 py-1 bg-card border border-border/60 text-muted-foreground">
-                More from this creator
-              </button>
-              <button className="rounded-full px-3 py-1 bg-card border border-border/60 text-muted-foreground">
-                Collaborate (demo)
-              </button>
-            </div>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Discovery rails */}
-      <section className="space-y-8 mt-8">
-        {/* More from this creator */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="text-lg font-semibold tracking-tight text-foreground">
+        {/* Discovery Rails */}
+        <section className="space-y-6">
+          {/* More from this creator */}
+          {creatorVideos.length > 0 && (
+          <div className="space-y-3">
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
               More from this creator
             </h2>
-            <span className="text-[11px] text-muted-foreground">
-              View creator profile
-            </span>
-          </div>
-          {/* TODO: reuse the card rail pattern from VideoLandingPage */}
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-              Placeholder card
-            </div>
-            <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-              Placeholder card
-            </div>
-          </div>
-        </div>
-
-        {/* Similar sessions */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="text-lg font-semibold tracking-tight text-foreground">
-              Similar sessions
-            </h2>
-            <span className="text-[11px] text-muted-foreground">
-              VIA: based on what you&apos;re watching
-            </span>
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            {moreLikeThis.length > 0 ? (
-              moreLikeThis.map((video) => (
+            <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
+              {creatorVideos.map((v) => (
                 <button
-                  key={video.id}
+                  key={v.id}
                   type="button"
-                  onClick={() => handleMoreClick(video)}
-                  className="group w-44 md:w-52 shrink-0 text-left"
+                  onClick={() => handleCardClick("more_from_creator", v)}
+                  className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
                 >
-                  <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm group-hover:shadow-md group-hover:-translate-y-0.5 transition-transform transition-shadow duration-150">
-                    <div className="relative pt-[150%] bg-gradient-to-br from-accent to-muted">
-                      <div className="absolute top-2 left-2 text-[11px] px-2 py-0.5 rounded-full bg-foreground text-background">
-                        Vertical
-                      </div>
-                      <div className="absolute bottom-2 right-2 text-[11px] px-2 py-0.5 rounded-full bg-foreground text-background">
-                        {video.duration}
-                      </div>
+                  <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                    <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
+                      {v.thumbnail && (
+                        <div
+                          className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
+                          style={{ backgroundImage: `url(${v.thumbnail})` }}
+                        />
+                      )}
+                      {!v.thumbnail && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
+                      )}
+                      <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
+                      {v.genre && (
+                        <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                          {v.genre}
+                        </span>
+                      )}
+                      {v.duration && (
+                        <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                          {v.duration}
+                        </span>
+                      )}
                     </div>
                     <div className="px-3 py-3 space-y-1">
-                      <h3 className="text-sm font-semibold leading-snug line-clamp-2">{video.title}</h3>
-                      <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
-                        {video.meta}
+                      <h3 className="text-base md:text-[17px] font-semibold leading-snug line-clamp-2 text-foreground">
+                        {v.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                        {v.tagline || v.meta}
                       </p>
                     </div>
                   </div>
                 </button>
-              ))
-            ) : (
-              <>
-                <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-                  Placeholder card
-                </div>
-                <div className="w-44 md:w-52 shrink-0 rounded-2xl bg-card border border-border/70 px-3 py-4 text-[11px] text-muted-foreground flex items-center justify-center">
-                  Placeholder card
-                </div>
-              </>
-            )}
+              ))}
+            </div>
           </div>
+          )}
+
+          {/* More from this sponsor */}
+          {creatorVideos.length > 0 && (
+          <div className="space-y-3">
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+              More from this sponsor
+            </h2>
+            <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
+              {allVideos
+              .filter((v) => v.id !== video.id)
+              .slice(0, 8)
+              .map((v) => (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => handleCardClick("more_from_creator", v)}
+                  className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
+                >
+                  <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                    <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
+                      {v.thumbnail && (
+                        <div
+                          className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
+                          style={{ backgroundImage: `url(${v.thumbnail})` }}
+                        />
+                      )}
+                      {!v.thumbnail && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
+                      )}
+                      <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
+                      {v.genre && (
+                        <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                          {v.genre}
+                        </span>
+                      )}
+                      {v.duration && (
+                        <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                          {v.duration}
+                        </span>
+                      )}
+                    </div>
+                    <div className="px-3 py-3 space-y-1">
+                      <h3 className="text-base md:text-[17px] font-semibold leading-snug line-clamp-2 text-foreground">
+                        {v.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                        {v.tagline || v.meta}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+          )}
+        </section>
+      </div>
+
+      {/* RIGHT COLUMN - Confirmation + More like this */}
+      <aside className="space-y-4">
+        {/* Top card - confirms what you clicked */}
+        <div className="rounded-3xl bg-card border border-border/60 px-5 py-4 space-y-2">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            About this session
+          </p>
+          <p className="text-sm font-semibold text-foreground">
+            {video.title}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            {video.genre || "Feature"} • {video.duration || "Duration TBD"} curated stream
+          </p>
         </div>
 
-        {/* Collaborators & brands */}
-        <div className="space-y-3">
-          <h2 className="text-lg font-semibold tracking-tight text-foreground">
-            Collaborators & brands
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <div className="rounded-xl bg-card border border-border/60 px-3 py-2 text-[11px] text-muted-foreground">
-              Example Brand · Sponsorship demo
+        {/* Combined credits/brand card */}
+        <div className="rounded-3xl bg-card border border-border/60 px-5 py-4 space-y-2">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            Credits & Brand
+          </p>
+          <dl className="space-y-1 text-xs text-muted-foreground">
+            <div className="flex justify-between gap-2">
+              <dt>Creator</dt>
+              <dd className="font-medium text-foreground text-sm">{video.creator || "Example Creator"}</dd>
             </div>
-            <div className="rounded-xl bg-card border border-border/60 px-3 py-2 text-[11px] text-muted-foreground">
-              Co-creator · Collaboration demo
+            <div className="flex justify-between gap-2">
+              <dt>Sponsor</dt>
+              <dd className="font-medium text-foreground text-sm">{video.sponsor || "TBD Sponsor"}</dd>
             </div>
+          </dl>
+        </div>
+
+        {/* More like this - vertical strip */}
+        <div>
+          <p className="mt-6 mb-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            More like this
+          </p>
+          <div className="space-y-3">
+            {similarVideos.slice(0, 4).map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleCardClick("content_more_like_this_click", item)}
+                className="w-full text-left rounded-xl bg-card/60 border border-border/60 overflow-hidden hover:bg-card hover:border-primary/60 transition-colors group"
+              >
+                <div className="relative pt-[56.25%] bg-muted">
+                  {item.thumbnail ? (
+                    <div
+                      className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"
+                      style={{ backgroundImage: `url(${item.thumbnail})` }}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted opacity-70 group-hover:opacity-90 transition-opacity" />
+                  )}
+                </div>
+                <div className="px-3 py-2 space-y-1">
+                  <p className="text-sm font-semibold line-clamp-2 text-foreground">
+                    {item.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground line-clamp-2">
+                    {item.tagline || item.duration || ""}
+                  </p>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
-      </section>
+      </aside>
     </div>
   );
 }
+
+export default ContentPage;
