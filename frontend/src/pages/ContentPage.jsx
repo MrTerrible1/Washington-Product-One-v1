@@ -185,25 +185,58 @@ export function ContentPage() {
           <div className="mt-4">
             {activeTab === "info" && (
               <div>
-                {/* Billing Block */}
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
-                  Billing Block
-                </h3>
-                {video.billingBlock?.rawText ? (
-                  <div className="mt-2 text-xs md:text-sm text-neutral-200 leading-snug whitespace-pre-wrap">
-                    {video.billingBlock.rawText}
-                  </div>
-                ) : (
-                  <p className="mt-2 text-xs text-neutral-500">Billing block coming soon.</p>
-                )}
+                {/* Billing Block - Horizontal inline format */}
+                {(() => {
+                  const rawBilling = video.billingBlock?.rawText ?? "";
+                  const billingInline = rawBilling
+                    ? rawBilling.replace(/\s*\n\s*/g, " • ")
+                    : "";
 
-                {/* Full Plot */}
-                <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-neutral-400">
-                  Full Plot
-                </h3>
-                <p className="mt-2 text-sm text-neutral-200 leading-relaxed">
-                  {video.fullPlot ?? "Full plot coming soon."}
-                </p>
+                  return (
+                    <>
+                      <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
+                        Billing Block
+                      </h3>
+                      {billingInline ? (
+                        <div className="mt-2 text-[10px] md:text-[11px] leading-tight tracking-tight text-neutral-300">
+                          {billingInline}
+                        </div>
+                      ) : (
+                        <p className="mt-2 text-xs text-neutral-500">Billing block coming soon.</p>
+                      )}
+                    </>
+                  );
+                })()}
+
+                {/* Full Plot - Collapsible */}
+                {(() => {
+                  const fullPlot = video.fullPlot;
+
+                  return (
+                    <>
+                      <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-neutral-400">
+                        Full Plot
+                      </h3>
+                      <p
+                        className={clsx(
+                          "mt-2 text-sm text-neutral-200 leading-relaxed",
+                          !showFullPlot && "line-clamp-4"
+                        )}
+                      >
+                        {fullPlot ?? "Full plot coming soon."}
+                      </p>
+                      {fullPlot && fullPlot.length > 260 && (
+                        <button
+                          type="button"
+                          onClick={() => setShowFullPlot(!showFullPlot)}
+                          className="mt-2 text-xs font-semibold uppercase tracking-wide text-amber-400 hover:text-amber-300"
+                        >
+                          {showFullPlot ? "Show less" : "Read full plot"}
+                        </button>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
             )}
             {activeTab === "promo" && (
