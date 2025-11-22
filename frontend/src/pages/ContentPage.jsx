@@ -104,9 +104,9 @@ export function ContentPage() {
   const creatorVideos = allVideos.filter(v => v.id !== video.id && v.creator === video.creator).slice(0, 8);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* TOP SECTION - Hero + Info Grid */}
-      <div className="grid gap-8 md:grid-cols-[120px_minmax(0,2.8fr)_minmax(320px,0.9fr)]">
+      <div className="grid gap-8 md:grid-cols-[120px_minmax(0,2.4fr)_minmax(320px,1fr)] items-start">
         {/* LEFT CONTROLS - Simplified 3 buttons */}
         <aside className="hidden md:flex flex-col gap-3">
           <button
