@@ -338,7 +338,7 @@ export function ContentPage() {
                           {v.title}
                         </h3>
                         <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
-                          {v.tagline || v.meta}
+                          {v.logline || v.synopsis}
                         </p>
                       </div>
                     </div>
@@ -391,7 +391,7 @@ export function ContentPage() {
                           {v.title}
                         </h3>
                         <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
-                          {v.tagline || v.meta}
+                          {v.logline || v.synopsis}
                         </p>
                       </div>
                     </div>
