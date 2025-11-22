@@ -132,16 +132,43 @@ export function ContentPage() {
           </button>
         </aside>
 
-        {/* CENTER COLUMN - HERO + PROFILE TABS */}
+        {/* CENTER COLUMN - HERO + META + TABS */}
         <div className="flex flex-col">
           {/* Hero Preview */}
-          <div className="aspect-video w-full max-h-[300px] rounded-3xl bg-[#101318] border border-border/60 flex items-center justify-center">
-            <p className="text-sm text-muted-foreground">
-              VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
-            </p>
+          <div className="relative aspect-video w-full max-h-[300px] rounded-3xl bg-[#101318] border border-border/60 overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center bg-background">
+              <p className="text-sm text-muted-foreground">
+                VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
+              </p>
+            </div>
           </div>
 
-          {/* PROFILE TABS DIRECTLY UNDER HERO */}
+          {/* Meta + Short Synopsis + Full Credits Link */}
+          <div className="mt-3 space-y-2">
+            <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-muted-foreground">
+              {video.duration && <span>{video.duration}</span>}
+              {video.genre && (
+                <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[10px] uppercase tracking-wide">
+                  {video.genre}
+                </span>
+              )}
+              <span>Guest preview · OnDemand</span>
+            </div>
+            
+            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+              {video.description || video.tagline || "A curated Washington experience."}
+            </p>
+            
+            <button
+              type="button"
+              onClick={() => setActiveTab("info")}
+              className="text-xs text-primary hover:text-primary/80 underline"
+            >
+              Full credits →
+            </button>
+          </div>
+
+          {/* PROFILE TABS */}
           <nav className="mt-4 border-b border-border/60 flex gap-4">
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
@@ -163,32 +190,17 @@ export function ContentPage() {
           </nav>
 
           {/* ACTIVE TAB CONTENT */}
-          <div className="mt-3">
-            {activeTab === "promo" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Trailers, sizzle reels, and promo clips will appear here in the full product.</p>
-              </div>
-            )}
-            {activeTab === "stills" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Key art frames and still images from this title will appear here in the full product.</p>
-              </div>
-            )}
-            {activeTab === "bts" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
-              </div>
-            )}
+          <div className="mt-4">
             {activeTab === "info" && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-base font-semibold text-foreground mb-3">About This Title</h3>
+                  <h3 className="text-base font-semibold text-foreground mb-3">Synopsis</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-foreground mb-3">Credits & Brand</h3>
+                  <h3 className="text-base font-semibold text-foreground mb-3">Full Credits</h3>
                   <dl className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
                     <div>
                       <dt className="text-muted-foreground">Creator</dt>
@@ -210,7 +222,96 @@ export function ContentPage() {
                 </div>
               </div>
             )}
+            {activeTab === "promo" && (
+              <div>
+                <h3 className="text-sm font-semibold text-foreground mb-3">Promo Videos</h3>
+                <div className="grid grid-cols-3 gap-3">
+                  {["Trailer", "Sizzle Reel", "Teaser"].map((promoType, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => {
+                        logEvent(EVENT_TYPES.CTA_CLICK, {
+                          ctaName: "promo_video_click",
+                          promoType: promoType,
+                          videoId: video.id,
+                        });
+                      }}
+                      className="group relative aspect-video rounded-xl bg-muted/60 border border-border/60 overflow-hidden hover:border-primary/60 transition"
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition">
+                            <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                            </svg>
+                          </div>
+                          <p className="text-xs font-medium text-foreground">{promoType}</p>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {activeTab === "stills" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Key art frames and still images from this title will appear here in the full product.</p>
+              </div>
+            )}
+            {activeTab === "bts" && (
+              <div className="text-sm text-muted-foreground">
+                <p>Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
+              </div>
+            )}
           </div>
+
+          {/* More like this - Horizontal Rail (Below Tab Content) */}
+          <section className="mt-8">
+            <h2 className="text-lg font-semibold tracking-tight text-foreground mb-3">More like this</h2>
+            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+              {similarVideos.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleCardClick("more_like_this_rail", item)}
+                  className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
+                >
+                  <div className="rounded-2xl overflow-hidden bg-card/80 border border-border/50 shadow-sm group-hover:shadow-md group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                    <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/30 to-muted/70 overflow-hidden">
+                      {item.thumbnail ? (
+                        <div
+                          className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"
+                          style={{ backgroundImage: `url(${item.thumbnail})` }}
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-muted/70 group-hover:opacity-90 transition-opacity" />
+                      )}
+                      <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/50 rounded-2xl pointer-events-none" />
+                      {item.genre && (
+                        <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                          {item.genre}
+                        </span>
+                      )}
+                      {item.duration && (
+                        <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                          {item.duration}
+                        </span>
+                      )}
+                    </div>
+                    <div className="px-3 py-3 space-y-1">
+                      <h3 className="text-sm md:text-base font-semibold leading-snug line-clamp-2 text-foreground">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                        {item.tagline || item.meta}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
         </div>
 
         {/* RIGHT COLUMN - INFO + CTAs + MORE LIKE THIS */}
