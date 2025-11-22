@@ -4,14 +4,6 @@ import videoData from "../data/videoContent.json";
 import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 
-const PREMIER_CONTROLS = [
-  { id: "back", label: "Back to OnDemand" },
-  { id: "jump_genre", label: "Jump to Sci-Fi" },
-  { id: "save", label: "Save for later" },
-  { id: "remind", label: "Remind me" },
-  { id: "share", label: "Share" },
-];
-
 const PROFILE_TABS = [
   { id: "promo", label: "Promo" },
   { id: "stills", label: "Stills" },
@@ -59,13 +51,24 @@ export function ContentPage() {
     navigate(`/content/${targetVideo.id}`);
   };
 
-  const handleControlClick = (control) => {
-    if (control.id === "back") {
-      navigate("/");
-    }
+  const handleBackToOnDemand = () => {
     logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "content_control_click",
-      control: control.id,
+      ctaName: "content_back_to_ondemand",
+      videoId: video.id,
+    });
+    navigate("/");
+  };
+
+  const handleAddToWatchlist = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_add_to_watchlist",
+      videoId: video.id,
+    });
+  };
+
+  const handleShare = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_share_click",
       videoId: video.id,
     });
   };
@@ -96,40 +99,41 @@ export function ContentPage() {
   // Get similar videos for "More like this"
   const genreMatches = allVideos.filter(v => v.id !== video.id && v.genre === video.genre);
   const similarVideos = genreMatches.length > 0 
-    ? genreMatches.slice(0, 5)
-    : allVideos.filter(v => v.id !== video.id).slice(0, 5);
+    ? genreMatches.slice(0, 4)
+    : allVideos.filter(v => v.id !== video.id).slice(0, 4);
   const creatorVideos = allVideos.filter(v => v.id !== video.id && v.creator === video.creator).slice(0, 8);
 
   return (
-    <div className="space-y-6">
-      {/* HERO ROW - 3-column grid */}
-      <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(0,1.4fr)]">
-        {/* LEFT CONTROLS */}
-        <aside className="hidden md:flex flex-col gap-2">
-          <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-1 px-2">
-            Premier controls
-          </p>
-          {PREMIER_CONTROLS.map((control) => {
-            const isActive = control.id === "jump_genre";
-            return (
-              <button
-                key={control.id}
-                type="button"
-                className={
-                  isActive
-                    ? "h-9 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm"
-                    : "h-9 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 hover:bg-secondary/60 hover:text-foreground text-sm font-medium"
-                }
-                onClick={() => handleControlClick(control)}
-              >
-                <span>{control.label}</span>
-              </button>
-            );
-          })}
-        </aside>
+    <div className="grid gap-8 md:grid-cols-[120px_minmax(0,2.3fr)_minmax(0,0.9fr)]">
+      {/* LEFT CONTROLS - Simplified 3 buttons */}
+      <aside className="hidden md:flex flex-col gap-3">
+        <button
+          type="button"
+          onClick={handleBackToOnDemand}
+          className="h-10 w-full rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center justify-center hover:bg-primary/90"
+        >
+          Back to OnDemand
+        </button>
+        <button
+          type="button"
+          onClick={handleAddToWatchlist}
+          className="h-10 w-full rounded-full border border-border text-sm text-foreground flex items-center justify-center hover:bg-secondary/60"
+        >
+          Add to watch list
+        </button>
+        <button
+          type="button"
+          onClick={handleShare}
+          className="h-10 w-full rounded-full border border-border text-sm text-foreground flex items-center justify-center hover:bg-secondary/60"
+        >
+          Share
+        </button>
+      </aside>
 
-        {/* HERO PREVIEW (center) */}
-        <div className="relative w-full aspect-video max-h-[420px] rounded-3xl bg-card border border-border/60 overflow-hidden">
+      {/* MAIN COLUMN - Preview + Title + CTAs + Tabs */}
+      <div className="space-y-6">
+        {/* Preview Window */}
+        <div className="relative w-full aspect-video rounded-3xl bg-card border border-border/60 overflow-hidden">
           <div className="absolute inset-0 flex items-center justify-center bg-background">
             <p className="text-sm text-muted-foreground">
               VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
@@ -137,109 +141,69 @@ export function ContentPage() {
           </div>
         </div>
 
-        {/* RIGHT SIDEBAR - Profile summary + CTAs + More like this */}
-        <aside className="space-y-4">
-          {/* Summary card */}
-          <div className="rounded-2xl bg-card border border-border/60 px-5 py-4 space-y-2">
-            <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
-              {video.title}
-            </h1>
-            <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm text-muted-foreground">
-              {video.duration && <span>{video.duration}</span>}
-              {video.genre && (
-                <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[11px] uppercase tracking-wide">
-                  {video.genre}
-                </span>
-              )}
-              <span>Guest preview · OnDemand</span>
-            </div>
-            <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed line-clamp-3">
-              {video.tagline || video.description || "A curated Washington experience."}
-            </p>
-          </div>
+        {/* Title + Metadata + Logline + CTAs */}
+        <section className="space-y-3">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+            {video.title}
+          </h1>
 
-          {/* Primary actions card */}
-          <div className="rounded-2xl bg-card border border-border/60 px-5 py-4 space-y-3">
-            <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={handlePlay}
-                className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
-              >
-                Play (login required)
-              </button>
-              <button
-                type="button"
-                onClick={handleTrailer}
-                className="rounded-full bg-secondary text-foreground px-5 py-2 text-sm md:text-base font-medium hover:bg-secondary/90"
-              >
-                Trailer
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("info")}
-                className="rounded-full border border-border px-5 py-2 text-sm md:text-base text-foreground hover:bg-secondary/60"
-              >
-                More info
-              </button>
-              <button
-                type="button"
-                onClick={handleFollow}
-                className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
-              >
-                Follow creator
-              </button>
-            </div>
-            {showFollowHint && (
-              <p className="text-xs md:text-sm text-muted-foreground">
-                To follow creators and get updates, you&apos;ll need a free Washington profile.
-                In the full product, VIA will walk you through setup from here.
-              </p>
+          <div className="flex flex-wrap items-center gap-3 text-sm md:text-base text-muted-foreground">
+            {video.duration && <span>{video.duration}</span>}
+            {video.genre && (
+              <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[11px] uppercase tracking-wide">
+                {video.genre}
+              </span>
             )}
+            <span>Guest preview · OnDemand</span>
           </div>
 
-          {/* More like this - compact stack */}
-          <div>
-            <h3 className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-2">
-              More like this
-            </h3>
-            <div className="space-y-2">
-              {similarVideos.slice(0, 4).map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => handleCardClick("related", item)}
-                  className="w-full rounded-xl bg-muted/40 border border-border/50 flex items-center gap-3 px-3 py-2 text-left hover:bg-muted/70 transition-colors group"
-                >
-                  <div className="h-12 w-20 rounded-lg overflow-hidden bg-gradient-to-br from-accent/30 to-muted/60 flex-shrink-0">
-                    {item.thumbnail ? (
-                      <div
-                        className="w-full h-full bg-cover bg-center opacity-70 group-hover:opacity-100 transition-opacity"
-                        style={{ backgroundImage: `url(${item.thumbnail})` }}
-                      />
-                    ) : (
-                      <div className="w-full h-full opacity-70 group-hover:opacity-100 transition-opacity" />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-foreground line-clamp-2">
-                      {item.title}
-                    </p>
-                    <p className="text-[11px] text-muted-foreground">
-                      {item.duration} · {item.genre || "Similar"}
-                    </p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </aside>
-      </div>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
+            {video.description || video.tagline || "A curated Washington experience."}
+          </p>
 
-      {/* TABS & DEEP CONTENT - Below hero row */}
-      <div className="space-y-6">
+          {/* Primary CTAs */}
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <button
+              type="button"
+              onClick={handlePlay}
+              className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+            >
+              Play (login required)
+            </button>
+            <button
+              type="button"
+              onClick={handleTrailer}
+              className="rounded-full bg-secondary text-foreground px-5 py-2 text-sm md:text-base font-medium hover:bg-secondary/90"
+            >
+              Trailer
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("info")}
+              className="rounded-full border border-border px-5 py-2 text-sm md:text-base text-foreground hover:bg-secondary/60"
+            >
+              More info
+            </button>
+            <button
+              type="button"
+              onClick={handleFollow}
+              className="rounded-full border border-primary/70 text-primary px-5 py-2 text-sm md:text-base font-medium hover:bg-primary/10"
+            >
+              Follow creator
+            </button>
+          </div>
+
+          {/* Follow Hint */}
+          {showFollowHint && (
+            <p className="mt-2 text-xs md:text-sm text-muted-foreground max-w-md">
+              To follow creators and get updates, you&apos;ll need a free Washington profile.
+              In the full product, VIA will walk you through setup from here.
+            </p>
+          )}
+        </section>
+
         {/* Profile Tabs */}
-        <section className="space-y-4">
+        <section className="space-y-4 mt-8">
           <nav className="border-b border-border flex gap-6">
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
@@ -307,9 +271,9 @@ export function ContentPage() {
           </div>
         </section>
 
-        {/* Discovery Rails */}
+        {/* Discovery Rails - Below tabs */}
         {creatorVideos.length > 0 && (
-        <section className="space-y-6">
+        <section className="space-y-6 mt-8">
           {/* More from this creator */}
           <div className="space-y-3">
             <h2 className="text-xl font-semibold tracking-tight text-foreground">
@@ -413,6 +377,75 @@ export function ContentPage() {
         </section>
         )}
       </div>
+
+      {/* RIGHT COLUMN - Slim, secondary: About + Credits + More like this */}
+      <aside className="space-y-4">
+        {/* About this session */}
+        <div className="rounded-2xl bg-card border border-border/60 p-4 md:p-5 space-y-2">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            About this session
+          </p>
+          <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed">
+            {video.genre || "Feature"} • {video.duration || "Duration TBD"}
+          </p>
+          <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed">
+            {video.tagline || "A curated Washington experience."}
+          </p>
+        </div>
+
+        {/* Credits & Brand */}
+        <div className="rounded-2xl bg-card border border-border/60 p-4 md:p-5 space-y-2">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            Credits & Brand
+          </p>
+          <dl className="space-y-1 text-xs md:text-sm text-muted-foreground">
+            <div className="flex justify-between gap-2">
+              <dt>Creator</dt>
+              <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
+            </div>
+            <div className="flex justify-between gap-2">
+              <dt>Sponsor</dt>
+              <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+            </div>
+          </dl>
+        </div>
+
+        {/* More like this - Muted vertical list */}
+        <div className="space-y-2">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground px-1">
+            More like this
+          </p>
+          <div className="space-y-2">
+            {similarVideos.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleCardClick("more_like_this_sidebar", item)}
+                className="w-full h-16 md:h-18 rounded-xl bg-card/70 opacity-75 hover:opacity-100 hover:-translate-y-0.5 hover:shadow-md transition flex items-center gap-3 px-3 py-2 text-left"
+              >
+                <div className="h-12 w-20 rounded-lg overflow-hidden bg-gradient-to-br from-accent/30 to-muted/60 flex-shrink-0">
+                  {item.thumbnail ? (
+                    <div
+                      className="w-full h-full bg-cover bg-center"
+                      style={{ backgroundImage: `url(${item.thumbnail})` }}
+                    />
+                  ) : (
+                    <div className="w-full h-full" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs md:text-sm font-medium text-foreground line-clamp-2">
+                    {item.title}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground">
+                    {item.duration} · {item.genre || "Similar"}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </aside>
     </div>
   );
 }
