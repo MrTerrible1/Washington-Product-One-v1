@@ -268,13 +268,13 @@ export function ContentPage() {
             {activeTab === "stills" && (
               <div>
                 <h3 className="text-sm font-semibold text-foreground mb-3">Official Stills</h3>
-                <p className="text-sm text-muted-foreground">Key art frames and still images from this title will appear here in the full product.</p>
+                <p className="text-sm text-muted-foreground">Still images to be provided by creator.</p>
               </div>
             )}
             {activeTab === "bts" && (
               <div>
                 <h3 className="text-sm font-semibold text-foreground mb-3">Behind the Scenes</h3>
-                <p className="text-sm text-muted-foreground">Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
+                <p className="text-sm text-muted-foreground">Behind-the-scenes content to be provided by creator.</p>
               </div>
             )}
             {activeTab === "credits" && (
@@ -288,7 +288,7 @@ export function ContentPage() {
                   </pre>
                 ) : (
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Full credits will appear here.
+                    Full credits to be provided by creator.
                   </p>
                 )}
               </div>
