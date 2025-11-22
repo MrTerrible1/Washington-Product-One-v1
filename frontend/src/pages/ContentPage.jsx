@@ -315,11 +315,10 @@ export function ContentPage() {
               </div>
             )}
           </div>
-        </section>
 
         {/* Discovery Rails - Below tabs */}
         {creatorVideos.length > 0 && (
-        <section className="space-y-6 mt-8">
+        <div className="space-y-6 mt-8">
           {/* More from this creator */}
           <div className="space-y-3">
             <h2 className="text-xl font-semibold tracking-tight text-foreground">
