@@ -302,15 +302,13 @@ export function ContentPage() {
         {/* Discovery Rails */}
         <section className="space-y-6">
           {/* More from this creator */}
+          {creatorVideos.length > 0 && (
           <div className="space-y-3">
             <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
               More from this creator
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
-              {allVideos
-              .filter((v) => v.id !== video.id && v.creator === video.creator)
-              .slice(0, 8)
-              .map((v) => (
+              {creatorVideos.map((v) => (
                 <button
                   key={v.id}
                   type="button"
