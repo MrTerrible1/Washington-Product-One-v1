@@ -106,7 +106,7 @@ export function ContentPage() {
   return (
     <div className="space-y-6">
       {/* TOP SECTION - Hero + Info Grid */}
-      <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.5fr)_minmax(0,1fr)]">
+      <div className="grid gap-8 md:grid-cols-[120px_minmax(0,2.8fr)_minmax(320px,0.9fr)]">
         {/* LEFT CONTROLS - Simplified 3 buttons */}
         <aside className="hidden md:flex flex-col gap-3">
           <button
