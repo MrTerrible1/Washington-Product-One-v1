@@ -179,7 +179,7 @@ export function ContentPage() {
             })}
           </nav>
 
-          {/* ACTIVE TAB CONTENT */}
+          {/* ACTIVE TAB CONTENT - No max-height, expands naturally */}
           <div className="mt-4">
             {activeTab === "info" && (
               <div className="space-y-4">
@@ -268,50 +268,156 @@ export function ContentPage() {
             )}
           </div>
 
-          {/* More like this - Horizontal Rail (Below Tab Content) */}
-          <section className="mt-8">
-            <h2 className="text-lg font-semibold tracking-tight text-foreground mb-3">More like this</h2>
-            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-              {similarVideos.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => handleCardClick("more_like_this_rail", item)}
-                  className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
-                >
-                  <div className="rounded-2xl overflow-hidden bg-card/80 border border-border/50 shadow-sm group-hover:shadow-md group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
-                    <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/30 to-muted/70 overflow-hidden">
-                      {item.thumbnail ? (
-                        <div
-                          className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"
-                          style={{ backgroundImage: `url(${item.thumbnail})` }}
-                        />
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-muted/70 group-hover:opacity-90 transition-opacity" />
-                      )}
-                      <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/50 rounded-2xl pointer-events-none" />
-                      {item.genre && (
-                        <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
-                          {item.genre}
-                        </span>
-                      )}
-                      {item.duration && (
-                        <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
-                          {item.duration}
-                        </span>
-                      )}
+          {/* DISCOVERY RAILS - Separate section after tabs */}
+          <section className="mt-8 space-y-6">
+            {/* More from this creator */}
+            {creatorVideos.length > 0 && (
+            <div className="space-y-3">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground">
+                More from this creator
+              </h2>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                {creatorVideos.map((v) => (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={() => handleCardClick("more_from_creator", v)}
+                    className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
+                  >
+                    <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                      <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
+                        {v.thumbnail ? (
+                          <div
+                            className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
+                            style={{ backgroundImage: `url(${v.thumbnail})` }}
+                          />
+                        ) : (
+                          <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
+                        )}
+                        <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
+                        {v.genre && (
+                          <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                            {v.genre}
+                          </span>
+                        )}
+                        {v.duration && (
+                          <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                            {v.duration}
+                          </span>
+                        )}
+                      </div>
+                      <div className="px-3 py-3 space-y-1">
+                        <h3 className="text-base md:text-[17px] font-semibold leading-snug line-clamp-2 text-foreground">
+                          {v.title}
+                        </h3>
+                        <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                          {v.tagline || v.meta}
+                        </p>
+                      </div>
                     </div>
-                    <div className="px-3 py-3 space-y-1">
-                      <h3 className="text-sm md:text-base font-semibold leading-snug line-clamp-2 text-foreground">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
-                        {item.tagline || item.meta}
-                      </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+            )}
+
+            {/* More from this sponsor */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground">
+                More from this sponsor
+              </h2>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                {allVideos
+                .filter((v) => v.id !== video.id)
+                .slice(0, 8)
+                .map((v) => (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={() => handleCardClick("more_from_sponsor", v)}
+                    className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
+                  >
+                    <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                      <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
+                        {v.thumbnail ? (
+                          <div
+                            className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
+                            style={{ backgroundImage: `url(${v.thumbnail})` }}
+                          />
+                        ) : (
+                          <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
+                        )}
+                        <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
+                        {v.genre && (
+                          <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                            {v.genre}
+                          </span>
+                        )}
+                        {v.duration && (
+                          <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                            {v.duration}
+                          </span>
+                        )}
+                      </div>
+                      <div className="px-3 py-3 space-y-1">
+                        <h3 className="text-base md:text-[17px] font-semibold leading-snug line-clamp-2 text-foreground">
+                          {v.title}
+                        </h3>
+                        <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                          {v.tagline || v.meta}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* More like this */}
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold tracking-tight text-foreground">More like this</h2>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                {similarVideos.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleCardClick("more_like_this_rail", item)}
+                    className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
+                  >
+                    <div className="rounded-2xl overflow-hidden bg-card/80 border border-border/50 shadow-sm group-hover:shadow-md group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
+                      <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/30 to-muted/70 overflow-hidden">
+                        {item.thumbnail ? (
+                          <div
+                            className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"
+                            style={{ backgroundImage: `url(${item.thumbnail})` }}
+                          />
+                        ) : (
+                          <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-muted/70 group-hover:opacity-90 transition-opacity" />
+                        )}
+                        <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/50 rounded-2xl pointer-events-none" />
+                        {item.genre && (
+                          <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                            {item.genre}
+                          </span>
+                        )}
+                        {item.duration && (
+                          <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                            {item.duration}
+                          </span>
+                        )}
+                      </div>
+                      <div className="px-3 py-3 space-y-1">
+                        <h3 className="text-sm md:text-base font-semibold leading-snug line-clamp-2 text-foreground">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+                          {item.tagline || item.meta}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           </section>
         </div>
