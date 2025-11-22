@@ -184,12 +184,14 @@ export function ContentPage() {
             {activeTab === "info" && (
               <div className="space-y-6">
                 {/* Synopsis */}
+                {video.synopsis && (
                 <div>
                   <h3 className="text-base font-semibold text-foreground mb-2">Synopsis</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
+                    {video.synopsis}
                   </p>
                 </div>
+                )}
 
                 {/* Meta line */}
                 <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
@@ -209,7 +211,7 @@ export function ContentPage() {
                     </pre>
                   ) : (
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Billing block coming soon.
+                      Billing block to be provided by creator.
                     </p>
                   )}
                 </div>
@@ -219,9 +221,15 @@ export function ContentPage() {
                   <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                     Full Plot
                   </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Extended plot details will appear here.
-                  </p>
+                  {video.fullPlot ? (
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                      {video.fullPlot}
+                    </p>
+                  ) : (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Full plot to be provided by creator.
+                    </p>
+                  )}
                 </div>
               </div>
             )}
