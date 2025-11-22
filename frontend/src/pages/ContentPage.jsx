@@ -264,10 +264,10 @@ export function ContentPage() {
                 </button>
               );
             })}
-          </nav>
+          </div>
 
           {/* Tab Content */}
-          <div className="pt-4 space-y-4">
+          <div className="mt-4 space-y-4">
             {activeTab === "promo" && (
               <div className="text-sm text-muted-foreground">
                 <p>Trailers, sizzle reels, and promo clips will appear here in the full product.</p>
