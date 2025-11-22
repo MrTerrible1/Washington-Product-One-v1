@@ -147,43 +147,18 @@ export function ContentPage() {
           </button>
         </aside>
 
-        {/* CENTER COLUMN - HERO + META + TABS */}
+        {/* CENTER COLUMN - HERO + TABS */}
         <div className="flex flex-col">
           {/* Hero Preview */}
-          <div className="relative aspect-video w-full max-h-[300px] rounded-3xl bg-[#101318] border border-border/60 overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center bg-background">
+          <div className="aspect-video max-h-[360px] w-full rounded-3xl bg-[#101318] overflow-hidden border border-border/60">
+            <div className="w-full h-full flex items-center justify-center bg-background">
               <p className="text-sm text-muted-foreground">
                 VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
               </p>
             </div>
           </div>
 
-          {/* Meta + Short Synopsis + Full Credits Link */}
-          <div className="mt-3 space-y-2">
-            <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-muted-foreground">
-              {video.duration && <span>{video.duration}</span>}
-              {video.genre && (
-                <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[10px] uppercase tracking-wide">
-                  {video.genre}
-                </span>
-              )}
-              <span>Guest preview · OnDemand</span>
-            </div>
-            
-            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-              {video.description || video.tagline || "A curated Washington experience."}
-            </p>
-            
-            <button
-              type="button"
-              onClick={() => setActiveTab("info")}
-              className="text-xs text-primary hover:text-primary/80 underline"
-            >
-              Full credits →
-            </button>
-          </div>
-
-          {/* PROFILE TABS */}
+          {/* PROFILE TABS - Directly under hero */}
           <nav className="mt-4 border-b border-border/60 flex gap-4">
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
