@@ -133,7 +133,7 @@ export function ContentPage() {
         </aside>
 
         {/* CENTER - Preview Window Only */}
-        <div className="relative w-full aspect-video max-h-[420px] rounded-3xl bg-[#101318] border border-border/60 overflow-hidden">
+        <div className="relative bg-[#101318] rounded-3xl border border-border/60 overflow-hidden aspect-video max-h-[360px] mx-auto w-full mt-4 mb-2">
           <div className="absolute inset-0 flex items-center justify-center bg-background">
             <p className="text-sm text-muted-foreground">
               VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
