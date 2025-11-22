@@ -143,13 +143,13 @@ export function ContentPage() {
 
         {/* RIGHT COLUMN - Compact Title + CTAs + More like this */}
         <aside className="space-y-4">
-          {/* Compact title block */}
-          <div className="space-y-2">
+          {/* Title + meta */}
+          <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               {video.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm text-muted-foreground">
+            <div className="mt-1 text-xs md:text-sm text-muted-foreground flex flex-wrap gap-3 items-center">
               {video.duration && <span>{video.duration}</span>}
               {video.genre && (
                 <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[10px] uppercase tracking-wide">
@@ -159,17 +159,17 @@ export function ContentPage() {
               <span>Guest preview · OnDemand</span>
             </div>
 
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-3">
+            <p className="mt-2 text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-3">
               {video.description || video.tagline || "A curated Washington experience."}
             </p>
           </div>
 
-          {/* Primary CTAs - Play full-width, then 3-button grid */}
-          <div className="space-y-3">
+          {/* CTA group */}
+          <div className="space-y-2">
             <button
               type="button"
               onClick={handlePlay}
-              className="w-full rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+              className="w-full rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
             >
               Play (login required)
             </button>
@@ -206,9 +206,9 @@ export function ContentPage() {
             )}
           </div>
 
-          {/* More like this - Only 3 items, no scroll */}
-          <section className="mt-6">
-            <h3 className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-3">
+          {/* More like this - 3 items, no scroll */}
+          <section className="mt-4">
+            <h3 className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase mb-2">
               More like this
             </h3>
             <div className="space-y-2">
@@ -217,9 +217,9 @@ export function ContentPage() {
                   key={item.id}
                   type="button"
                   onClick={() => handleCardClick("more_like_this_sidebar", item)}
-                  className="w-full flex items-center gap-3 rounded-2xl bg-[#101318] border border-border/40 px-3 py-2 text-left hover:border-border/80 hover:bg-[#141820] transition"
+                  className="w-full flex items-center gap-3 rounded-2xl bg-[#101318] border border-border/60 hover:border-border/80 px-3 py-2 text-left transition"
                 >
-                  <div className="h-10 w-16 rounded-xl bg-muted/60 overflow-hidden flex-shrink-0">
+                  <div className="h-12 w-20 rounded-xl bg-muted/40 overflow-hidden flex-shrink-0">
                     {item.thumbnail ? (
                       <div
                         className="w-full h-full bg-cover bg-center"
@@ -234,7 +234,7 @@ export function ContentPage() {
                       {item.title}
                     </p>
                     <p className="text-[11px] text-muted-foreground truncate">
-                      {item.duration || item.genre || "Similar content"}
+                      {item.duration} • {item.genre || "Similar"}
                     </p>
                   </div>
                 </button>
