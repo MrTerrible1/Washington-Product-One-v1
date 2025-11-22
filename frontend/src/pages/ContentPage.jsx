@@ -287,27 +287,31 @@ export function ContentPage() {
               </div>
             )}
             {activeTab === "info" && (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-2">Full Description</h3>
+                  <h3 className="text-base font-semibold text-foreground mb-3">About This Title</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-2">Credits & Collaborators</h3>
-                  <dl className="space-y-1 text-sm text-muted-foreground">
-                    <div className="flex justify-between gap-2">
-                      <dt>Creator</dt>
-                      <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
+                  <h3 className="text-base font-semibold text-foreground mb-3">Credits & Brand</h3>
+                  <dl className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
+                    <div>
+                      <dt className="text-muted-foreground">Creator</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.creator || "Example Creator"}</dd>
                     </div>
-                    <div className="flex justify-between gap-2">
-                      <dt>Brand</dt>
-                      <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
+                    <div>
+                      <dt className="text-muted-foreground">Sponsor</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.sponsor || "TBD Sponsor"}</dd>
                     </div>
-                    <div className="flex justify-between gap-2">
-                      <dt>Sponsor</dt>
-                      <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
+                    <div>
+                      <dt className="text-muted-foreground">Brand</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.brand || "Washington"}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Genre</dt>
+                      <dd className="font-medium text-foreground mt-1">{video.genre || "—"}</dd>
                     </div>
                   </dl>
                 </div>
