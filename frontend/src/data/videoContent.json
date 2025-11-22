@@ -6,9 +6,10 @@
       "items": [        {
           "id": "wash-101",
           "title": "The Long Night — Washington Original",
+          "logline": "A curated night stream that stitches together the most relevant films, series, and creator sessions for you.",
+          "synopsis": "This immersive experience combines carefully selected content into a seamless viewing journey. Over the course of 2 hours and 8 minutes, viewers are taken on a curated path through multiple genres and formats, creating a unique late-night viewing experience.",
+          "fullPlot": "The Long Night is an experimental streaming format that reimagines how audiences consume content in the late-night hours. Rather than presenting a single linear narrative, this curated stream weaves together feature films, episodic content, and creator sessions into a cohesive thematic journey.\n\nThe experience begins with atmospheric establishing content, gradually building through character-driven shorts, documentary segments exploring the creative process, and culminating in a feature-length narrative that ties together the evening's themes. Throughout the 2-hour-8-minute runtime, viewers encounter work from emerging and established creators, all selected to create a seamless flow that respects the late-night viewing mindset.\n\nThis Washington Original represents a new approach to content curation, where the relationship between pieces matters as much as the individual works themselves. The Long Night demonstrates how streaming can evolve beyond the traditional VOD model into something more akin to curated exhibition, while maintaining the on-demand flexibility modern audiences expect.",
           "meta": "Feature • 2h 8m curated stream",
-          "tagline": "A curated night stream that stitches together the most relevant films, series, and creator sessions for you.",
-          "description": "A curated night stream that stitches together the most relevant films, series, and creator sessions for you. This immersive experience combines carefully selected content into a seamless viewing journey.",
           "duration": "2:08",
           "genre": "Feature",
           "format": "Film",
