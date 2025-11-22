@@ -247,7 +247,7 @@ export function ContentPage() {
       <div className="space-y-6">
 
         {/* Profile Tabs */}
-        <section className="space-y-4 mt-8">
+        <section className="space-y-4">
           <nav className="border-b border-border flex gap-6">
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
