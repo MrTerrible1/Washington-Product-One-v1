@@ -351,8 +351,8 @@ export function ContentPage() {
                   </div>
                 </button>
               ))}
+            </div>
           </div>
-        </div>
 
           {/* More from this sponsor */}
           <div className="space-y-3">
