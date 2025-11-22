@@ -182,55 +182,26 @@ export function ContentPage() {
           {/* ACTIVE TAB CONTENT - No max-height, expands naturally */}
           <div className="mt-4">
             {activeTab === "info" && (
-              <div className="space-y-6">
-                {/* Synopsis */}
-                {video.synopsis && (
-                <div>
-                  <h3 className="text-base font-semibold text-foreground mb-2">Synopsis</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {video.synopsis}
-                  </p>
-                </div>
+              <div>
+                {/* Billing Block */}
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
+                  Billing Block
+                </h3>
+                {video.billingBlock?.rawText ? (
+                  <div className="mt-2 text-xs md:text-sm text-neutral-200 leading-snug whitespace-pre-wrap">
+                    {video.billingBlock.rawText}
+                  </div>
+                ) : (
+                  <p className="mt-2 text-xs text-neutral-500">Billing block coming soon.</p>
                 )}
 
-                {/* Meta line */}
-                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-                  {video.duration && <span>{video.duration}</span>}
-                  {video.genre && <span>• FEATURE •</span>}
-                  <span>Guest preview · OnDemand</span>
-                </div>
-
-                {/* Billing Block */}
-                <div>
-                  <h3 className="mt-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                    Billing Block
-                  </h3>
-                  {video.billingBlock?.rawText ? (
-                    <pre className="mt-2 whitespace-pre-wrap text-sm text-foreground leading-snug font-sans">
-                      {video.billingBlock.rawText}
-                    </pre>
-                  ) : (
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Billing block to be provided by creator.
-                    </p>
-                  )}
-                </div>
-
                 {/* Full Plot */}
-                <div>
-                  <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                    Full Plot
-                  </h3>
-                  {video.fullPlot ? (
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                      {video.fullPlot}
-                    </p>
-                  ) : (
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Full plot to be provided by creator.
-                    </p>
-                  )}
-                </div>
+                <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-neutral-400">
+                  Full Plot
+                </h3>
+                <p className="mt-2 text-sm text-neutral-200 leading-relaxed">
+                  {video.fullPlot ?? "Full plot coming soon."}
+                </p>
               </div>
             )}
             {activeTab === "promo" && (
