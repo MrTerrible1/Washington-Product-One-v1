@@ -438,7 +438,7 @@ export function ContentPage() {
                           {item.title}
                         </h3>
                         <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
-                          {item.tagline || item.meta}
+                          {item.logline || item.synopsis}
                         </p>
                       </div>
                     </div>
