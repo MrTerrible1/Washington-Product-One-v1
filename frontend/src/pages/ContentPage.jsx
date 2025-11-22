@@ -123,12 +123,14 @@ export function ContentPage() {
   };
 
   // Get similar videos for "More like this"
-  const similarVideos = allVideos.filter(v => v.id !== video.id && v.genre === video.genre).slice(0, 5);
+  const genreMatches = allVideos.filter(v => v.id !== video.id && v.genre === video.genre);
+  const similarVideos = genreMatches.length > 0 
+    ? genreMatches.slice(0, 5)
+    : allVideos.filter(v => v.id !== video.id).slice(0, 5);
   const creatorVideos = allVideos.filter(v => v.id !== video.id && v.creator === video.creator).slice(0, 8);
-  const sponsorVideos = allVideos.filter(v => v.id !== video.id).slice(0, 8);
 
   return (
-    <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(260px,1fr)]">
+    <div className="grid gap-8 md:grid-cols-[140px_minmax(0,2.2fr)_minmax(0,1.1fr)]">
       {/* LEFT SIDEBAR - Premier Controls */}
       <aside className="hidden md:flex flex-col gap-1.5 pt-2">
         <p className="uppercase tracking-[0.18em] text-[11px] text-muted-foreground mb-2 px-2">
