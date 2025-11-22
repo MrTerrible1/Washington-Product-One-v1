@@ -227,8 +227,10 @@ export function ContentPage() {
           )}
         </section>
 
+        {/* Profile Tabs & Content Section */}
+        <section className="space-y-4">
           {/* Profile Tabs */}
-          <nav className="border-b border-border flex gap-6 mt-6">
+          <nav className="border-b border-border flex gap-6">
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
               return (
