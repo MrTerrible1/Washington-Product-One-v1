@@ -5,10 +5,10 @@ import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
 import { EVENT_TYPES } from "../events/eventTypes";
 
 const PROFILE_TABS = [
+  { id: "info", label: "Info" },
   { id: "promo", label: "Promo" },
   { id: "stills", label: "Stills" },
   { id: "bts", label: "BTS" },
-  { id: "info", label: "Info" },
 ];
 
 export function ContentPage() {
