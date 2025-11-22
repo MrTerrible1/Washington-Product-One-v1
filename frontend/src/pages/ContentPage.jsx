@@ -267,37 +267,12 @@ export function ContentPage() {
 
       {/* TABS & DEEP CONTENT - Below hero row */}
       <div className="space-y-6">
-        {/* Top section - Hero + Title/CTAs above fold */}
+        {/* Profile Tabs */}
         <section className="space-y-4">
-          {/* Video Preview - fixed 16:9 */}
-          <div className="rounded-3xl bg-card border border-border/60 overflow-hidden">
-            <div className="relative w-full aspect-video max-h-[460px] lg:max-h-[420px] bg-background flex items-center justify-center">
-              <p className="text-sm text-muted-foreground">
-                VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
-              </p>
-            </div>
-          </div>
-
-          {/* Title/Meta + CTAs Row */}
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            {/* Left: Title and metadata */}
-            <div className="space-y-1.5">
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-                {video.title}
-              </h1>
-              <div className="flex flex-wrap items-center gap-3 text-sm md:text-base text-muted-foreground">
-                {video.duration && <span>{video.duration}</span>}
-                {video.genre && (
-                  <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[11px] uppercase tracking-wide">
-                    {video.genre}
-                  </span>
-                )}
-                <span>Guest preview · OnDemand</span>
-              </div>
-            </div>
-
-            {/* Right: Primary CTAs */}
-            <div className="flex flex-wrap gap-3">
+          <nav className="border-b border-border flex gap-6">
+            {PROFILE_TABS.map((tab) => {
+              const isActive = tab.id === activeTab;
+              return (
               <button
                 type="button"
                 onClick={handlePlay}
