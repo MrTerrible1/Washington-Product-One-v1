@@ -271,25 +271,18 @@ export function ContentPage() {
             )}
             {activeTab === "credits" && (
               <div>
-                <h3 className="text-base font-semibold text-foreground mb-4">Full Credits</h3>
-                <dl className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
-                  <div>
-                    <dt className="text-muted-foreground mb-1">Creator</dt>
-                    <dd className="font-medium text-foreground">{video.creator || "Example Creator"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground mb-1">Sponsor</dt>
-                    <dd className="font-medium text-foreground">{video.sponsor || "TBD Sponsor"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground mb-1">Brand</dt>
-                    <dd className="font-medium text-foreground">{video.brand || "Washington"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground mb-1">Genre</dt>
-                    <dd className="font-medium text-foreground">{video.genre || "—"}</dd>
-                  </div>
-                </dl>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
+                  Full Credits
+                </h3>
+                {video.billingBlock?.rawText ? (
+                  <pre className="mt-2 whitespace-pre-wrap text-sm text-foreground leading-snug font-sans">
+                    {video.billingBlock.rawText}
+                  </pre>
+                ) : (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Full credits will appear here.
+                  </p>
+                )}
               </div>
             )}
           </div>
