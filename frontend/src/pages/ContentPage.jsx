@@ -97,6 +97,20 @@ export function ContentPage() {
     });
   };
 
+  const handleAddToList = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_add_to_list_click",
+      videoId: video.id,
+    });
+  };
+
+  const handleLike = () => {
+    logEvent(EVENT_TYPES.CTA_CLICK, {
+      ctaName: "content_like_click",
+      videoId: video.id,
+    });
+  };
+
   // Get similar videos for "More like this"
   const genreMatches = allVideos.filter(v => v.id !== video.id && v.genre === video.genre);
   const similarVideos = genreMatches.length > 0 
