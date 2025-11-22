@@ -355,13 +355,14 @@ export function ContentPage() {
           </div>
 
           {/* More from this sponsor */}
+          {creatorVideos.length > 0 && (
           <div className="space-y-3">
             <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
               More from this sponsor
             </h2>
             <div className="flex gap-3 overflow-x-auto pb-2 pr-2 scrollbar-hide">
               {allVideos
-              .filter((v) => v.id !== video.id && v.genre === video.genre)
+              .filter((v) => v.id !== video.id)
               .slice(0, 8)
               .map((v) => (
                 <button
