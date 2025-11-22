@@ -351,6 +351,7 @@ export function ContentPage() {
               ))}
             </div>
           </div>
+          )}
 
           {/* More from this sponsor */}
           {creatorVideos.length > 0 && (
