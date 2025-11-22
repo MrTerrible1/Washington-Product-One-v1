@@ -27,6 +27,28 @@
           }
         },
         {
+          "id": "mathmagical-i-ep1",
+          "title": "Mathmagical 'I'",
+          "logline": "A young orphan discovers she can manipulate reality through mathematical equations, making her a target for a secret society that controls the world.",
+          "synopsis": "Viola Dowden, an 11-year-old orphan with undiagnosed supernatural abilities, witnesses a magical battle on her street and inadvertently manifests fire during her first day at a new school. Her teacher Miss Garcias reveals that Viola is a rare 'Mathmagician' capable of wielding True Math to manipulate reality, making her a threat to The Ruler and his hidden society.",
+          "fullPlot": "Plot Line for \"Mathmagical 'I'\" Episode 1\nIn the dead of night on a quiet urban street, Marisol, a young Hispanic woman with supernatural abilities, flees from shadowy pursuers led by the menacing Goubert. Using mathematical incantations to enhance her strength and defy gravity, she hides an ancient, powerful tome under a wooden step outside a low-rent apartment building. A tense standoff erupts into a magical battle involving bolts of energy, culminating in a massive explosion that rocks the neighborhood. Young Viola Dowden, an 11-year-old orphan living with her overprotective aunt and uncle, witnesses the chaos from her window but is dismissed when she tries to explain it.\nThe next morning, the explosion is attributed to a gas main rupture or earthquake, drawing media and cleanup crews. Viola, a habitual counter with undiagnosed gifts, heads to her first day at Taft Middle School with her quirky best friend Aiesha. Eager to blend in after years of frequent moves, Viola navigates school cliques, including cheerleaders, athletes, and the chess club, while developing a crush on skateboarder Dawson Mavis. In homeroom with the charismatic teacher Miss Garcias, introductions highlight student dynamics, and Miss Garcias displays uncanny reflexes.\nDuring math class, Viola suffers a severe headache as numbers on the board swirl chaotically in her vision. While doodling a picture of Marisol casting a fireball, Viola unconsciously solves a \"true\" mathematical equation, manifesting a real flame that ignites her notebook. Miss Garcias quickly extinguishes it and fabricates a story about a lighter to cover for Viola, escorting her to Principal Jefferson's office. There, the incident is downplayed, and Viola's punishment is after-school cleanup with Miss Garcias.\nIn science class, Viola confides in Aiesha about the accidental \"magic,\" sparking Aiesha's excitement. School rivalries emerge, with chess whiz Tommy John mocking Viola. After school, Miss Garcias reveals the truth: Viola is a rare \"Mathmagician,\" capable of wielding \"True Math\" to manipulate reality, a genetic trait that makes her a threat to a hidden society controlling the world. The education system is a facade to identify and suppress such \"variables.\" Miss Garcias, herself a Mathmagician, vows to train Viola in secret to evade \"The Ruler,\" a tyrannical figure.\nAs Viola leaves school, she spots Goubert arriving as the Superintendent of Schools, recognizing him as the villain from the previous night's battle, leaving her in shock as the episode ends on a cliffhanger.",
+          "meta": "Series • Episode 1 • 42 min",
+          "duration": "42:00",
+          "genre": "Sci-Fi",
+          "format": "Episode",
+          "isSeries": true,
+          "season": 1,
+          "episodeNumber": 1,
+          "thumbnail": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=1200&h=675&fit=crop",
+          "creator": "Washington Studios",
+          "sponsor": "Washington",
+          "brand": "Washington",
+          "billingBlock": {
+            "rawText": "Starring: VIOLA DOWDEN as Viola\nGuest Starring: MARISOL as The Mathmagician\nCo-Starring: GOUBERT as The Antagonist\nCreated by: WASHINGTON STUDIOS\nWritten by: WASHINGTON CREATIVE TEAM\nDirected by: WASHINGTON STUDIOS",
+            "shortText": "Created by: WASHINGTON STUDIOS"
+          }
+        },
+        {
           "id": "wash-102",
           "title": "VIA v0.1: Simulated Insights",
           "meta": "Deep dive • 5 min vertical session",
