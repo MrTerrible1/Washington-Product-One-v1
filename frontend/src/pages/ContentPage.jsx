@@ -122,7 +122,7 @@ export function ContentPage() {
     <div>
       {/* THREE-COLUMN GRID */}
       <div className="grid gap-6 md:grid-cols-[120px_minmax(0,2.3fr)_minmax(320px,1fr)] items-start">
-        {/* LEFT COLUMN - CONTROLS */}
+        {/* LEFT COLUMN - Minimal controls */}
         <aside className="hidden md:flex flex-col gap-3">
           <button
             type="button"
@@ -133,7 +133,7 @@ export function ContentPage() {
           </button>
           <button
             type="button"
-            onClick={handleAddToWatchlist}
+            onClick={handleAddToList}
             className="h-10 w-full rounded-full border border-border text-sm text-foreground flex items-center justify-center hover:bg-secondary/60"
           >
             Add to watch list
