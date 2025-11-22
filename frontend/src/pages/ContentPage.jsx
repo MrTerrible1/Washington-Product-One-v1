@@ -316,59 +316,52 @@ export function ContentPage() {
           </section>
         </div>
 
-        {/* RIGHT SIDEBAR - Secondary */}
+        {/* RIGHT COLUMN - Title, meta, CTAs */}
         <aside className="space-y-4">
-          {/* Title + meta + one logline */}
+          {/* Title block */}
           <div>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               {video.title}
             </h1>
-
-            <div className="mt-1 text-xs text-muted-foreground flex flex-wrap gap-2 items-center">
-              {video.duration && <span>{video.duration}</span>}
-              {video.genre && (
-                <span className="inline-flex items-center rounded-full px-2 py-0.5 border border-border/70 text-[10px] uppercase tracking-wide">
-                  {video.genre}
-                </span>
-              )}
-            </div>
-
-            <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-1">
-              {video.tagline || video.description || "A curated Washington experience."}
+            <p className="mt-1 text-xs md:text-sm text-muted-foreground">
+              {video.duration} • FEATURE • Guest preview · OnDemand
+            </p>
+            <p className="mt-2 text-sm md:text-base text-muted-foreground line-clamp-3">
+              {video.description || video.tagline || "A curated Washington experience."}
             </p>
           </div>
 
-          {/* CTAs - Stacked, visually secondary */}
-          <div className="space-y-2">
+          {/* CTA cluster */}
+          <div className="mt-4 space-y-2">
             <button
               type="button"
               onClick={handlePlay}
-              className="w-full rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold shadow-sm hover:bg-primary/90"
+              className="w-full rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
             >
               Play (login required)
             </button>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={handleTrailer}
-                className="rounded-full bg-secondary/80 text-foreground px-2 py-2 text-xs font-medium hover:bg-secondary"
+                onClick={handleAddToList}
+                className="flex-1 rounded-full border border-border px-4 py-2 text-xs md:text-sm text-foreground hover:bg-secondary/60"
               >
-                Trailer
+                Add to watch list
               </button>
               <button
                 type="button"
-                onClick={() => setActiveTab("info")}
-                className="rounded-full border border-border/80 px-2 py-2 text-xs text-foreground hover:bg-secondary/40"
+                onClick={handleLike}
+                className="flex-1 rounded-full border border-border px-4 py-2 text-xs md:text-sm text-foreground hover:bg-secondary/60"
               >
-                More info
+                Like
               </button>
               <button
                 type="button"
                 onClick={handleFollow}
-                className="rounded-full border border-primary/60 text-primary px-2 py-2 text-xs font-medium hover:bg-primary/10"
+                className="flex-1 rounded-full border border-primary/70 text-primary px-4 py-2 text-xs md:text-sm font-medium hover:bg-primary/10"
               >
-                Follow
+                Follow creator
               </button>
             </div>
 
@@ -380,7 +373,7 @@ export function ContentPage() {
             )}
           </div>
 
-          {/* More from this creator - 3 items, muted */}
+          {/* More from this creator */}
           <section>
             <h3 className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase mb-2">
               More from this creator
@@ -416,10 +409,10 @@ export function ContentPage() {
             </div>
           </section>
 
-          {/* Sponsor card - Compact, neutral */}
-          <div className="rounded-xl bg-card/60 border border-border/50 px-4 py-3">
-            <p className="text-xs text-muted-foreground mb-1">Sponsored by</p>
-            <p className="text-sm font-semibold text-foreground">{video.sponsor || video.brand || "Washington"}</p>
+          {/* Sponsor card */}
+          <div className="mt-4 rounded-2xl border border-border/60 bg-card px-4 py-3 text-xs text-muted-foreground">
+            <div className="uppercase tracking-[0.18em] text-[10px] mb-1">Sponsored by</div>
+            <div className="text-sm text-foreground">{video.sponsor || video.brand || "Washington"}</div>
           </div>
         </aside>
       </div>
