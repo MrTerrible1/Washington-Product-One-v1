@@ -213,9 +213,9 @@ export function ContentPage() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN - Compact Title + CTAs + More like this */}
+        {/* RIGHT COLUMN - INFO + CTAs + MORE LIKE THIS */}
         <aside className="space-y-4">
-          {/* Title + meta */}
+          {/* Title + meta + logline */}
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               {video.title}
@@ -236,50 +236,49 @@ export function ContentPage() {
             </p>
           </div>
 
-          {/* CTA group */}
-          <div className="space-y-2">
+          {/* Play (login required) full-width button */}
+          <button
+            type="button"
+            onClick={handlePlay}
+            className="w-full rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+          >
+            Play (login required)
+          </button>
+
+          {/* Row of smaller buttons */}
+          <div className="flex gap-2">
             <button
               type="button"
-              onClick={handlePlay}
-              className="w-full rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+              onClick={handleTrailer}
+              className="flex-1 rounded-full bg-secondary text-foreground px-3 py-2 text-xs md:text-sm font-medium hover:bg-secondary/90"
             >
-              Play (login required)
+              Trailer
             </button>
-            
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={handleTrailer}
-                className="rounded-full bg-secondary text-foreground px-3 py-2 text-xs md:text-sm font-medium hover:bg-secondary/90"
-              >
-                Trailer
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab("info")}
-                className="rounded-full border border-border px-3 py-2 text-xs md:text-sm text-foreground hover:bg-secondary/60"
-              >
-                More info
-              </button>
-              <button
-                type="button"
-                onClick={handleFollow}
-                className="rounded-full border border-primary/70 text-primary px-3 py-2 text-xs md:text-sm font-medium hover:bg-primary/10"
-              >
-                Follow creator
-              </button>
-            </div>
-
-            {/* Follow Hint */}
-            {showFollowHint && (
-              <p className="text-xs text-muted-foreground">
-                To follow creators and get updates, you&apos;ll need a free Washington profile.
-              </p>
-            )}
+            <button
+              type="button"
+              onClick={() => setActiveTab("info")}
+              className="flex-1 rounded-full border border-border px-3 py-2 text-xs md:text-sm text-foreground hover:bg-secondary/60"
+            >
+              More info
+            </button>
+            <button
+              type="button"
+              onClick={handleFollow}
+              className="flex-1 rounded-full border border-primary/70 text-primary px-3 py-2 text-xs md:text-sm font-medium hover:bg-primary/10"
+            >
+              Follow creator
+            </button>
           </div>
 
-          {/* More like this - 3 items, no scroll */}
-          <section className="mt-4">
+          {/* Follow Hint */}
+          {showFollowHint && (
+            <p className="text-xs text-muted-foreground">
+              To follow creators and get updates, you&apos;ll need a free Washington profile.
+            </p>
+          )}
+
+          {/* More like this - max 3 items, no scroll */}
+          <section>
             <h3 className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase mb-2">
               More like this
             </h3>
@@ -289,9 +288,9 @@ export function ContentPage() {
                   key={item.id}
                   type="button"
                   onClick={() => handleCardClick("more_like_this_sidebar", item)}
-                  className="w-full flex items-center gap-3 rounded-2xl bg-[#101318] border border-border/60 hover:border-border/80 px-3 py-2 text-left transition"
+                  className="w-full h-14 flex items-center gap-3 rounded-2xl bg-[#101318]/60 border border-border/50 hover:border-border/80 hover:bg-[#101318] px-3 py-2 text-left transition"
                 >
-                  <div className="h-12 w-20 rounded-xl bg-muted/40 overflow-hidden flex-shrink-0">
+                  <div className="h-10 w-16 rounded-xl bg-muted/40 overflow-hidden flex-shrink-0">
                     {item.thumbnail ? (
                       <div
                         className="w-full h-full bg-cover bg-center"
@@ -316,81 +315,11 @@ export function ContentPage() {
         </aside>
       </div>
 
-      {/* BELOW THE FOLD - Tabs + Rails */}
-      <section className="mt-6">
-        <div className="flex items-center gap-4 border-b border-border/60">
-            {PROFILE_TABS.map((tab) => {
-              const isActive = tab.id === activeTab;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveTab(tab.id)}
-                  className={
-                    isActive
-                      ? "pb-3 text-sm md:text-base font-semibold text-foreground border-b-2 border-primary"
-                      : "pb-3 text-sm md:text-base text-muted-foreground hover:text-foreground"
-                  }
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Tab Content */}
-          <div className="mt-4 space-y-4">
-            {activeTab === "promo" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Trailers, sizzle reels, and promo clips will appear here in the full product.</p>
-              </div>
-            )}
-            {activeTab === "stills" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Key art frames and still images from this title will appear here in the full product.</p>
-              </div>
-            )}
-            {activeTab === "bts" && (
-              <div className="text-sm text-muted-foreground">
-                <p>Behind-the-scenes content, production notes, and creator commentary will appear here in the full product.</p>
-              </div>
-            )}
-            {activeTab === "info" && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-base font-semibold text-foreground mb-3">About This Title</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {video.description || video.tagline || video.meta || "Detailed description to be provided by the creator."}
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-base font-semibold text-foreground mb-3">Credits & Brand</h3>
-                  <dl className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                    <div>
-                      <dt className="text-muted-foreground">Creator</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.creator || "Example Creator"}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Sponsor</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.sponsor || "TBD Sponsor"}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Brand</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.brand || "Washington"}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Genre</dt>
-                      <dd className="font-medium text-foreground mt-1">{video.genre || "—"}</dd>
-                    </div>
-                  </dl>
-                </div>
-              </div>
-            )}
-          </div>
-
-        {/* Discovery Rails - Below tabs */}
+      {/* BELOW THE GRID - Rails */}
+      <section className="mt-6 space-y-6">
+        {/* Discovery Rails */}
         {creatorVideos.length > 0 && (
-        <div className="space-y-6 mt-8">
+        <div className="space-y-6">
           {/* More from this creator */}
           <div className="space-y-3">
             <h2 className="text-xl font-semibold tracking-tight text-foreground">
