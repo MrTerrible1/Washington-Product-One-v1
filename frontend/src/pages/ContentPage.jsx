@@ -522,9 +522,6 @@ export function ContentPage() {
           </div>
         </aside>
       </div>
-
-      {/* BELOW THE GRID - Rails */}
-      <section className="mt-6 space-y-6">
         {/* Discovery Rails */}
         {creatorVideos.length > 0 && (
         <div className="space-y-6">
