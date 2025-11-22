@@ -9,6 +9,7 @@ const PROFILE_TABS = [
   { id: "promo", label: "Promo" },
   { id: "stills", label: "Stills" },
   { id: "bts", label: "BTS" },
+  { id: "credits", label: "Credits" },
 ];
 
 export function ContentPage() {
