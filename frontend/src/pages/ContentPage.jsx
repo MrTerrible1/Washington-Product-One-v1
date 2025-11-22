@@ -245,11 +245,8 @@ export function ContentPage() {
       </div>
 
       {/* BELOW THE FOLD - Tabs + Rails */}
-      <div className="space-y-6">
-
-        {/* Profile Tabs */}
-        <section className="space-y-4">
-          <nav className="border-b border-border flex gap-6">
+      <section className="mt-6">
+        <div className="flex items-center gap-4 border-b border-border/60">
             {PROFILE_TABS.map((tab) => {
               const isActive = tab.id === activeTab;
               return (
