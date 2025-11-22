@@ -452,7 +452,7 @@ export function ContentPage() {
               {video.duration} • FEATURE • Guest preview · OnDemand
             </p>
             <p className="mt-2 text-sm md:text-base text-muted-foreground line-clamp-3">
-              {video.description || video.tagline || "A curated Washington experience."}
+              {video.logline}
             </p>
           </div>
 
