@@ -17,7 +17,7 @@ export function ContentPage() {
   const { logEvent } = useWashingtonEvents("content-page");
 
   const [showFollowHint, setShowFollowHint] = useState(false);
-  const [activeTab, setActiveTab] = useState("promo");
+  const [activeTab, setActiveTab] = useState("info");
 
   const rails = videoData.rails || [];
   const allVideos = rails.flatMap((r) => r.items || []);
