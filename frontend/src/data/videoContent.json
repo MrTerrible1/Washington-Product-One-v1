@@ -21,6 +21,9 @@
           "creator": "Autumn Shih",
           "sponsor": "REDAVID HAIR",
           "brand": "Washington",
+          "enablingSponsor": {
+            "name": "REDAVID HAIR"
+          },
           "billingBlock": {
             "rawText": "Starring: VIOLA HAYDEN, WESTON HAYDEN, with KIM HAYDEN\nDirector of Photography: JESSE YOUNG\nProduction Designer: JORDAN NINKOVICH\nCostume Designer: KELSEY BARAN\nEditor: AUTUMN SHIH\nSupervising Producer: JUDAH SHIH\nProduced by: AUTUMN SHIH, NOAH SHIH\nWritten and Directed by: AUTUMN SHIH\nEnabling Sponsor: REDAVID HAIR\nProduct Sponsors: PAPPA LEO'S PIZZA, OXYGEN YOGA, SAVE-ON-FOODS (Port Coquitlam)",
             "shortText": "Written and Directed by: AUTUMN SHIH"
