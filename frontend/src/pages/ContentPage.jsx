@@ -523,12 +523,29 @@ export function ContentPage() {
             )}
           </div>
 
+          {/* Enabling Sponsor */}
+          {video.enablingSponsor && (
+            <section className="mt-6 rounded-2xl bg-neutral-900/80 px-4 py-3 border border-neutral-800">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                Enabling Sponsor
+              </p>
+              <p className="mt-1 text-sm font-semibold text-neutral-100">
+                {video.enablingSponsor.name}
+              </p>
+              {video.enablingSponsor.tagline && (
+                <p className="mt-1 text-xs text-neutral-400">
+                  {video.enablingSponsor.tagline}
+                </p>
+              )}
+            </section>
+          )}
+
           {/* More from this creator */}
-          <section>
-            <h3 className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase mb-2">
+          <section className="mt-6">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
               More from this creator
             </h3>
-            <div className="space-y-2">
+            <div className="mt-3 space-y-3">
               {creatorVideos.slice(0, 3).map((item) => (
                 <button
                   key={item.id}
@@ -558,12 +575,6 @@ export function ContentPage() {
               ))}
             </div>
           </section>
-
-          {/* Sponsor card */}
-          <div className="mt-4 rounded-2xl border border-border/60 bg-card px-4 py-3 text-xs text-muted-foreground">
-            <div className="uppercase tracking-[0.18em] text-[10px] mb-1">Sponsored by</div>
-            <div className="text-sm text-foreground">{video.sponsor || video.brand || "Washington"}</div>
-          </div>
         </aside>
       </div>
     </div>
