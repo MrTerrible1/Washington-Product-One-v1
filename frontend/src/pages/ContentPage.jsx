@@ -193,48 +193,59 @@ export function ContentPage() {
                     : "";
 
                   return (
-                    <>
-                      <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
+                    <section className="space-y-2">
+                      <h3 className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
                         Billing Block
                       </h3>
                       {billingInline ? (
-                        <div className="mt-2 text-[10px] md:text-[11px] leading-tight tracking-tight text-neutral-300">
+                        <p className="text-[10px] md:text-[11px] leading-tight text-neutral-300">
                           {billingInline}
-                        </div>
+                        </p>
                       ) : (
-                        <p className="mt-2 text-xs text-neutral-500">Billing block coming soon.</p>
+                        <p className="text-xs text-neutral-500">Billing block coming soon.</p>
                       )}
-                    </>
+                    </section>
                   );
                 })()}
 
-                {/* Full Plot - Collapsible */}
+                {/* Full Plot - Collapsible with gradient and expand button */}
                 {(() => {
-                  const fullPlot = video.fullPlot;
+                  const fullPlot = video.fullPlot ?? "";
 
                   return (
-                    <>
-                      <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-neutral-400">
+                    <section className="mt-5">
+                      <h3 className="text-xs md:text-sm font-semibold uppercase tracking-wide text-neutral-400">
                         Full Plot
                       </h3>
-                      <p
-                        className={clsx(
-                          "mt-2 text-sm text-neutral-200 leading-relaxed",
-                          !showFullPlot && "line-clamp-4"
-                        )}
-                      >
-                        {fullPlot ?? "Full plot coming soon."}
-                      </p>
-                      {fullPlot && fullPlot.length > 260 && (
-                        <button
-                          type="button"
-                          onClick={() => setShowFullPlot(!showFullPlot)}
-                          className="mt-2 text-xs font-semibold uppercase tracking-wide text-amber-400 hover:text-amber-300"
+
+                      <div className="mt-2 relative">
+                        <p
+                          className={clsx(
+                            "text-sm md:text-base leading-relaxed text-neutral-100",
+                            !showFullPlot && "line-clamp-4"
+                          )}
                         >
-                          {showFullPlot ? "Show less" : "Read full plot"}
-                        </button>
+                          {fullPlot || "Full plot coming soon."}
+                        </p>
+
+                        {fullPlot && fullPlot.length > 260 && !showFullPlot && (
+                          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-neutral-900/95 to-transparent" />
+                        )}
+                      </div>
+
+                      {fullPlot && fullPlot.length > 260 && (
+                        <div className="mt-1 flex justify-end">
+                          <button
+                            type="button"
+                            onClick={() => setShowFullPlot(!showFullPlot)}
+                            className="inline-flex items-center gap-1 rounded-full border border-neutral-600 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-neutral-200 hover:border-amber-400 hover:text-amber-300 transition"
+                          >
+                            {showFullPlot ? "Collapse" : "Expand"}
+                            <span className="text-[10px]">{showFullPlot ? "▲" : "▼"}</span>
+                          </button>
+                        </div>
                       )}
-                    </>
+                    </section>
                   );
                 })()}
               </div>
