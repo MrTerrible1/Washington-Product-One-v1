@@ -463,54 +463,7 @@ export function ContentPage() {
                 ))}
               </div>
             </div>
-
-            {/* More like this */}
-            <div className="space-y-3">
-              <h2 className="text-lg font-semibold tracking-tight text-foreground">More like this</h2>
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                {similarVideos.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleCardClick("more_like_this_rail", item)}
-                    className="group w-40 sm:w-44 md:w-48 shrink-0 text-left"
-                  >
-                    <div className="rounded-2xl overflow-hidden bg-card/80 border border-border/50 shadow-sm group-hover:shadow-md group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
-                      <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/30 to-muted/70 overflow-hidden">
-                        {item.thumbnail ? (
-                          <div
-                            className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"
-                            style={{ backgroundImage: `url(${item.thumbnail})` }}
-                          />
-                        ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-muted/70 group-hover:opacity-90 transition-opacity" />
-                        )}
-                        <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/50 rounded-2xl pointer-events-none" />
-                        {item.genre && (
-                          <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
-                            {item.genre}
-                          </span>
-                        )}
-                        {item.duration && (
-                          <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
-                            {item.duration}
-                          </span>
-                        )}
-                      </div>
-                      <div className="px-3 py-3 space-y-1">
-                        <h3 className="text-sm md:text-base font-semibold leading-snug line-clamp-2 text-foreground">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
-                          {item.logline || item.synopsis}
-                        </p>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
+          </div>
         </div>
 
         {/* RIGHT COLUMN - Title, meta, CTAs */}
