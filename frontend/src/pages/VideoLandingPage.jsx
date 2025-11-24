@@ -203,11 +203,12 @@ export function VideoLandingPage() {
                 }
               }}
             >
-              {/* Dark gradient overlay so the image doesn't nuke the UI */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
               {/* Bottom-left content block */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 space-y-3">
+              <div className="relative z-10 flex h-full items-end p-8">
+                <div className="max-w-xl space-y-3">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2">
                   {heroVideo?.title || "Featured Content"}
                 </h1>
