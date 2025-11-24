@@ -132,10 +132,7 @@ export function LayoutShell({ children }) {
       </main>
 
       {/* VIA Floating Button + Panel */}
-      <ViaRibbon
-        isInvestigateOpen={isInvestigateOpen}
-        onToggleInvestigate={() => setIsInvestigateOpen((v) => !v)}
-      />
+      <ViaRibbon />
     </div>
   );
 }
