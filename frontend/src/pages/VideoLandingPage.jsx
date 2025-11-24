@@ -104,17 +104,17 @@ export function VideoLandingPage() {
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 pt-6 pb-16">
+    <div className="mx-auto max-w-7xl px-8 pt-4 pb-10">
       <div className="grid gap-6 md:grid-cols-[240px_minmax(0,1fr)] items-start">
         {/* LEFT VERTICAL CONTROLS - Premier Controls (Genres + Formats) */}
-        <aside className="space-y-4">
+        <aside className="space-y-6">
         <div>
-          <p className="uppercase tracking-[0.22em] text-[11px] text-muted-foreground mb-2 px-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-2">
             Premier controls
           </p>
 
           {/* Genres */}
-          <div className="flex flex-col gap-1.5">
+          <div className="space-y-2">
             {PREMIER_GENRES.map((item) => {
               const isActive = item.id === activePremierGenre;
               return (
