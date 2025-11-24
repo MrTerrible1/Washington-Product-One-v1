@@ -181,7 +181,7 @@ export function VideoLandingPage() {
             <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
               Premier Window
             </p>
-            <div className="w-full overflow-hidden rounded-2xl bg-neutral-900 border border-neutral-800">
+            <div className="relative w-full overflow-hidden rounded-3xl bg-neutral-900">
               <div
                 className="relative w-full aspect-video bg-black cursor-pointer group"
               style={
