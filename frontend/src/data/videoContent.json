@@ -81,42 +81,42 @@
         },
         {
           "id": "wash-102",
-          "title": "VIA v0.1: Simulated Insights",
+          "title": "Inside VIA — Prototype Session",
           "meta": "Deep dive • 5 min vertical session",
-          "tagline": "Prototype walkthrough of VIA as a visible agent.",
+          "tagline": "See how VIA learns your taste and guides your next watch.",
           "duration": "5:18",
           "genre": "Explainer",
           "format": "Episode",
           "isSeries": false,
           "season": null,
           "episodeNumber": null,
-          "logline": "Prototype walkthrough of VIA as a visible agent."
+          "logline": "See how VIA learns your taste and guides your next watch."
         },
         {
           "id": "wash-201",
-          "title": "Washington Overview Reel",
+          "title": "Welcome to Washington — Sizzle Cut",
           "meta": "Highlights • 4 min vertical session",
-          "tagline": "Fast-cut overview of the Washington experience.",
+          "tagline": "A fast-paced tour through curated streams and creator showcases.",
           "duration": "4:10",
           "genre": "Highlights",
           "format": "Episode",
           "isSeries": false,
           "season": null,
           "episodeNumber": null,
-          "logline": "Fast-cut overview of the Washington experience."
+          "logline": "A fast-paced tour through curated streams and creator showcases."
         },
         {
           "id": "wash-202",
-          "title": "Why Channels Matter",
+          "title": "Channels: How Discovery Changes",
           "meta": "Concept • 6 min vertical session",
-          "tagline": "How broadcast-style channels change discovery.",
+          "tagline": "Explore how live channels reshape the way you find new content.",
           "duration": "6:00",
           "genre": "Concept",
           "format": "Talk",
           "isSeries": false,
           "season": null,
           "episodeNumber": null,
-          "logline": "How broadcast-style channels change discovery."
+          "logline": "Explore how live channels reshape the way you find new content."
         },
         {
           "id": "wash-203",
