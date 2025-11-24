@@ -194,7 +194,7 @@ export function ContentPage() {
                         Billing Block
                       </h3>
                       {billingInline ? (
-                        <p className="text-[10px] md:text-[11px] leading-tight text-neutral-300">
+                        <p className="text-[10px] md:text-[11px] leading-snug text-neutral-200">
                           {billingInline}
                         </p>
                       ) : (
