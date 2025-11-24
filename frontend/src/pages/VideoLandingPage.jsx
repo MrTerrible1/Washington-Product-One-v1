@@ -176,15 +176,14 @@ export function VideoLandingPage() {
 
         {/* MAIN CONTENT: HERO + RAILS */}
         <section className="space-y-6">
-          {/* Hero - Premier Window (Fixed Height Banner) */}
-          <div className="space-y-2">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-            Premier Window
-          </p>
-          <div className="rounded-3xl bg-card border border-border/60 shadow-lg overflow-hidden">
-            {/* True 16:9 Key Art with Reduced Height */}
-            <div
-              className="relative w-full aspect-video max-h-[450px] bg-black cursor-pointer group rounded-3xl overflow-hidden"
+          {/* Hero - Premier Window */}
+          <div className="space-y-3">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              Premier Window
+            </p>
+            <div className="w-full overflow-hidden rounded-2xl bg-neutral-900 border border-neutral-800">
+              <div
+                className="relative w-full aspect-video bg-black cursor-pointer group"
               style={
                 heroVideo?.thumbnail
                   ? {
