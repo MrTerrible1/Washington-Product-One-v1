@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ViaRibbon } from "./via/ViaRibbon.jsx";
+import { MusicLanding } from "../pages/MusicLanding.jsx";
 
 const COMING_SOON_MESSAGE = "This area is coming soon.";
 
