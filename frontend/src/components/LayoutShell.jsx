@@ -120,7 +120,15 @@ export function LayoutShell({ children }) {
                     ? "inline-flex items-center px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-sm"
                     : "inline-flex items-center px-4 py-2 rounded-full bg-transparent text-muted-foreground text-sm font-medium hover:bg-secondary/70 hover:text-foreground"
                 }
-                onClick={() => handleComingSoon(tab.label)}
+                onClick={() => {
+                  if (tab.id === "music") {
+                    setActiveCategory("music");
+                  } else if (tab.id === "video") {
+                    setActiveCategory("video");
+                  } else {
+                    handleComingSoon(tab.label);
+                  }
+                }}
               >
                 {tab.label}
               </button>
