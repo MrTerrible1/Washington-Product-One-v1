@@ -344,7 +344,7 @@ export function VideoLandingPage() {
                   );
                   })}
                 </div>
-              </div>
+              </article>
             );
           })}
           </div>
