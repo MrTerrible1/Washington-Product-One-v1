@@ -218,36 +218,36 @@ export function VideoLandingPage() {
                       "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
                   </p>
                   <div className="flex flex-wrap items-center gap-3">
-                  {/* Watch Now */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleHeroWatchNow();
-                    }}
-                    className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
-                  >
-                    Watch Now
-                  </button>
-                  {/* More info */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleHeroMoreInfo();
-                    }}
-                    className="rounded-full bg-white/12 border border-white/30 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/18"
-                  >
-                    More info
-                  </button>
+                    {/* Watch Now */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleHeroWatchNow();
+                      }}
+                      className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
+                    >
+                      Watch Now
+                    </button>
+                    {/* More info */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleHeroMoreInfo();
+                      }}
+                      className="rounded-full bg-white/12 border border-white/30 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/18"
+                    >
+                      More info
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            </div>
-          </div>
+          </article>
 
           {/* Rails */}
-          <div className="space-y-6" aria-label="OnDemand video rails">
+          <div className="space-y-8" aria-label="OnDemand video rails">
           {railsWithItems.map((rail) => {
             const isScrolledToEnd = railScrollStates[rail.id] || false;
             
