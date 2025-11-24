@@ -175,9 +175,9 @@ export function VideoLandingPage() {
         </aside>
 
         {/* MAIN CONTENT: HERO + RAILS */}
-        <section className="space-y-6">
+        <section className="space-y-8">
           {/* Hero - Premier Window */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
               Premier Window
             </p>
