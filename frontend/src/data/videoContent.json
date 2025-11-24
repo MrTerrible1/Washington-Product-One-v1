@@ -18,12 +18,40 @@
           "season": null,
           "episodeNumber": null,
           "thumbnail": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop",
+          "heroPosterUrl": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop",
           "creator": "Autumn Shih",
           "sponsor": "REDAVID HAIR",
           "brand": "Washington",
           "enablingSponsor": {
-            "name": "REDAVID HAIR"
+            "name": "REDAVID HAIR",
+            "tagline": "Premium haircare partner for The Long Night"
           },
+          "moreFromCreator": [
+            {
+              "id": "autumn-prev-1",
+              "title": "Northern Lights Session",
+              "runtimeLabel": "18 min",
+              "thumbnailUrl": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&h=225&fit=crop",
+              "popularityScore": 95,
+              "releaseDate": "2024-08-15"
+            },
+            {
+              "id": "autumn-prev-2",
+              "title": "Studio Sessions: Autumn",
+              "runtimeLabel": "24 min",
+              "thumbnailUrl": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=225&fit=crop",
+              "popularityScore": 88,
+              "releaseDate": "2024-06-20"
+            },
+            {
+              "id": "autumn-prev-3",
+              "title": "Behind the Lens",
+              "runtimeLabel": "12 min",
+              "thumbnailUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=225&fit=crop",
+              "popularityScore": 82,
+              "releaseDate": "2024-05-10"
+            }
+          ],
           "billingBlock": {
             "rawText": "Starring: VIOLA HAYDEN, WESTON HAYDEN, with KIM HAYDEN\nDirector of Photography: JESSE YOUNG\nProduction Designer: JORDAN NINKOVICH\nCostume Designer: KELSEY BARAN\nEditor: AUTUMN SHIH\nSupervising Producer: JUDAH SHIH\nProduced by: AUTUMN SHIH, NOAH SHIH\nWritten and Directed by: AUTUMN SHIH\nEnabling Sponsor: REDAVID HAIR\nProduct Sponsors: PAPPA LEO'S PIZZA, OXYGEN YOGA, SAVE-ON-FOODS (Port Coquitlam)",
             "shortText": "Written and Directed by: AUTUMN SHIH"
