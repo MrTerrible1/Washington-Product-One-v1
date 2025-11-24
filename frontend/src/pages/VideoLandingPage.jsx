@@ -261,29 +261,27 @@ export function VideoLandingPage() {
             const isFirstRail = rail.id === "featured";
             
             return (
-              <div key={rail.id} id={`rail-${rail.id}`} className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+              <article key={rail.id} className="space-y-3">
+                <header className="flex items-baseline justify-between">
+                  <h2 className="text-lg font-semibold">
                     {heading}
                   </h2>
                   <button
                     type="button"
-                    className="text-[11px] md:text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                    className="text-xs font-semibold text-neutral-400 hover:text-neutral-100"
                     onClick={() => handleRailToggle(rail.id)}
                   >
                     {isScrolledToEnd ? (
                       <>
-                        <span aria-hidden>←</span>
-                        Back
+                        <span aria-hidden>←</span> Back
                       </>
                     ) : (
                       <>
-                        More
-                        <span aria-hidden>→</span>
+                        More <span aria-hidden>→</span>
                       </>
                     )}
                   </button>
-                </div>
+                </header>
 
                 {/* Horizontal grid - 6 cards visible, hidden scrollbar */}
                 <div 
