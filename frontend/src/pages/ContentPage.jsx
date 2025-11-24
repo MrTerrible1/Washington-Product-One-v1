@@ -135,13 +135,6 @@ export function ContentPage() {
           </button>
           <button
             type="button"
-            onClick={handleAddToList}
-            className="h-10 w-full rounded-full border border-border text-sm text-foreground flex items-center justify-center hover:bg-secondary/60"
-          >
-            Add to watch list
-          </button>
-          <button
-            type="button"
             onClick={handleShare}
             className="h-10 w-full rounded-full border border-border text-sm text-foreground flex items-center justify-center hover:bg-secondary/60"
           >
