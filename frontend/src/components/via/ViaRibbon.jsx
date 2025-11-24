@@ -20,8 +20,8 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
         <div className="relative">
           {/* Tooltip */}
           {showTooltip && !isInvestigateOpen && (
-            <div className="absolute bottom-full right-0 mb-2 w-[260px] md:w-[280px] px-4 py-3 bg-black/90 text-white text-xs rounded-xl shadow-xl">
-              I'm VIA, your AI search engine. I can help you find shows, creators, and set up your free profile.
+            <div className="absolute bottom-full right-0 mb-2 w-[200px] px-3 py-2 bg-black/90 text-white text-xs rounded-xl shadow-xl">
+              Ask VIA about similar titles
             </div>
           )}
           
