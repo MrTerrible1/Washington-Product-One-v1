@@ -56,7 +56,7 @@ export function LayoutShell({ children }) {
   const categoryTabs = isBroadcast ? BROADCAST_CATEGORY_TABS : ONDEMAND_CATEGORY_TABS;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
       <header className="sticky top-0 z-20 flex flex-col gap-3 px-8 py-4 border-b border-border/60 bg-background/80 backdrop-blur">
         {/* Top row: Logo + Stream tabs + Login */}
         <div className="flex items-center justify-between">
