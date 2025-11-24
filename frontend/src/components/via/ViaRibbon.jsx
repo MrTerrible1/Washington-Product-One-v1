@@ -16,25 +16,24 @@ export function ViaRibbon() {
 
   return (
     <>
-      {/* Floating VIA Button - Toggle only */}
+      {/* VIA Toggle Button */}
       <button
         type="button"
         onClick={handleToggleVIA}
         className={clsx(
-          "fixed bottom-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border text-xs font-semibold shadow-lg transition",
+          "fixed bottom-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border text-neutral-300 shadow-lg transition",
           showViaPanel
             ? "bg-amber-400 border-amber-300 text-neutral-950"
-            : "bg-neutral-800/80 border-neutral-700 text-neutral-300 hover:bg-amber-400 hover:border-amber-300 hover:text-neutral-950"
+            : "bg-neutral-800/80 border-neutral-700 hover:bg-amber-400 hover:border-amber-300 hover:text-neutral-950"
         )}
         aria-label="Open VIA assistant"
       >
         VIA
       </button>
 
-      {/* VIA Chat Flyout Panel - Single fixed container */}
+      {/* VIA Panel Aside */}
       {showViaPanel && (
-        <aside className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-neutral-950/98 border-l border-neutral-800 shadow-2xl flex flex-col">
-          {/* Header */}
+        <aside className="fixed top-0 right-0 h-screen w-[384px] z-50 bg-neutral-950/98 border-l border-neutral-800 shadow-2xl flex flex-col">
           <header className="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
@@ -54,14 +53,12 @@ export function ViaRibbon() {
             </button>
           </header>
 
-          {/* Scrollable Body */}
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 text-sm text-neutral-100">
             <p className="text-neutral-400 text-xs">
               Ask me about titles, creators, or sponsors. I'll search the catalog for you.
             </p>
           </div>
 
-          {/* Input Bar */}
           <form className="border-t border-neutral-800 px-3 py-2 flex items-center gap-2">
             <input
               type="text"
