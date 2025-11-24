@@ -16,7 +16,7 @@ export function ViaRibbon() {
 
   return (
     <>
-      {/* Floating VIA Button */}
+      {/* Floating VIA Button - Toggle only */}
       <button
         type="button"
         onClick={handleToggleVIA}
@@ -31,9 +31,10 @@ export function ViaRibbon() {
         VIA
       </button>
 
-      {/* VIA Chat Flyout Panel */}
+      {/* VIA Chat Flyout Panel - Single fixed container */}
       {showViaPanel && (
         <aside className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-neutral-950/98 border-l border-neutral-800 shadow-2xl flex flex-col">
+          {/* Header */}
           <header className="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
@@ -53,12 +54,14 @@ export function ViaRibbon() {
             </button>
           </header>
 
+          {/* Scrollable Body */}
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 text-sm text-neutral-100">
             <p className="text-neutral-400 text-xs">
               Ask me about titles, creators, or sponsors. I'll search the catalog for you.
             </p>
           </div>
 
+          {/* Input Bar */}
           <form className="border-t border-neutral-800 px-3 py-2 flex items-center gap-2">
             <input
               type="text"
