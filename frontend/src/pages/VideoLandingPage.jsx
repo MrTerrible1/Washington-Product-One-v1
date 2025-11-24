@@ -244,6 +244,7 @@ export function VideoLandingPage() {
                 </div>
               </div>
             </div>
+            </div>
           </article>
 
           {/* Rails */}
