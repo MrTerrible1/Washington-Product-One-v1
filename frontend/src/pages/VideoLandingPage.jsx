@@ -172,10 +172,10 @@ export function VideoLandingPage() {
             })}
           </div>
         </div>
-      </aside>
+        </aside>
 
-      {/* MAIN CONTENT: HERO + RAILS */}
-      <div className="space-y-6">
+        {/* MAIN CONTENT: HERO + RAILS */}
+        <section className="space-y-6">
         {/* Hero - Premier Window (Fixed Height Banner) */}
         <section className="space-y-2">
           <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
