@@ -1,3 +1,4 @@
+// file path: /app/frontend/src/components/via/ViaRibbon.jsx
 import { useState } from "react";
 import clsx from "clsx";
 import { useWashingtonEvents } from "../../hooks/useWashingtonEvents";
@@ -33,14 +34,16 @@ export function ViaRibbon() {
 
       {/* VIA Panel Aside */}
       {showViaPanel && (
-        <aside className="fixed top-0 right-0 h-screen w-[384px] z-50 bg-neutral-950/98 border-l border-neutral-800 shadow-2xl flex flex-col">
+        <aside
+          className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-neutral-950 border-l border-neutral-800 shadow-2xl flex flex-col"
+        >
           <header className="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
                 VIA Assistant
               </p>
               <p className="text-sm text-neutral-100">
-                I'm VIA, your AI search. What are you looking for today?
+                I&apos;m VIA, your AI search. What are you looking for today?
               </p>
             </div>
             <button
@@ -55,7 +58,7 @@ export function ViaRibbon() {
 
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 text-sm text-neutral-100">
             <p className="text-neutral-400 text-xs">
-              Ask me about titles, creators, or sponsors. I'll search the catalog for you.
+              Ask me about titles, creators, or sponsors. I&apos;ll search the catalog for you.
             </p>
           </div>
 
