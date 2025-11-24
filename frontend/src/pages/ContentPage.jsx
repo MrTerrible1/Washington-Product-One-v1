@@ -333,12 +333,12 @@ export function ContentPage() {
                         )}
                         <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/50 rounded-2xl pointer-events-none" />
                         {item.genre && (
-                          <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
+                          <span className="absolute top-2 left-2 inline-flex items-center rounded-full bg-neutral-900/80 px-2 py-[2px] text-[10px] text-neutral-300 border border-neutral-700">
                             {item.genre}
                           </span>
                         )}
                         {item.duration && (
-                          <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
+                          <span className="absolute bottom-2 left-2 inline-flex items-center rounded-full bg-neutral-900/80 px-2 py-[2px] text-[10px] text-neutral-300 border border-neutral-700">
                             {item.duration}
                           </span>
                         )}
