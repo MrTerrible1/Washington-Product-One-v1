@@ -152,11 +152,14 @@ export function ContentPage() {
         {/* CENTER COLUMN - HERO + TABS */}
         <div className="flex flex-col">
           {/* Hero Preview */}
-          <div className="aspect-video max-h-[360px] w-full rounded-3xl bg-[#101318] overflow-hidden border border-border/60">
-            <div className="w-full h-full flex items-center justify-center bg-background">
-              <p className="text-sm text-muted-foreground">
-                VIDEO PREVIEW UNAVAILABLE (GUEST MODE)
-              </p>
+          <div className="relative w-full aspect-video max-h-[360px] overflow-hidden rounded-2xl bg-neutral-900 border border-neutral-800">
+            <img
+              src={video.heroPosterUrl || video.thumbnail}
+              alt={video.title}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute bottom-3 left-3 rounded-full bg-neutral-900/75 px-3 py-1 text-[11px] text-neutral-200">
+              Guest preview · Sign in for full playback
             </div>
           </div>
 
