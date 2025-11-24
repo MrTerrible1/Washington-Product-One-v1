@@ -42,8 +42,8 @@ export function LayoutShell({ children }) {
     pathname.startsWith("/broadcast") ||
     pathname.startsWith("/broadcast-preview");
 
-  // Determine active category based on URL or default to "Music" for home page
-  const activeCategory = pathname === "/" ? "Music" : "video";
+  // Active category state
+  const [activeCategory, setActiveCategory] = useState(isOnDemand ? "video" : "video");
 
   const handleComingSoon = (label) => {
     toast({
