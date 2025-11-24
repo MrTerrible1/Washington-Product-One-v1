@@ -209,15 +209,15 @@ export function VideoLandingPage() {
               {/* Bottom-left content block */}
               <div className="relative z-10 flex h-full items-end p-8">
                 <div className="max-w-xl space-y-3">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2">
-                  {heroVideo?.title || "Featured Content"}
-                </h1>
-                <p className="text-sm md:text-base text-white/85 max-w-2xl leading-relaxed">
-                  {heroVideo?.tagline ||
-                    heroVideo?.description ||
-                    "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
-                </p>
-                <div className="flex flex-wrap items-center gap-3 mt-4">
+                  <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+                    {heroVideo?.title || "Featured Content"}
+                  </h1>
+                  <p className="text-sm md:text-base text-white/85 leading-relaxed">
+                    {heroVideo?.tagline ||
+                      heroVideo?.description ||
+                      "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3">
                   {/* Watch Now */}
                   <button
                     type="button"
