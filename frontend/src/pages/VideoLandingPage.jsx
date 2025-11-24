@@ -244,10 +244,10 @@ export function VideoLandingPage() {
               </div>
             </div>
           </div>
-        </section>
+          </div>
 
-        {/* Rails */}
-        <section className="space-y-6" aria-label="OnDemand video rails">
+          {/* Rails */}
+          <div className="space-y-6" aria-label="OnDemand video rails">
           {railsWithItems.map((rail) => {
             const isScrolledToEnd = railScrollStates[rail.id] || false;
             
