@@ -31,7 +31,7 @@ export function ViaRibbon({ onToggleInvestigate, isInvestigateOpen }) {
             onClick={handleClickVIA}
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
-            className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center font-semibold text-xs md:text-sm hover:scale-105 hover:shadow-xl transition-all duration-200"
+            className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-neutral-800/60 text-neutral-300 shadow-md flex items-center justify-center font-semibold text-xs md:text-sm hover:bg-amber-500 hover:text-white hover:shadow-lg transition-all duration-300"
             aria-label="Open VIA Assistant"
           >
             VIA
