@@ -537,40 +537,49 @@ export function ContentPage() {
           )}
 
           {/* More from this creator */}
-          <section className="mt-6">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-              More from this creator
-            </h3>
-            <div className="mt-3 space-y-3">
-              {creatorVideos.slice(0, 3).map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => handleCardClick("more_from_creator_sidebar", item)}
-                  className="w-full h-14 flex items-center gap-3 rounded-xl bg-[#101318]/50 border border-border/40 hover:border-border/70 hover:bg-[#101318]/70 px-3 py-2 text-left transition"
-                >
-                  <div className="h-10 w-16 rounded-lg bg-muted/30 overflow-hidden flex-shrink-0">
-                    {item.thumbnail ? (
-                      <div
-                        className="w-full h-full bg-cover bg-center opacity-60"
-                        style={{ backgroundImage: `url(${item.thumbnail})` }}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-accent/15 to-muted/30" />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-foreground/90 truncate">
-                      {item.title}
-                    </p>
-                    <p className="text-[11px] text-muted-foreground truncate">
-                      {item.duration}
-                    </p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </section>
+          {video.moreFromCreator && video.moreFromCreator.length > 0 && (
+            <section className="mt-5">
+              <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                More from this creator
+              </h3>
+              <div className="mt-3 space-y-3">
+                {video.moreFromCreator
+                  .sort((a, b) => {
+                    if (b.popularityScore !== a.popularityScore) {
+                      return b.popularityScore - a.popularityScore;
+                    }
+                    return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
+                  })
+                  .slice(0, 3)
+                  .map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => handleCardClick("more_from_creator_sidebar", item)}
+                      className="flex w-full items-center gap-3 rounded-xl bg-neutral-900/70 px-2 py-2 hover:bg-neutral-800/80 transition"
+                    >
+                      <div className="h-14 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-800">
+                        <img
+                          src={item.thumbnailUrl}
+                          alt={item.title}
+                          className="h-full w-full object-cover opacity-70"
+                        />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="text-sm font-medium text-neutral-200 line-clamp-1">
+                          {item.title}
+                        </p>
+                        {item.runtimeLabel && (
+                          <p className="mt-1 text-[11px] text-neutral-500">
+                            {item.runtimeLabel}
+                          </p>
+                        )}
+                      </div>
+                    </button>
+                  ))}
+              </div>
+            </section>
+          )}
         </aside>
       </div>
     </div>
