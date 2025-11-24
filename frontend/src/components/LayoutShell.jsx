@@ -138,7 +138,7 @@ export function LayoutShell({ children }) {
       </header>
       {/* Main Content */}
       <main className="mx-auto">
-        {pathname === "/" && activeCategory === "Music" ? (
+        {pathname === "/" && activeCategory === "music" ? (
           <MusicLanding />
         ) : (
           children
