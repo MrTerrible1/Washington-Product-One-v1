@@ -283,10 +283,9 @@ export function VideoLandingPage() {
                   </button>
                 </header>
 
-                {/* Horizontal grid - 6 cards visible, hidden scrollbar */}
                 <div 
                   id={`rail-${rail.id}`}
-                  className="grid grid-flow-col auto-cols-[minmax(220px,1fr)] gap-5 overflow-x-auto pb-2 scrollbar-hide"
+                  className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
                   style={{
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
