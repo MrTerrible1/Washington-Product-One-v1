@@ -143,10 +143,10 @@ export function VideoLandingPage() {
 
         {/* Formats subset */}
         <div>
-          <p className="uppercase tracking-[0.22em] text-[11px] text-muted-foreground mb-2 px-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-2">
             Formats
           </p>
-          <div className="flex flex-col gap-1.5">
+          <div className="space-y-2">
             {PREMIER_FORMATS.map((item) => {
               const isActive = item.id === activePremierFormat;
               return (
