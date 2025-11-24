@@ -521,7 +521,7 @@ export function ContentPage() {
 
           {/* Enabling Sponsor */}
           {video.enablingSponsor && (
-            <section className="mt-6 rounded-2xl bg-neutral-900/80 px-4 py-3 border border-neutral-800">
+            <section className="mt-4 rounded-2xl bg-neutral-900/80 px-4 py-3 border border-neutral-800">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
                 Enabling Sponsor
               </p>
