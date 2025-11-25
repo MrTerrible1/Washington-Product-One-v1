@@ -83,18 +83,18 @@ const ORIGINALS_BTS = {
   ],
 };
 
-const PLATFORM_TOURS = {
-  title: "OnDemand – Tours & platform guides",
+const ORIGINALS_CREATOR = {
+  title: "Washington Originals – Creator Sessions",
   items: [
     {
       id: "guest-mode",
-      label: "Onboarding",
+      label: "Creator Guide",
       title: "Guest Mode in 90 Seconds",
       meta: "Short intro • Everything you need before you click play",
     },
     {
       id: "channels-change",
-      label: "Concept",
+      label: "Creator Insight",
       title: "Channels: How Discovery Changes",
       meta: "6:00 • How live channels reshape the way you find new shows",
     },
