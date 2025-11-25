@@ -215,3 +215,5 @@ export function VideoLandingPage() {
     </div>
   );
 }
+
+export default VideoLandingPage;
