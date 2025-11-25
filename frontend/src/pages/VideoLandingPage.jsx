@@ -123,8 +123,8 @@ export function VideoLandingPage() {
                   type="button"
                   className={
                     isActive
-                      ? "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-xs md:text-sm font-semibold shadow-sm"
-                      : "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 text-xs md:text-sm font-medium hover:bg-secondary/60 hover:text-foreground"
+                      ? "inline-flex items-center rounded-full px-4 py-1.5 bg-primary text-primary-foreground text-xs font-semibold shadow-sm"
+                      : "inline-flex items-center rounded-full px-4 py-1.5 bg-transparent text-muted-foreground border border-border/60 text-xs font-medium hover:bg-secondary/60 hover:text-foreground"
                   }
                   onClick={() => {
                     setActivePremierGenre(item.id);
@@ -155,8 +155,8 @@ export function VideoLandingPage() {
                   type="button"
                   className={
                     isActive
-                      ? "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-primary text-primary-foreground text-xs md:text-sm font-semibold shadow-sm"
-                      : "h-9 md:h-10 inline-flex items-center px-4 rounded-full bg-transparent text-muted-foreground border border-border/60 text-xs md:text-sm font-medium hover:bg-secondary/60 hover:text-foreground"
+                      ? "inline-flex items-center rounded-full px-4 py-1.5 bg-primary text-primary-foreground text-xs font-semibold shadow-sm"
+                      : "inline-flex items-center rounded-full px-4 py-1.5 bg-transparent text-muted-foreground border border-border/60 text-xs font-medium hover:bg-secondary/60 hover:text-foreground"
                   }
                   onClick={() => {
                     setActivePremierFormat(item.id);
