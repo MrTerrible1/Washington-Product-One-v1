@@ -250,15 +250,13 @@ export function VideoLandingPage() {
           </section>
 
           {/* 3. Content rails below (full-width) */}
-          {/* Sci-Fi – Most watched */}
           <section className="space-y-3">
             <div className="flex items-baseline justify-between">
-              <h2 className="text-lg font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
-              <button className="text-xs text-neutral-400 hover:text-neutral-200">
+              <h2 className="text-base font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
+              <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
                 More →
               </button>
             </div>
-
             <div className="flex gap-3 overflow-x-auto pb-2">
               {SCIFI_RAIL.items.map((item) => (
                 <ContentCard key={item.id} item={item} />
@@ -266,13 +264,12 @@ export function VideoLandingPage() {
             </div>
           </section>
 
-          {/* Rail 3 – Washington Originals Creator Sessions */}
           <section className="space-y-3">
             <div className="flex items-baseline justify-between">
-              <h2 className="text-lg font-semibold text-neutral-50">
+              <h2 className="text-base font-semibold text-neutral-50">
                 {ORIGINALS_CREATOR.title}
               </h2>
-              <button className="text-xs text-neutral-400 hover:text-neutral-200">
+              <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
                 More →
               </button>
             </div>
@@ -282,7 +279,7 @@ export function VideoLandingPage() {
               ))}
             </div>
           </section>
-        </section>
+        </div>
       </div>
     </div>
   );
