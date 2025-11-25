@@ -179,38 +179,92 @@ export function VideoLandingPage() {
           </div>
         </aside>
 
-        {/* RIGHT: Hero + Rails */}
-        <section className="space-y-4">
-          {/* Hero */}
-          <div className="relative overflow-hidden rounded-2xl">
-            <div className="relative aspect-[16/7] max-h-[420px]">
-              <div 
-                className="h-full w-full object-cover bg-cover bg-center" 
-                style={{
-                  backgroundImage: "url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop')"
-                }}
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
-            </div>
+        {/* RIGHT: Hero + Spotlight + Rails */}
+        <section className="space-y-6">
+          {/* Top row: hero + spotlight side by side */}
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] items-stretch">
+            {/* Hero */}
+            <div
+              aria-label="Premier window"
+              className="overflow-hidden rounded-2xl bg-neutral-900"
+            >
+              <div className="relative aspect-[16/9]">
+                <div 
+                  className="h-full w-full object-cover bg-cover bg-center" 
+                  style={{
+                    backgroundImage: "url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop')"
+                  }}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
+              </div>
 
-            <div className="absolute inset-x-0 bottom-0 p-6 lg:p-8 flex flex-col gap-3 lg:gap-4">
-              <h1 className="max-w-2xl text-3xl lg:text-4xl font-semibold leading-tight text-white">
-                The Long Night — Washington Original
-              </h1>
-              <p className="max-w-2xl text-sm lg:text-base text-neutral-200">
-                Hot new feature, trailer, or event picked for you. The most relevant content for your
-                profile and data-profile appears here.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-1">
-                <button className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-amber-300">
-                  Watch now
-                </button>
-                <button className="rounded-full border border-neutral-600 bg-neutral-950/70 px-5 py-2.5 text-sm font-semibold text-neutral-100 hover:border-neutral-400">
-                  More info
-                </button>
+              <div className="absolute inset-x-0 bottom-0 p-6 lg:p-8 flex flex-col gap-3 lg:gap-4">
+                <h1 className="max-w-2xl text-3xl lg:text-4xl font-semibold leading-tight text-white">
+                  The Long Night — Washington Original
+                </h1>
+                <p className="max-w-2xl text-sm lg:text-base text-neutral-200">
+                  Hot new feature, trailer, or event picked for you. The most relevant content for your
+                  profile and data-profile appears here.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <button className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-amber-300">
+                    Watch now
+                  </button>
+                  <button className="rounded-full border border-neutral-600 bg-neutral-950/70 px-5 py-2.5 text-sm font-semibold text-neutral-100 hover:border-neutral-400">
+                    More info
+                  </button>
+                </div>
               </div>
             </div>
+
+            {/* Spotlight column (desktop only) */}
+            <aside className="hidden lg:flex flex-col gap-3">
+              <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-300">
+                  Creator spotlight
+                </p>
+                <p className="text-sm font-medium text-neutral-100 truncate">
+                  Washington Originals
+                </p>
+                <p className="text-[11px] text-neutral-500">
+                  Meet today's featured creator.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                  Community note
+                </p>
+                <p className="text-xs text-neutral-300">
+                  Short, non-intrusive platform or community update.
+                </p>
+              </div>
+            </aside>
           </div>
+
+          {/* Mobile fallback: spotlight below hero */}
+          <aside className="flex flex-col gap-3 lg:hidden">
+            <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-300">
+                Creator spotlight
+              </p>
+              <p className="text-sm font-medium text-neutral-100 truncate">
+                Washington Originals
+              </p>
+              <p className="text-[11px] text-neutral-500">
+                Meet today's featured creator.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                Community note
+              </p>
+              <p className="text-xs text-neutral-300">
+                Short, non-intrusive platform or community update.
+              </p>
+            </div>
+          </aside>
 
           {/* Rail 1 – Continue watching */}
           <section className="space-y-3">
