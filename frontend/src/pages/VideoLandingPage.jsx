@@ -17,6 +17,24 @@ const FORMATS = [
   { id: "vertical", label: "Vertical" },
 ];
 
+const CONTINUE_WATCHING = {
+  title: "Continue watching",
+  items: [
+    {
+      id: "long-night-progress",
+      label: "Watching",
+      title: "The Long Night — Washington Original",
+      meta: "42:18 / 2:08:00 • Resume where you left off",
+    },
+    {
+      id: "mathmagical-progress",
+      label: "In Progress",
+      title: "Mathmagical 'I' — Episode 1",
+      meta: "18:32 / 42:00 • Continue watching",
+    },
+  ],
+};
+
 const SCIFI_RAIL = {
   title: "Sci-Fi – Highlights & trailers",
   items: [
