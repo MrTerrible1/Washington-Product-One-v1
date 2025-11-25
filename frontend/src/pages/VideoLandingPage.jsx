@@ -240,8 +240,7 @@ export function VideoLandingPage() {
                 </div>
               </div>
             </div>
-            </div>
-          </article>
+          </div>
 
           {/* Rails */}
           <div className="space-y-8" aria-label="OnDemand video rails">
