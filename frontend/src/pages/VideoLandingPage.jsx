@@ -84,7 +84,7 @@ const ORIGINALS_BTS = {
 };
 
 const ORIGINALS_CREATOR = {
-  title: "Washington Originals – Creator Sessions",
+  title: "Washington Originals – Guides & extras",
   items: [
     {
       id: "guest-mode",
