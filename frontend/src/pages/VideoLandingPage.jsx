@@ -1,292 +1,245 @@
-import { useState } from "react";
-import clsx from "clsx";
+// file: src/pages/VideoLandingPage.jsx
+import React from "react";
 
-const GENRES = [
-  { id: "sci-fi", label: "Sci-Fi" },
-  { id: "comedy", label: "Comedy" },
-  { id: "drama", label: "Drama" },
-  { id: "action", label: "Action" },
-  { id: "rom-com", label: "Rom-com" },
-  { id: "kids", label: "Kids" },
-  { id: "animated", label: "Animated" },
-  { id: "ai", label: "AI" },
+const premierGenres = [
+  "Sci-Fi",
+  "Comedy",
+  "Drama",
+  "Action",
+  "Rom-com",
+  "Kids",
+  "Animated",
+  "AI",
 ];
 
-const FORMATS = [
-  { id: "horizontal", label: "Horizontal" },
-  { id: "vertical", label: "Vertical" },
+const formats = ["Horizontal", "Vertical"];
+
+const continueWatching = [
+  {
+    id: 1,
+    title: "The Long Night — Washington Original",
+    meta: "2h 8m • Resume where you left off",
+    status: "Watching",
+  },
+  {
+    id: 2,
+    title: "Mathmagical 'I' — Episode 1",
+    meta: "42m • Continue watching",
+    status: "In progress",
+  },
 ];
 
-const CONTINUE_WATCHING = {
-  title: "Continue watching",
-  items: [
-    {
-      id: "long-night-progress",
-      label: "Watching",
-      title: "The Long Night — Washington Original",
-      meta: "42:18 / 2:08:00 • Resume where you left off",
-    },
-    {
-      id: "mathmagical-progress",
-      label: "In Progress",
-      title: "Mathmagical 'I' — Episode 1",
-      meta: "18:32 / 42:00 • Continue watching",
-    },
-  ],
-};
-
-const SCIFI_RAIL = {
-  title: "Sci-Fi – Most watched",
-  items: [
-    {
-      id: "long-night",
-      label: "Feature",
-      title: "The Long Night — Washington Original",
-      meta: "Feature • 2h 8m curated stream",
-    },
-    {
-      id: "mathmagical",
-      label: "Sci-Fi",
-      title: "Mathmagical 'I'",
-      meta: "Series • Episode 1 • 42 min",
-    },
-    {
-      id: "inside-via",
-      label: "Explainer",
-      title: "Inside VIA — Prototype Session",
-      meta: "5:18 • See how VIA learns your taste",
-    },
-    {
-      id: "welcome-sizzle",
-      label: "Highlights",
-      title: "Welcome to Washington — Sizzle Cut",
-      meta: "4:10 • Fast-paced tour through curated streams",
-    },
-  ],
-};
-
-const ORIGINALS_BTS = {
-  title: "Washington Originals – Behind the scenes",
-  items: [
-    {
-      id: "making-of-long-night",
-      label: "BTS",
-      title: "Making of The Long Night",
-      meta: "6:42 • Director's commentary and production insights",
-    },
-    {
-      id: "via-development",
-      label: "Tech",
-      title: "Building VIA: The AI Behind Washington",
-      meta: "8:15 • How our recommendation engine learns your taste",
-    },
-  ],
-};
-
-const ORIGINALS_CREATOR = {
-  title: "Washington Originals – Guides & extras",
-  items: [
-    {
-      id: "guest-mode",
-      label: "Creator Guide",
-      title: "Guest Mode in 90 Seconds",
-      meta: "Short intro • Everything you need before you click play",
-    },
-    {
-      id: "channels-change",
-      label: "Creator Insight",
-      title: "Channels: How Discovery Changes",
-      meta: "6:00 • How live channels reshape the way you find new shows",
-    },
-  ],
-};
-
-function ContentCard({ item }) {
-  return (
-    <article className="flex-shrink-0 w-[220px] rounded-2xl bg-neutral-900 overflow-hidden border border-neutral-800 hover:border-amber-400/70 transition-colors">
-      <div className="h-32 bg-gradient-to-br from-neutral-800 via-neutral-900 to-black" />
-      <div className="p-3 space-y-1">
-        {item.label && (
-          <span className="inline-flex items-center rounded-full bg-neutral-800 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-300">
-            {item.label}
-          </span>
-        )}
-        <h3 className="text-sm font-semibold leading-snug text-neutral-50">
-          {item.title}
-        </h3>
-        {item.meta && (
-          <p className="text-xs text-neutral-400 line-clamp-2">{item.meta}</p>
-        )}
-      </div>
-    </article>
-  );
-}
+const mostWatchedSciFi = [
+  {
+    id: 1,
+    title: "The Long Night — Washington Original",
+    meta: "Feature • 2h 8m curated stream",
+    tag: "Feature",
+  },
+  {
+    id: 2,
+    title: "Mathmagical 'I'",
+    meta: "Series • Episode 1 • 42 min",
+    tag: "Sci-Fi",
+  },
+  {
+    id: 3,
+    title: "Inside VIA — Prototype Session",
+    meta: "5:18 • Explainer",
+    tag: "Explainer",
+  },
+];
 
 export function VideoLandingPage() {
-  const [activeGenre, setActiveGenre] = useState("sci-fi");
-  const [activeFormat, setActiveFormat] = useState("horizontal");
-
   return (
-    <div className="mx-auto max-w-6xl px-8 py-8">
-      <div className="grid grid-cols-[240px_minmax(0,1fr)_260px] gap-8 items-start">
-        {/* LEFT: premier controls */}
-        <aside className="space-y-6">
+    <div className="mx-auto max-w-6xl px-8 pb-16 pt-8">
+      {/* TOP GRID: NAV | HERO | RIGHT META */}
+      <div className="grid gap-8 md:grid-cols-[220px_minmax(0,1.6fr)_260px] grid-rows-[auto_auto] items-start">
+        {/* LEFT: Premier controls (spans hero + rails) */}
+        <aside className="row-span-2 space-y-6">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400 mb-3">
+            <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-neutral-400 uppercase">
               Premier controls
             </p>
-            <div className="flex flex-col gap-2">
-              {GENRES.map((genre) => (
+            <div className="space-y-2">
+              {premierGenres.map((genre, index) => (
                 <button
-                  key={genre.id}
+                  key={genre}
                   type="button"
-                  onClick={() => setActiveGenre(genre.id)}
-                  className={clsx(
-                    "w-full rounded-full border px-4 py-2 text-sm font-medium text-left transition",
-                    activeGenre === genre.id
-                      ? "bg-amber-400 text-neutral-900 border-transparent shadow-sm"
-                      : "bg-neutral-900/80 text-neutral-200 border-neutral-700 hover:bg-neutral-800 hover:border-neutral-500"
-                  )}
+                  className={`flex w-full items-center justify-between rounded-full px-4 py-2 text-sm font-medium transition ${
+                    index === 0
+                      ? "bg-amber-400 text-neutral-950"
+                      : "bg-neutral-900/70 text-neutral-200 hover:bg-neutral-800"
+                  }`}
                 >
-                  {genre.label}
+                  <span>{genre}</span>
                 </button>
               ))}
             </div>
           </div>
 
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400 mb-3">
+            <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-neutral-400 uppercase">
               Formats
             </p>
-            <div className="flex flex-col gap-2">
-              {FORMATS.map((format) => (
+            <div className="space-y-2">
+              {formats.map((fmt, index) => (
                 <button
-                  key={format.id}
+                  key={fmt}
                   type="button"
-                  onClick={() => setActiveFormat(format.id)}
-                  className={clsx(
-                    "w-full rounded-full border px-4 py-2 text-sm font-medium text-left transition",
-                    activeFormat === format.id
-                      ? "bg-amber-400 text-neutral-900 border-transparent shadow-sm"
-                      : "bg-neutral-900/80 text-neutral-200 border-neutral-700 hover:bg-neutral-800 hover:border-neutral-500"
-                  )}
+                  className={`flex w-full items-center justify-between rounded-full px-4 py-2 text-sm font-medium transition ${
+                    index === 0
+                      ? "bg-amber-400 text-neutral-950"
+                      : "bg-neutral-900/70 text-neutral-200 hover:bg-neutral-800"
+                  }`}
                 >
-                  {format.label}
+                  <span>{fmt}</span>
                 </button>
               ))}
             </div>
           </div>
         </aside>
 
-        {/* CENTER: hero + rails */}
-        <div className="space-y-10">
-          {/* Premier Window hero */}
-          <section className="rounded-3xl overflow-hidden bg-neutral-900 shadow-2xl">
-            <div className="relative">
-              <div className="aspect-[16/9]">
-                <div 
-                  className="h-full w-full object-cover bg-cover bg-center" 
-                  style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop')"
-                  }}
-                />
-              </div>
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
-
-              <div className="absolute inset-x-0 bottom-0 p-6 lg:p-8 flex flex-col gap-3 lg:gap-4">
-                <h1 className="max-w-2xl text-3xl lg:text-4xl font-semibold leading-tight text-white">
+        {/* CENTER: Premier window hero */}
+        <section className="col-start-2 col-end-3 row-start-1 space-y-4">
+          <div className="overflow-hidden rounded-2xl bg-neutral-900 shadow-xl">
+            {/* Hero image frame – swap for your real poster/hero component */}
+            <div className="relative aspect-[16/7] w-full bg-neutral-800">
+              {/* Background poster */}
+              <img
+                src="/images/the-long-night-hero.jpg"
+                alt="The Long Night — Washington Original"
+                className="h-full w-full object-cover"
+              />
+              {/* Gradient + title overlay */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+              <div className="absolute inset-x-0 bottom-0 p-8">
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
                   The Long Night — Washington Original
                 </h1>
-                <p className="max-w-2xl text-sm lg:text-base text-neutral-200">
-                  Hot new feature, trailer, or event picked for you. The most relevant content for your
-                  profile and data-profile appears here.
+                <p className="mt-2 max-w-xl text-sm text-neutral-200">
+                  Hot new feature, trailer, or event picked for you. The most
+                  relevant content for your profile and data-profile appears
+                  here.
                 </p>
-                <div className="flex flex-wrap gap-3 pt-1">
-                  <button className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-amber-300">
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    className="rounded-full bg-amber-400 px-5 py-2 text-sm font-semibold text-neutral-950 hover:bg-amber-300"
+                  >
                     Watch now
                   </button>
-                  <button className="rounded-full border border-neutral-600 bg-neutral-950/70 px-5 py-2.5 text-sm font-semibold text-neutral-100 hover:border-neutral-400">
+                  <button
+                    type="button"
+                    className="rounded-full border border-neutral-600/80 bg-neutral-900/70 px-5 py-2 text-sm font-semibold text-neutral-100 hover:bg-neutral-800"
+                  >
                     More info
                   </button>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Continue watching rail */}
-          <section className="space-y-3">
-            <div className="flex items-baseline justify-between">
-              <h2 className="text-lg font-semibold">Continue watching</h2>
-              <button className="text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-100">
-                More →
-              </button>
-            </div>
-            <div className="flex gap-3 overflow-x-auto pb-1">
-              {CONTINUE_WATCHING.items.map((item) => (
-                <ContentCard key={item.id} item={item} />
-              ))}
-            </div>
-          </section>
-
-          {/* Sci-Fi rail */}
-          <section className="space-y-3">
-            <div className="flex items-baseline justify-between">
-              <h2 className="text-lg font-semibold">{SCIFI_RAIL.title}</h2>
-              <button className="text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-100">
-                More →
-              </button>
-            </div>
-            <div className="flex gap-3 overflow-x-auto pb-1">
-              {SCIFI_RAIL.items.map((item) => (
-                <ContentCard key={item.id} item={item} />
-              ))}
-            </div>
-          </section>
-
-          {/* Washington Originals rail */}
-          <section className="space-y-3">
-            <div className="flex items-baseline justify-between">
-              <h2 className="text-lg font-semibold">
-                {ORIGINALS_CREATOR.title}
-              </h2>
-              <button className="text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-100">
-                More →
-              </button>
-            </div>
-            <div className="flex gap-3 overflow-x-auto pb-1">
-              {ORIGINALS_CREATOR.items.map((item) => (
-                <ContentCard key={item.id} item={item} />
-              ))}
-            </div>
-          </section>
-        </div>
-
-        {/* RIGHT: creator spotlight / community note */}
-        <aside className="space-y-4">
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/80 px-4 py-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-300">
+        {/* RIGHT: Creator spotlight + community note (hero row only) */}
+        <section className="col-start-3 row-start-1 space-y-3">
+          <div className="rounded-2xl border border-neutral-700 bg-neutral-900/90 px-4 py-3 shadow">
+            <p className="text-[11px] font-semibold tracking-[0.18em] text-amber-300 uppercase">
               Creator spotlight
             </p>
-            <p className="text-sm text-neutral-50 mt-1">
+            <p className="mt-1 text-sm font-medium text-neutral-100">
               Washington Originals
             </p>
             <p className="mt-1 text-xs text-neutral-400">
-              Meet today's featured creator.
+              Meet today&apos;s featured creator.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 px-4 py-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-950/80 px-4 py-3 shadow">
+            <p className="text-[11px] font-semibold tracking-[0.18em] text-neutral-400 uppercase">
               Community note
             </p>
-            <p className="mt-1 text-xs text-neutral-400">
+            <p className="mt-1 text-xs text-neutral-300">
               Short, non-intrusive platform or community update.
             </p>
           </div>
-        </aside>
+        </section>
+
+        {/* RAILS: sit directly under the hero, full width of the hero column */}
+        <section className="col-start-2 col-end-3 row-start-2 mt-4 space-y-10">
+          {/* Continue watching – always second rail */}
+          <div>
+            <div className="mb-3 flex items-baseline justify-between">
+              <h2 className="text-base font-semibold text-neutral-100">
+                Continue watching
+              </h2>
+              <button
+                type="button"
+                className="text-xs font-medium text-neutral-400 hover:text-neutral-200"
+              >
+                More →
+              </button>
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              {continueWatching.map((item) => (
+                <article
+                  key={item.id}
+                  className="w-[220px] shrink-0 overflow-hidden rounded-xl bg-neutral-900 shadow-md"
+                >
+                  <div className="h-32 bg-neutral-800" />
+                  <div className="space-y-1 px-3 py-3">
+                    <span className="inline-block rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-300">
+                      {item.status}
+                    </span>
+                    <h3 className="text-sm font-semibold text-neutral-100">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-neutral-400">{item.meta}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          {/* Sci-Fi – Most watched */}
+          <div>
+            <div className="mb-3 flex items-baseline justify-between">
+              <h2 className="text-base font-semibold text-neutral-100">
+                Sci-Fi – Most watched
+              </h2>
+              <button
+                type="button"
+                className="text-xs font-medium text-neutral-400 hover:text-neutral-200"
+              >
+                More →
+              </button>
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              {mostWatchedSciFi.map((item) => (
+                <article
+                  key={item.id}
+                  className="w-[220px] shrink-0 overflow-hidden rounded-xl bg-neutral-900 shadow-md"
+                >
+                  <div className="h-32 bg-neutral-800" />
+                  <div className="space-y-1 px-3 py-3">
+                    <span className="inline-block rounded-full bg-neutral-100/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-neutral-200">
+                      {item.tag}
+                    </span>
+                    <h3 className="text-sm font-semibold text-neutral-100">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-neutral-400">{item.meta}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          {/* Third + later rails can follow the same pattern */}
+          {/* Example placeholder for another genre rail */}
+          {/* <div>...more rails here...</div> */}
+        </section>
       </div>
     </div>
   );
 }
-
-export default VideoLandingPage;
