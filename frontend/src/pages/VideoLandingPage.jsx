@@ -137,9 +137,12 @@ export default function OnDemandVideoLanding() {
         <section className="space-y-0">
           <article className="relative overflow-hidden rounded-2xl border border-neutral-800 bg-black">
             <div className="aspect-[21/9] w-full">
-              {/* Keep using the existing hero image you already wired up.
-                  If you don't have it as an <img>, this can remain a solid bg. */}
-              <div className="h-full w-full bg-[url('/assets/long-night-hero.jpg')] bg-cover bg-center" />
+              <div 
+                className="h-full w-full bg-cover bg-center" 
+                style={{
+                  backgroundImage: "url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop')"
+                }}
+              />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
