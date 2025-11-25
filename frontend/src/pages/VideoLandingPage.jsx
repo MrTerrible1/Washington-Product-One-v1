@@ -238,7 +238,7 @@ export function VideoLandingPage() {
               </button>
             </div>
 
-            <div className="flex gap-4 overflow-x-auto pb-2">
+            <div className="flex gap-3 overflow-x-auto pb-2">
               {SCIFI_RAIL.items.map((item) => (
                 <ContentCard key={item.id} item={item} />
               ))}
