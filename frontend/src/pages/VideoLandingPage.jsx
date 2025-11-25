@@ -179,10 +179,11 @@ export function VideoLandingPage() {
           </div>
         </aside>
 
-        {/* RIGHT: Hero + First Rail */}
+        {/* RIGHT: Hero + Rails */}
         <section className="space-y-8">
           {/* Hero */}
-          <article className="relative w-full overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/80 shadow-xl">
+          <div className="w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-lg">
+            <article className="relative">
             <div className="relative h-[340px] lg:h-[380px]">
               <div 
                 className="h-full w-full object-cover bg-cover bg-center" 
