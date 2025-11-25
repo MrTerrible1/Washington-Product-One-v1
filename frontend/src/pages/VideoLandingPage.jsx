@@ -249,7 +249,6 @@ export function VideoLandingPage() {
             </div>
           </section>
 
-          {/* 3. Content rails below (full-width) */}
           <section className="space-y-3">
             <div className="flex items-baseline justify-between">
               <h2 className="text-base font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
