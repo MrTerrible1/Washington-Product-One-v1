@@ -1,353 +1,214 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import videoData from "../data/videoContent.json";
-import { useWashingtonEvents } from "../hooks/useWashingtonEvents";
-import { EVENT_TYPES } from "../events/eventTypes";
-import { useViaContent } from "../context/ViaContentContext.jsx";
+// OnDemandVideoLanding.jsx
+// Video landing for the OnDemand "Video" tab.
 
-const PREMIER_GENRES = [
-  { id: "sci-fi", label: "Sci-Fi" },
-  { id: "comedy", label: "Comedy" },
-  { id: "drama", label: "Drama" },
-  { id: "action", label: "Action" },
-  { id: "rom-com", label: "Rom-com" },
-  { id: "kids", label: "Kids" },
-  { id: "animated", label: "Animated" },
-  { id: "ai", label: "AI" },
+const GENRES = [
+  "Sci-Fi",
+  "Comedy",
+  "Drama",
+  "Action",
+  "Rom-com",
+  "Kids",
+  "Animated",
+  "AI",
 ];
 
-const PREMIER_FORMATS = [
-  { id: "horizontal", label: "Horizontal" },
-  { id: "vertical", label: "Vertical" },
-];
+const FORMATS = ["Horizontal", "Vertical"];
 
-export function VideoLandingPage() {
-  const rails = videoData.rails || [];
-  const { logEvent } = useWashingtonEvents("video-landing");
-  const { setCurrentContentId } = useViaContent();
-  const navigate = useNavigate();
-  
-  // Track scroll state for each rail
-  const [railScrollStates, setRailScrollStates] = useState({});
+const SCIFI_RAIL = {
+  title: "Sci-Fi – Highlights & trailers",
+  items: [
+    {
+      id: "long-night",
+      label: "Feature",
+      title: "The Long Night — Washington Original",
+      meta: "Feature • 2h 8m curated stream",
+    },
+    {
+      id: "mathmagical",
+      label: "Sci-Fi",
+      title: "Mathmagical 'I'",
+      meta: "Series • Episode 1 • 42 min",
+    },
+    {
+      id: "inside-via",
+      label: "Explainer",
+      title: "Inside VIA — Prototype Session",
+      meta: "5:18 • See how VIA learns your taste",
+    },
+    {
+      id: "welcome-sizzle",
+      label: "Highlights",
+      title: "Welcome to Washington — Sizzle Cut",
+      meta: "4:10 • Fast-paced tour through curated streams",
+    },
+  ],
+};
 
-  // Track active premier genre and format
-  const [activePremierGenre, setActivePremierGenre] = useState("sci-fi");
-  const [activePremierFormat, setActivePremierFormat] = useState("horizontal");
+const GUIDES_RAIL = {
+  title: "Washington Originals – Tours & platform guides",
+  items: [
+    {
+      id: "guest-mode",
+      label: "Onboarding",
+      title: "Guest Mode in 90 Seconds",
+      meta: "Short intro • Everything you need before you click play",
+    },
+    {
+      id: "channels-change",
+      label: "Concept",
+      title: "Channels: How Discovery Changes",
+      meta: "6:00 • How live channels reshape the way you find new shows",
+    },
+  ],
+};
 
-  // Hero always comes from featured rail
-  const featuredRail = rails.find((r) => r.id === "featured") || rails[0];
-  const heroVideo = featuredRail?.items?.[0] || null;
-
-  useEffect(() => {
-    logEvent(EVENT_TYPES.PAGE_VIEW, {
-      source: "video-landing",
-      route: "ondemand",
-    });
-    setCurrentContentId(null);
-  }, [logEvent, setCurrentContentId]);
-
-  const handleCardClick = (railId, video) => {
-    logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "landing_video_click",
-      railId,
-      videoId: video.id,
-      title: video.title,
-    });
-    navigate(`/content/${video.id}`);
-  };
-
-  const handleHeroWatchNow = () => {
-    if (!heroVideo) return;
-    logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "hero_watch_now_click",
-      videoId: heroVideo.id,
-      title: heroVideo.title,
-    });
-    navigate(`/content/${heroVideo.id}`);
-  };
-
-  const handleHeroMoreInfo = () => {
-    if (!heroVideo) return;
-    logEvent(EVENT_TYPES.CTA_CLICK, {
-      ctaName: "hero_more_info_click",
-      videoId: heroVideo.id,
-      title: heroVideo.title,
-    });
-    navigate(`/content/${heroVideo.id}`);
-  };
-
-  const handleRailToggle = (railId) => {
-    const container = document.getElementById(`rail-${railId}`);
-    if (!container) return;
-
-    const isAtEnd = railScrollStates[railId];
-
-    if (isAtEnd) {
-      // Scroll back to start
-      container.scrollTo({ left: 0, behavior: "smooth" });
-      logEvent(EVENT_TYPES.CTA_CLICK, {
-        ctaName: "rail_back_click",
-        railId,
-      });
-      setRailScrollStates((prev) => ({ ...prev, [railId]: false }));
-    } else {
-      // Scroll to end
-      container.scrollTo({ left: container.scrollWidth, behavior: "smooth" });
-      logEvent(EVENT_TYPES.CTA_CLICK, {
-        ctaName: "rail_more_click",
-        railId,
-      });
-      setRailScrollStates((prev) => ({ ...prev, [railId]: true }));
-    }
-  };
-
-  const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
-
+function Pill({ active, children }) {
   return (
-    <div className="mx-auto max-w-6xl px-6 pt-4 pb-16">
-      <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)] items-start">
-        {/* LEFT VERTICAL CONTROLS - Premier Controls (Genres + Formats) */}
-        <aside className="space-y-4">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-2">
-            Premier controls
-          </p>
-
-          {/* Genres */}
-          <div className="space-y-2">
-            {PREMIER_GENRES.map((item) => {
-              const isActive = item.id === activePremierGenre;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={
-                    isActive
-                      ? "inline-flex items-center rounded-full px-4 py-1.5 bg-primary text-primary-foreground text-xs font-semibold shadow-sm"
-                      : "inline-flex items-center rounded-full px-4 py-1.5 bg-transparent text-muted-foreground border border-border/60 text-xs font-medium hover:bg-secondary/60 hover:text-foreground"
-                  }
-                  onClick={() => {
-                    setActivePremierGenre(item.id);
-                    logEvent(EVENT_TYPES.CTA_CLICK, {
-                      ctaName: "premier_genre_click",
-                      genre: item.label,
-                    });
-                  }}
-                >
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Formats subset */}
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-2">
-            Formats
-          </p>
-          <div className="space-y-2">
-            {PREMIER_FORMATS.map((item) => {
-              const isActive = item.id === activePremierFormat;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={
-                    isActive
-                      ? "inline-flex items-center rounded-full px-4 py-1.5 bg-primary text-primary-foreground text-xs font-semibold shadow-sm"
-                      : "inline-flex items-center rounded-full px-4 py-1.5 bg-transparent text-muted-foreground border border-border/60 text-xs font-medium hover:bg-secondary/60 hover:text-foreground"
-                  }
-                  onClick={() => {
-                    setActivePremierFormat(item.id);
-                    logEvent(EVENT_TYPES.CTA_CLICK, {
-                      ctaName: "premier_format_click",
-                      format: item.label,
-                    });
-                  }}
-                >
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        </aside>
-
-        {/* MAIN CONTENT: HERO + RAILS */}
-        <section className="space-y-6">
-          {/* Hero - Premier Window */}
-          <div className="rounded-2xl overflow-hidden bg-neutral-900 h-[380px] lg:h-[420px]">
-              <div
-                className="absolute inset-0 w-full h-full bg-black cursor-pointer group"
-              style={
-                heroVideo?.thumbnail
-                  ? {
-                      backgroundImage: `url(${heroVideo.thumbnail})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }
-                  : {}
-              }
-              role="button"
-              tabIndex={0}
-              onClick={handleHeroWatchNow}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleHeroWatchNow();
-                }
-              }}
-            >
-              {/* Dark gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-
-              {/* Bottom-left content block */}
-              <div className="relative z-10 flex h-full items-end p-8">
-                <div className="max-w-xl space-y-3">
-                  <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
-                    {heroVideo?.title || "Featured Content"}
-                  </h1>
-                  <p className="text-sm md:text-base text-white/85 leading-relaxed">
-                    {heroVideo?.tagline ||
-                      heroVideo?.description ||
-                      "Hot new feature, trailer, or event picked for you. The most relevant content for your profile and data-profile appears here."}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3">
-                    {/* Watch Now */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleHeroWatchNow();
-                      }}
-                      className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-sm md:text-base font-semibold shadow-md hover:bg-primary/90"
-                    >
-                      Watch Now
-                    </button>
-                    {/* More info */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleHeroMoreInfo();
-                      }}
-                      className="rounded-full bg-white/12 border border-white/30 text-white px-5 py-2 text-sm md:text-base font-medium hover:bg-white/18"
-                    >
-                      More info
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Rails */}
-          <div className="space-y-8" aria-label="OnDemand video rails">
-          {railsWithItems.map((rail) => {
-            const isScrolledToEnd = railScrollStates[rail.id] || false;
-            
-            // Prepend active genre label to featured rail
-            const activePremierGenreLabel = PREMIER_GENRES.find(g => g.id === activePremierGenre)?.label || "";
-            const heading = rail.id === "featured" 
-              ? `${activePremierGenreLabel} – ${rail.title}`
-              : rail.title;
-            
-            // Determine if this is the first rail (featured) for format badges
-            const isFirstRail = rail.id === "featured";
-            
-            return (
-              <article key={rail.id} className="space-y-3">
-                <header className="flex items-baseline justify-between">
-                  <h2 className="text-lg font-semibold">
-                    {heading}
-                  </h2>
-                  <button
-                    type="button"
-                    className="text-xs font-semibold text-neutral-400 hover:text-neutral-100"
-                    onClick={() => handleRailToggle(rail.id)}
-                  >
-                    {isScrolledToEnd ? (
-                      <>
-                        <span aria-hidden>←</span> Back
-                      </>
-                    ) : (
-                      <>
-                        More <span aria-hidden>→</span>
-                      </>
-                    )}
-                  </button>
-                </header>
-
-                <div 
-                  id={`rail-${rail.id}`}
-                  className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
-                  style={{
-                    scrollbarWidth: 'none',
-                    msOverflowStyle: 'none',
-                  }}
-                >
-                  {rail.items.map((video, cardIndex) => {
-                  const isHighlighted = cardIndex === 0 || cardIndex === 1;
-                  const thumbnail = video.thumbnail || "";
-                  const genre = video.genre || "";
-
-                  return (
-                    <button
-                      key={video.id}
-                      type="button"
-                      onClick={() => handleCardClick(rail.id, video)}
-                      className="group w-[220px] shrink-0 text-left"
-                    >
-                      <div className="rounded-2xl overflow-hidden bg-card border border-border/70 shadow-sm group-hover:shadow-lg group-hover:-translate-y-1 transition-transform transition-shadow duration-200">
-                        <div className="relative pt-[56.25%] bg-gradient-to-br from-accent/40 to-muted overflow-hidden">
-                          {thumbnail && (
-                            <div
-                              className="absolute inset-0 bg-cover bg-center group-hover:brightness-110 transition-[filter,transform] duration-300"
-                              style={{ backgroundImage: `url(${thumbnail})` }}
-                            />
-                          )}
-                          {!thumbnail && (
-                            <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-muted group-hover:brightness-110 transition-[filter,transform] duration-300" />
-                          )}
-                          <div className="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-primary/70 rounded-2xl pointer-events-none" />
-                          {genre && (
-                            <span className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/70 text-white">
-                              {genre}
-                            </span>
-                          )}
-                          {isHighlighted && (
-                            <span className="absolute top-2 right-2 text-xs px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-semibold">
-                              {rail.id === "featured" ? "FEATURED" : "NEW"}
-                            </span>
-                          )}
-                          {video.duration && (
-                            <span className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-full bg-black/80 text-white">
-                              {video.duration}
-                            </span>
-                          )}
-                        </div>
-                        <div className="px-3 py-3 space-y-1">
-                          <h3 className="text-base md:text-[17px] font-semibold leading-snug line-clamp-2 text-foreground">
-                            {video.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
-                            {video.tagline || video.meta}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                  })}
-                </div>
-              </article>
-            );
-          })}
-          </div>
-        </section>
-      </div>
-    </div>
+    <button
+      type="button"
+      className={
+        "px-4 py-1.5 rounded-full text-sm font-medium border transition-colors " +
+        (active
+          ? "bg-amber-400 text-neutral-900 border-amber-300"
+          : "bg-neutral-900/60 text-neutral-100 border-neutral-700 hover:bg-neutral-800")
+      }
+    >
+      {children}
+    </button>
   );
 }
 
-export default VideoLandingPage;
+function ContentCard({ item }) {
+  return (
+    <article className="flex-shrink-0 w-[220px] rounded-2xl bg-neutral-900 overflow-hidden border border-neutral-800 hover:border-amber-400/70 transition-colors">
+      <div className="h-32 bg-gradient-to-br from-neutral-800 via-neutral-900 to-black" />
+      <div className="p-3 space-y-1">
+        {item.label && (
+          <span className="inline-flex items-center rounded-full bg-neutral-800 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-300">
+            {item.label}
+          </span>
+        )}
+        <h3 className="text-sm font-semibold leading-snug text-neutral-50">
+          {item.title}
+        </h3>
+        {item.meta && (
+          <p className="text-xs text-neutral-400 line-clamp-2">{item.meta}</p>
+        )}
+      </div>
+    </article>
+  );
+}
+
+export default function OnDemandVideoLanding() {
+  return (
+    <div className="mx-auto max-w-6xl px-6 py-8 space-y-10">
+      {/* Top grid: premier controls + hero */}
+      <div className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)] items-start">
+        {/* LEFT: Premier controls */}
+        <aside className="space-y-6">
+          <section className="space-y-3">
+            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-neutral-400">
+              Premier controls
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {GENRES.map((genre, index) => (
+                <Pill key={genre} active={index === 0}>
+                  {genre}
+                </Pill>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-3">
+            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-neutral-400">
+              Formats
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {FORMATS.map((format, index) => (
+                <Pill key={format} active={index === 0}>
+                  {format}
+                </Pill>
+              ))}
+            </div>
+          </section>
+        </aside>
+
+        {/* RIGHT: Hero */}
+        <section className="space-y-0">
+          <article className="relative overflow-hidden rounded-2xl border border-neutral-800 bg-black">
+            <div className="aspect-[21/9] w-full">
+              {/* Keep using the existing hero image you already wired up.
+                  If you don't have it as an <img>, this can remain a solid bg. */}
+              <div className="h-full w-full bg-[url('/assets/long-night-hero.jpg')] bg-cover bg-center" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+            <div className="absolute inset-x-0 bottom-0 p-8 space-y-3">
+              <h1 className="text-3xl md:text-4xl font-bold text-white max-w-2xl">
+                The Long Night — Washington Original
+              </h1>
+              <p className="max-w-xl text-sm md:text-base text-neutral-200">
+                Hot new feature, trailer, or event picked for you. The most
+                relevant content for your profile and data-profile appears here.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <button
+                  type="button"
+                  className="rounded-full bg-amber-400 px-5 py-2 text-sm font-semibold text-neutral-900 hover:bg-amber-300 transition-colors"
+                >
+                  Watch Now
+                </button>
+                <button
+                  type="button"
+                  className="rounded-full border border-neutral-300/70 bg-black/40 px-5 py-2 text-sm font-semibold text-neutral-50 hover:bg-neutral-900 transition-colors"
+                >
+                  More info
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+
+      {/* Sci-Fi Highlights rail */}
+      <section className="space-y-3">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 className="text-lg font-semibold text-neutral-50">
+            {SCIFI_RAIL.title}
+          </h2>
+          <button
+            type="button"
+            className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400 hover:text-neutral-200"
+          >
+            More →
+          </button>
+        </div>
+        <div className="flex gap-4 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
+          {SCIFI_RAIL.items.map((item) => (
+            <ContentCard key={item.id} item={item} />
+          ))}
+        </div>
+      </section>
+
+      {/* Guides & tours rail */}
+      <section className="space-y-3">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 className="text-lg font-semibold text-neutral-50">
+            {GUIDES_RAIL.title}
+          </h2>
+          <button
+            type="button"
+            className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400 hover:text-neutral-200"
+          >
+            More →
+          </button>
+        </div>
+        <div className="flex gap-4 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
+          {GUIDES_RAIL.items.map((item) => (
+            <ContentCard key={item.id} item={item} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
