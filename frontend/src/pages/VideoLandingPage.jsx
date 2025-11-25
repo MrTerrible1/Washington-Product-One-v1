@@ -127,9 +127,10 @@ export function VideoLandingPage() {
   const [activeFormat, setActiveFormat] = useState("horizontal");
 
   return (
-    <div className="mx-auto max-w-6xl px-6 pb-16 pt-6 grid gap-8 md:grid-cols-[260px_minmax(0,1fr)]">
-      {/* LEFT: Premier controls + formats */}
-      <aside className="space-y-6">
+    <div className="mx-auto max-w-6xl px-8 py-8">
+      <div className="grid grid-cols-[240px_minmax(0,1fr)_260px] gap-8 items-start">
+        {/* LEFT: premier controls */}
+        <aside className="space-y-6">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400 mb-3">
               Premier controls
