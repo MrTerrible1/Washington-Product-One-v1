@@ -104,10 +104,10 @@ export function VideoLandingPage() {
   const railsWithItems = rails.filter((rail) => (rail.items || []).length > 0);
 
   return (
-    <div className="mx-auto max-w-7xl px-8 pt-4 pb-10">
-      <div className="grid gap-6 md:grid-cols-[240px_minmax(0,1fr)] items-start">
+    <div className="mx-auto max-w-6xl px-6 pt-4 pb-16">
+      <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)] items-start">
         {/* LEFT VERTICAL CONTROLS - Premier Controls (Genres + Formats) */}
-        <aside className="space-y-6">
+        <aside className="space-y-4">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-2">
             Premier controls
