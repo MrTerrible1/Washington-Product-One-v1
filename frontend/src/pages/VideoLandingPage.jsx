@@ -99,7 +99,7 @@ function ContentCard({ item }) {
   );
 }
 
-export default function OnDemandVideoLanding() {
+export function VideoLandingPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-8 space-y-10">
       {/* Top grid: premier controls + hero */}
