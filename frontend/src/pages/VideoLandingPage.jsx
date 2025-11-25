@@ -210,72 +210,47 @@ export function VideoLandingPage() {
                 </div>
               </div>
             </div>
+          </section>
 
-            {/* Spotlight column (desktop only) */}
-            <aside className="hidden lg:flex flex-col gap-3">
-              <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-300">
+          {/* 2. Continue watching + right mini-column */}
+          <section className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] items-start">
+            {/* LEFT: Continue watching rail */}
+            <div className="space-y-3">
+              <h2 className="text-base font-semibold text-neutral-50">Continue watching</h2>
+              <div className="flex gap-3 overflow-x-auto pb-2">
+                {CONTINUE_WATCHING.items.map((item) => (
+                  <ContentCard key={item.id} item={item} />
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT: small news / spotlight stack */}
+            <div className="space-y-3">
+              <article className="rounded-xl border border-neutral-800 bg-neutral-900/70 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
                   Creator spotlight
                 </p>
-                <p className="text-sm font-medium text-neutral-100 truncate">
+                <p className="text-sm text-neutral-50">
                   Washington Originals
                 </p>
-                <p className="text-[11px] text-neutral-500">
-                  Meet today's featured creator.
+                <p className="mt-1 text-xs text-neutral-400">
+                  Meet today&apos;s featured creator.
                 </p>
-              </div>
+              </article>
 
-              <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">
+              <article className="rounded-xl border border-neutral-800 bg-neutral-900/70 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
                   Community note
                 </p>
-                <p className="text-xs text-neutral-300">
+                <p className="mt-1 text-xs text-neutral-400">
                   Short, non-intrusive platform or community update.
                 </p>
-              </div>
-            </aside>
-          </div>
-
-          {/* Mobile fallback: spotlight below hero */}
-          <aside className="flex flex-col gap-3 lg:hidden">
-            <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-300">
-                Creator spotlight
-              </p>
-              <p className="text-sm font-medium text-neutral-100 truncate">
-                Washington Originals
-              </p>
-              <p className="text-[11px] text-neutral-500">
-                Meet today's featured creator.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 px-4 py-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">
-                Community note
-              </p>
-              <p className="text-xs text-neutral-300">
-                Short, non-intrusive platform or community update.
-              </p>
-            </div>
-          </aside>
-
-          {/* Rail 1 – Continue watching */}
-          <section className="space-y-3">
-            <div className="flex items-baseline justify-between">
-              <h2 className="text-lg font-semibold text-neutral-50">{CONTINUE_WATCHING.title}</h2>
-              <button className="text-xs text-neutral-400 hover:text-neutral-200">
-                More →
-              </button>
-            </div>
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              {CONTINUE_WATCHING.items.map((item) => (
-                <ContentCard key={item.id} item={item} />
-              ))}
+              </article>
             </div>
           </section>
 
-          {/* Rail 2 – Sci-Fi highlights */}
+          {/* 3. Content rails below (full-width) */}
+          {/* Sci-Fi – Most watched */}
           <section className="space-y-3">
             <div className="flex items-baseline justify-between">
               <h2 className="text-lg font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
