@@ -211,10 +211,26 @@ export function VideoLandingPage() {
                 </button>
               </div>
             </div>
-          </article>
+            </article>
+          </div>
 
-          {/* First rail – Sci-Fi highlights */}
-          <section>
+          {/* Rail 1 – Continue watching */}
+          <section className="space-y-3">
+            <div className="flex items-baseline justify-between">
+              <h2 className="text-lg font-semibold text-neutral-50">{CONTINUE_WATCHING.title}</h2>
+              <button className="text-xs text-neutral-400 hover:text-neutral-200">
+                More →
+              </button>
+            </div>
+            <div className="flex gap-3 overflow-x-auto pb-2">
+              {CONTINUE_WATCHING.items.map((item) => (
+                <ContentCard key={item.id} item={item} />
+              ))}
+            </div>
+          </section>
+
+          {/* Rail 2 – Sci-Fi highlights */}
+          <section className="space-y-3">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
               <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
