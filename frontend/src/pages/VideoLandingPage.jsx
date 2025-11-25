@@ -177,15 +177,11 @@ export function VideoLandingPage() {
           </div>
         </aside>
 
-        {/* RIGHT: Hero + Spotlight + Rails */}
-        <section className="space-y-6">
-          {/* Top row: hero + spotlight side by side */}
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] items-stretch">
-            {/* Hero */}
-            <div
-              aria-label="Premier window"
-              className="relative overflow-hidden rounded-2xl bg-neutral-900"
-            >
+        {/* RIGHT: main content column */}
+        <div className="space-y-8">
+          {/* 1. Hero - full width */}
+          <section className="rounded-2xl overflow-hidden bg-neutral-900">
+            <div className="relative">
               <div className="aspect-[16/9]">
                 <div 
                   className="h-full w-full object-cover bg-cover bg-center" 
