@@ -178,10 +178,10 @@ export function VideoLandingPage() {
           </div>
         </aside>
 
-        {/* RIGHT: main content column */}
-        <div className="space-y-8">
-          {/* 1. Hero - full width */}
-          <section className="rounded-2xl overflow-hidden bg-neutral-900">
+        {/* CENTER: hero + rails */}
+        <div className="space-y-10">
+          {/* Premier Window hero */}
+          <section className="rounded-3xl overflow-hidden bg-neutral-900 shadow-2xl">
             <div className="relative">
               <div className="aspect-[16/9]">
                 <div 
