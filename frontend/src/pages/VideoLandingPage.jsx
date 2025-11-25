@@ -213,43 +213,22 @@ export function VideoLandingPage() {
             </div>
           </section>
 
-          {/* 2. Continue watching + right mini-column */}
-          <section className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] items-start">
-            {/* LEFT: Continue watching rail */}
-            <div className="space-y-3">
-              <h2 className="text-base font-semibold text-neutral-50">Continue watching</h2>
-              <div className="flex gap-3 overflow-x-auto pb-2">
-                {CONTINUE_WATCHING.items.map((item) => (
-                  <ContentCard key={item.id} item={item} />
-                ))}
-              </div>
+          {/* Continue watching rail */}
+          <section className="space-y-3">
+            <div className="flex items-baseline justify-between">
+              <h2 className="text-lg font-semibold">Continue watching</h2>
+              <button className="text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-100">
+                More →
+              </button>
             </div>
-
-            {/* RIGHT: small news / spotlight stack */}
-            <div className="space-y-3">
-              <article className="rounded-xl border border-neutral-800 bg-neutral-900/70 px-4 py-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  Creator spotlight
-                </p>
-                <p className="text-sm text-neutral-50">
-                  Washington Originals
-                </p>
-                <p className="mt-1 text-xs text-neutral-400">
-                  Meet today&apos;s featured creator.
-                </p>
-              </article>
-
-              <article className="rounded-xl border border-neutral-800 bg-neutral-900/70 px-4 py-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  Community note
-                </p>
-                <p className="mt-1 text-xs text-neutral-400">
-                  Short, non-intrusive platform or community update.
-                </p>
-              </article>
+            <div className="flex gap-3 overflow-x-auto pb-1">
+              {CONTINUE_WATCHING.items.map((item) => (
+                <ContentCard key={item.id} item={item} />
+              ))}
             </div>
           </section>
 
+          {/* Sci-Fi rail */}
           <section className="space-y-3">
             <div className="flex items-baseline justify-between">
               <h2 className="text-base font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
