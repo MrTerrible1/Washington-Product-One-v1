@@ -231,34 +231,60 @@ export function VideoLandingPage() {
           {/* Sci-Fi rail */}
           <section className="space-y-3">
             <div className="flex items-baseline justify-between">
-              <h2 className="text-base font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
-              <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
+              <h2 className="text-lg font-semibold">{SCIFI_RAIL.title}</h2>
+              <button className="text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-100">
                 More →
               </button>
             </div>
-            <div className="flex gap-3 overflow-x-auto pb-2">
+            <div className="flex gap-3 overflow-x-auto pb-1">
               {SCIFI_RAIL.items.map((item) => (
                 <ContentCard key={item.id} item={item} />
               ))}
             </div>
           </section>
 
+          {/* Washington Originals rail */}
           <section className="space-y-3">
             <div className="flex items-baseline justify-between">
-              <h2 className="text-base font-semibold text-neutral-50">
+              <h2 className="text-lg font-semibold">
                 {ORIGINALS_CREATOR.title}
               </h2>
-              <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
+              <button className="text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-neutral-100">
                 More →
               </button>
             </div>
-            <div className="flex gap-3 overflow-x-auto pb-2">
+            <div className="flex gap-3 overflow-x-auto pb-1">
               {ORIGINALS_CREATOR.items.map((item) => (
                 <ContentCard key={item.id} item={item} />
               ))}
             </div>
           </section>
         </div>
+
+        {/* RIGHT: creator spotlight / community note */}
+        <aside className="space-y-4">
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/80 px-4 py-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-300">
+              Creator spotlight
+            </p>
+            <p className="text-sm text-neutral-50 mt-1">
+              Washington Originals
+            </p>
+            <p className="mt-1 text-xs text-neutral-400">
+              Meet today's featured creator.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 px-4 py-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+              Community note
+            </p>
+            <p className="mt-1 text-xs text-neutral-400">
+              Short, non-intrusive platform or community update.
+            </p>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
