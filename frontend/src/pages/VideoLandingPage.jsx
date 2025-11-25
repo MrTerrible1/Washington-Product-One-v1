@@ -1,18 +1,21 @@
-// OnDemandVideoLanding.jsx
-// Video landing for the OnDemand "Video" tab.
+import { useState } from "react";
+import clsx from "clsx";
 
 const GENRES = [
-  "Sci-Fi",
-  "Comedy",
-  "Drama",
-  "Action",
-  "Rom-com",
-  "Kids",
-  "Animated",
-  "AI",
+  { id: "sci-fi", label: "Sci-Fi" },
+  { id: "comedy", label: "Comedy" },
+  { id: "drama", label: "Drama" },
+  { id: "action", label: "Action" },
+  { id: "rom-com", label: "Rom-com" },
+  { id: "kids", label: "Kids" },
+  { id: "animated", label: "Animated" },
+  { id: "ai", label: "AI" },
 ];
 
-const FORMATS = ["Horizontal", "Vertical"];
+const FORMATS = [
+  { id: "horizontal", label: "Horizontal" },
+  { id: "vertical", label: "Vertical" },
+];
 
 const SCIFI_RAIL = {
   title: "Sci-Fi – Highlights & trailers",
@@ -44,8 +47,26 @@ const SCIFI_RAIL = {
   ],
 };
 
-const GUIDES_RAIL = {
-  title: "Washington Originals – Tours & platform guides",
+const ORIGINALS_BTS = {
+  title: "Washington Originals – Behind the scenes",
+  items: [
+    {
+      id: "making-of-long-night",
+      label: "BTS",
+      title: "Making of The Long Night",
+      meta: "6:42 • Director's commentary and production insights",
+    },
+    {
+      id: "via-development",
+      label: "Tech",
+      title: "Building VIA: The AI Behind Washington",
+      meta: "8:15 • How our recommendation engine learns your taste",
+    },
+  ],
+};
+
+const PLATFORM_TOURS = {
+  title: "OnDemand – Onboarding & platform tours",
   items: [
     {
       id: "guest-mode",
@@ -61,22 +82,6 @@ const GUIDES_RAIL = {
     },
   ],
 };
-
-function Pill({ active, children }) {
-  return (
-    <button
-      type="button"
-      className={
-        "px-4 py-1.5 rounded-full text-sm font-medium border transition-colors " +
-        (active
-          ? "bg-amber-400 text-neutral-900 border-amber-300"
-          : "bg-neutral-900/60 text-neutral-100 border-neutral-700 hover:bg-neutral-800")
-      }
-    >
-      {children}
-    </button>
-  );
-}
 
 function ContentCard({ item }) {
   return (
@@ -100,116 +105,147 @@ function ContentCard({ item }) {
 }
 
 export function VideoLandingPage() {
+  const [activeGenre, setActiveGenre] = useState("sci-fi");
+  const [activeFormat, setActiveFormat] = useState("horizontal");
+
   return (
-    <div className="mx-auto max-w-6xl px-6 py-8 space-y-10">
-      {/* Top grid: premier controls + hero */}
+    <div className="mx-auto max-w-7xl px-8 py-10 space-y-10">
+      {/* Top grid: vertical controls + hero + first rail */}
       <div className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)] items-start">
-        {/* LEFT: Premier controls */}
+        {/* LEFT: Vertical Premier controls */}
         <aside className="space-y-6">
-          <section className="space-y-3">
-            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-neutral-400">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400 mb-3">
               Premier controls
             </p>
-            <div className="flex flex-wrap gap-2">
-              {GENRES.map((genre, index) => (
-                <Pill key={genre} active={index === 0}>
-                  {genre}
-                </Pill>
+            <div className="flex flex-col gap-2">
+              {GENRES.map((genre) => (
+                <button
+                  key={genre.id}
+                  type="button"
+                  onClick={() => setActiveGenre(genre.id)}
+                  className={clsx(
+                    "w-full rounded-full border px-4 py-2 text-sm font-medium text-left transition",
+                    activeGenre === genre.id
+                      ? "bg-amber-400 text-neutral-900 border-transparent shadow-sm"
+                      : "bg-neutral-900/80 text-neutral-200 border-neutral-700 hover:bg-neutral-800 hover:border-neutral-500"
+                  )}
+                >
+                  {genre.label}
+                </button>
               ))}
             </div>
-          </section>
+          </div>
 
-          <section className="space-y-3">
-            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-neutral-400">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400 mb-3">
               Formats
             </p>
-            <div className="flex flex-wrap gap-2">
-              {FORMATS.map((format, index) => (
-                <Pill key={format} active={index === 0}>
-                  {format}
-                </Pill>
+            <div className="flex flex-col gap-2">
+              {FORMATS.map((format) => (
+                <button
+                  key={format.id}
+                  type="button"
+                  onClick={() => setActiveFormat(format.id)}
+                  className={clsx(
+                    "w-full rounded-full border px-4 py-2 text-sm font-medium text-left transition",
+                    activeFormat === format.id
+                      ? "bg-amber-400 text-neutral-900 border-transparent shadow-sm"
+                      : "bg-neutral-900/80 text-neutral-200 border-neutral-700 hover:bg-neutral-800 hover:border-neutral-500"
+                  )}
+                >
+                  {format.label}
+                </button>
               ))}
             </div>
-          </section>
+          </div>
         </aside>
 
-        {/* RIGHT: Hero */}
-        <section className="space-y-0">
-          <article className="relative overflow-hidden rounded-2xl border border-neutral-800 bg-black">
-            <div className="aspect-[21/9] w-full">
+        {/* RIGHT: Hero + First Rail */}
+        <section className="space-y-8">
+          {/* Hero */}
+          <article className="relative w-full overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/80 shadow-xl">
+            <div className="relative h-[340px] lg:h-[380px]">
               <div 
-                className="h-full w-full bg-cover bg-center" 
+                className="h-full w-full object-cover bg-cover bg-center" 
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop')"
                 }}
               />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-            <div className="absolute inset-x-0 bottom-0 p-8 space-y-3">
-              <h1 className="text-3xl md:text-4xl font-bold text-white max-w-2xl">
+            <div className="absolute inset-x-0 bottom-0 p-6 lg:p-8 flex flex-col gap-3 lg:gap-4">
+              <h1 className="max-w-2xl text-3xl lg:text-4xl font-semibold leading-tight text-white">
                 The Long Night — Washington Original
               </h1>
-              <p className="max-w-xl text-sm md:text-base text-neutral-200">
-                Hot new feature, trailer, or event picked for you. The most
-                relevant content for your profile and data-profile appears here.
+              <p className="max-w-2xl text-sm lg:text-base text-neutral-200">
+                Hot new feature, trailer, or event picked for you. The most relevant content for your
+                profile and data-profile appears here.
               </p>
               <div className="flex flex-wrap gap-3 pt-1">
-                <button
-                  type="button"
-                  className="rounded-full bg-amber-400 px-5 py-2 text-sm font-semibold text-neutral-900 hover:bg-amber-300 transition-colors"
-                >
-                  Watch Now
+                <button className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-amber-300">
+                  Watch now
                 </button>
-                <button
-                  type="button"
-                  className="rounded-full border border-neutral-300/70 bg-black/40 px-5 py-2 text-sm font-semibold text-neutral-50 hover:bg-neutral-900 transition-colors"
-                >
+                <button className="rounded-full border border-neutral-600 bg-neutral-950/70 px-5 py-2.5 text-sm font-semibold text-neutral-100 hover:border-neutral-400">
                   More info
                 </button>
               </div>
             </div>
           </article>
+
+          {/* First rail – Sci-Fi highlights */}
+          <section>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
+              <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
+                More →
+              </button>
+            </div>
+
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              {SCIFI_RAIL.items.map((item) => (
+                <ContentCard key={item.id} item={item} />
+              ))}
+            </div>
+          </section>
         </section>
       </div>
 
-      {/* Sci-Fi Highlights rail */}
-      <section className="space-y-3">
-        <div className="flex items-baseline justify-between gap-3">
-          <h2 className="text-lg font-semibold text-neutral-50">
-            {SCIFI_RAIL.title}
-          </h2>
-          <button
-            type="button"
-            className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400 hover:text-neutral-200"
-          >
-            More →
-          </button>
+      {/* Additional rails below */}
+      <section className="space-y-10">
+        {/* Washington Originals – BTS */}
+        <div>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-neutral-50">
+              {ORIGINALS_BTS.title}
+            </h2>
+            <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
+              More →
+            </button>
+          </div>
+          <div className="flex gap-4 overflow-x-auto pb-2">
+            {ORIGINALS_BTS.items.map((item) => (
+              <ContentCard key={item.id} item={item} />
+            ))}
+          </div>
         </div>
-        <div className="flex gap-4 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
-          {SCIFI_RAIL.items.map((item) => (
-            <ContentCard key={item.id} item={item} />
-          ))}
-        </div>
-      </section>
 
-      {/* Guides & tours rail */}
-      <section className="space-y-3">
-        <div className="flex items-baseline justify-between gap-3">
-          <h2 className="text-lg font-semibold text-neutral-50">
-            {GUIDES_RAIL.title}
-          </h2>
-          <button
-            type="button"
-            className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400 hover:text-neutral-200"
-          >
-            More →
-          </button>
-        </div>
-        <div className="flex gap-4 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
-          {GUIDES_RAIL.items.map((item) => (
-            <ContentCard key={item.id} item={item} />
-          ))}
+        {/* OnDemand – Platform tours */}
+        <div>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-neutral-50">
+              {PLATFORM_TOURS.title}
+            </h2>
+            <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
+              More →
+            </button>
+          </div>
+          <div className="flex gap-4 overflow-x-auto pb-2">
+            {PLATFORM_TOURS.items.map((item) => (
+              <ContentCard key={item.id} item={item} />
+            ))}
+          </div>
         </div>
       </section>
     </div>
