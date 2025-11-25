@@ -210,7 +210,6 @@ export function VideoLandingPage() {
                 </button>
               </div>
             </div>
-            </article>
           </div>
 
           {/* Rail 1 – Continue watching */}
