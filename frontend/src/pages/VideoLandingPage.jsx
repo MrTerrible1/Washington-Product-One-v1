@@ -231,9 +231,9 @@ export function VideoLandingPage() {
 
           {/* Rail 2 – Sci-Fi highlights */}
           <section className="space-y-3">
-            <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-baseline justify-between">
               <h2 className="text-lg font-semibold text-neutral-50">{SCIFI_RAIL.title}</h2>
-              <button className="text-xs font-medium text-neutral-400 hover:text-neutral-100">
+              <button className="text-xs text-neutral-400 hover:text-neutral-200">
                 More →
               </button>
             </div>
