@@ -186,17 +186,17 @@ export function VideoLandingPage() {
             {/* Hero */}
             <div
               aria-label="Premier window"
-              className="overflow-hidden rounded-2xl bg-neutral-900"
+              className="relative overflow-hidden rounded-2xl bg-neutral-900"
             >
-              <div className="relative aspect-[16/9]">
+              <div className="aspect-[16/9]">
                 <div 
                   className="h-full w-full object-cover bg-cover bg-center" 
                   style={{
                     backgroundImage: "url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&h=675&fit=crop')"
                   }}
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
               </div>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
 
               <div className="absolute inset-x-0 bottom-0 p-6 lg:p-8 flex flex-col gap-3 lg:gap-4">
                 <h1 className="max-w-2xl text-3xl lg:text-4xl font-semibold leading-tight text-white">
