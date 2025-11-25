@@ -36,7 +36,7 @@ const CONTINUE_WATCHING = {
 };
 
 const SCIFI_RAIL = {
-  title: "Sci-Fi – Highlights & trailers",
+  title: "Sci-Fi – Most watched",
   items: [
     {
       id: "long-night",
