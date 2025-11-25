@@ -84,7 +84,7 @@ const ORIGINALS_BTS = {
 };
 
 const PLATFORM_TOURS = {
-  title: "OnDemand – Onboarding & platform tours",
+  title: "OnDemand – Tours & platform guides",
   items: [
     {
       id: "guest-mode",
