@@ -127,9 +127,9 @@ export function VideoLandingPage() {
   const [activeFormat, setActiveFormat] = useState("horizontal");
 
   return (
-    <div className="mx-auto max-w-7xl px-8 pt-6 pb-16 overflow-x-hidden">
+    <div className="mx-auto max-w-6xl px-6 pt-6 pb-16">
       {/* Top grid: vertical controls + hero + rails */}
-      <div className="grid gap-8 grid-cols-[260px_minmax(0,1fr)] items-start">
+      <div className="grid gap-6 md:grid-cols-[240px_minmax(0,1fr)] items-start">
         {/* LEFT: Vertical Premier controls */}
         <aside className="space-y-6">
           <div>
