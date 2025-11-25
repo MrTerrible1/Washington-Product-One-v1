@@ -180,11 +180,10 @@ export function VideoLandingPage() {
         </aside>
 
         {/* RIGHT: Hero + Rails */}
-        <section className="space-y-8">
+        <section className="space-y-4">
           {/* Hero */}
-          <div className="w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-lg">
-            <article className="relative">
-            <div className="relative h-[340px] lg:h-[380px]">
+          <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative aspect-[16/7] max-h-[420px]">
               <div 
                 className="h-full w-full object-cover bg-cover bg-center" 
                 style={{
